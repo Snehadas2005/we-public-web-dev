@@ -1,0 +1,60 @@
+name: React CI/CD
+
+on:
+  push:
+    branches:
+      - dev
+      - master
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    # Select environment based on branch
+    environment:
+      name: ${{ github.ref_name == 'master' && 'prod' || 'dev' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build React app
+        env:
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+          VITE_APP_BASE_URL: ${{ vars.VITE_APP_BASE_URL }}
+          VITE_LOGIN_URL: ${{ vars.VITE_LOGIN_URL }}
+        run: npm run build
+
+      - name: Deploy to Server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > key.pem
+          chmod 600 key.pem
+
+          # Remove old build completely
+          ssh -o StrictHostKeyChecking=no -i key.pem root@$SERVER_HOST << EOF
+            rm -rf $DEPLOY_PATH/dist
+          EOF
+
+          # Copy FULL dist folder
+          scp -o StrictHostKeyChecking=no -i key.pem -r dist root@$SERVER_HOST:$DEPLOY_PATH/
+
+          # Fix permissions and reload nginx
+          ssh -o StrictHostKeyChecking=no -i key.pem root@$SERVER_HOST << EOF
+            chown -R www-data:www-data $DEPLOY_PATH
+            find $DEPLOY_PATH -type d -exec chmod 755 {} \;
+            find $DEPLOY_PATH -type f -exec chmod 644 {} \;
+            nginx -t
+            systemctl reload nginx
+          EOF
