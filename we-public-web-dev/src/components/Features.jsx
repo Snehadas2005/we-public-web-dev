@@ -107,7 +107,7 @@ export default function Features() {
                 <h4>{f.title}</h4>
                 <p className="one-liner">{f.oneLiner}</p>
                 <p className="detailed-desc">{f.desc}</p>
-                {/* <a href="#">Explore &gt;</a> */}
+                <a href="#">Explore &gt;</a>
               </div>
             </div>
           ))}

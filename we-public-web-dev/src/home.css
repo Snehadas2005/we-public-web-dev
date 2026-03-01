@@ -518,7 +518,6 @@ body {
   flex-direction: column;
   box-sizing: border-box;
   width: calc(33.333% - 1rem);
-  aspect-ratio: 1 / 1;
   overflow: hidden;
   transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
     border-color 0.3s ease,
@@ -608,7 +607,14 @@ body {
 }
 
 .feature-card a {
-  display: none !important;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
 }
 
 .feature-icon {
