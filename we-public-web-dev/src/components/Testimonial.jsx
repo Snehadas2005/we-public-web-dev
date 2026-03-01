@@ -52,7 +52,7 @@ export default function Testimonial() {
 
   return (
     <div className="testimonial-wrapper" id="contact">
-      {/* Testimonial Section */}
+
       <section className="testimonial-section">
         <div className="container">
           <div className="testimonial-header">
@@ -109,7 +109,7 @@ export default function Testimonial() {
         </div>
       </section>
 
-      {/* CTA Section */}
+
       <section className="cta-section container">
         <h2 className="section-title">Stop losing time to<br />paperwork</h2>
         <p className="section-desc">Join thousands of workshop owners who run their business on WorkshopEdge.</p>

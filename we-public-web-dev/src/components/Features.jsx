@@ -4,47 +4,56 @@ export default function Features() {
   const gridFeatures = [
     {
       title: "Access Anywhere/ Any Device",
-      desc: "Have 24x7 access to your workshop, from anywhere on any device.",
+      oneLiner: "Have 24x7 access to your workshop, from anywhere on any device.",
+      desc: "No need to always login to your workshop from PC and Desktop. Have 24x7 access to your workshop, from anywhere on any device.",
       icon: <i className="bi bi-display"></i>
     },
     {
       title: "One-Click Management",
-      desc: "Find your destination file with just one click from your fingertips.",
+      oneLiner: "Find your destination file with just one click from your fingertips.",
+      desc: "Find your destination file with just one click from your fingertips. No worries about digging through hundreds of pages and options to reach your file.",
       icon: <i className="bi bi-cursor"></i>
     },
     {
       title: "No Installation Required",
-      desc: "No unnecessary step of installation extra software to access your business.",
+      oneLiner: "No unnecessary step of installation extra software to access your business.",
+      desc: "No unnecessary step of installation extra software just to access your business because we understand the value of your time.",
       icon: <i className="bi bi-cloud-check"></i>
     },
     {
       title: "Accounting",
-      desc: "Business made easy to manage in real numbers that count every aspect.",
+      oneLiner: "Business made easy to manage in real numbers that count every aspect.",
+      desc: "Business made easy to manage , not just in spreadsheet but in real numbers that count every aspect of the business.",
       icon: <i className="bi bi-calculator"></i>
     },
     {
       title: "History",
-      desc: "Vehicle Service, parts, income and expenses; all in one place.",
+      oneLiner: "Vehicle Service, parts, income and expenses; all in one place.",
+      desc: "Vehicle Service, parts, income and expenses; all in one place. Easy to track, easy to find and easy to manage.",
       icon: <i className="bi bi-clock-history"></i>
     },
     {
       title: "Graphical Reports",
-      desc: "Easy to understand graphical Reports at periodic intervals.",
+      oneLiner: "Easy to understand graphical Reports at periodic intervals.",
+      desc: "Easy to understand and summarise graphical Reports at periodic intervals to know your business better.",
       icon: <i className="bi bi-bar-chart-line"></i>
     },
     {
       title: "Employee Management",
-      desc: "Manage all information about your employees easily side by side.",
+      oneLiner: "Manage all information about your employees easily side by side.",
+      desc: "From personal details to performance to experience, manage all the information about your employees easily side by side with live training and support for newcomers.",
       icon: <i className="bi bi-people"></i>
     },
     {
       title: "Automatic Software Update",
-      desc: "It's all done automatically while you focus on growing your business.",
+      oneLiner: "It's all done automatically while you focus on growing your business.",
+      desc: "Worried about keeping track of regular software updates? No need, it’s all done automatically while you focus on growing your business.",
       icon: <i className="bi bi-arrow-repeat"></i>
     },
     {
-      title: "Inventory Management",
-      desc: "Track your stock levels, purchases and sales history effortlessly.",
+      title: "Integrated Inventory",
+      oneLiner: "Track your stock levels, purchases and sales history effortlessly.",
+      desc: "Never lose track of your parts inventory again. Our system provides real-time updates on stock levels, automated low-stock alerts, and detailed purchase history to keep your workshop running smoothly.",
       icon: <i className="bi bi-box-seam"></i>
     }
   ];
@@ -96,8 +105,9 @@ export default function Features() {
 
               <div className="feature-card-body">
                 <h4>{f.title}</h4>
-                <p>{f.desc}</p>
-                <a href="#">Explore &gt;</a>
+                <p className="one-liner">{f.oneLiner}</p>
+                <p className="detailed-desc">{f.desc}</p>
+                {/* <a href="#">Explore &gt;</a> */}
               </div>
             </div>
           ))}
