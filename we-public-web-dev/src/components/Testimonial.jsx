@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../home.css";
 
 const testimonials = [
@@ -12,26 +12,41 @@ const testimonials = [
     text: "Since switching to WorkshopEdge, our workshop's efficiency has skyrocketed. The administrative support is second to none, and our bookings have increased by 40% in just three months. They truly understand the needs of workshop owners.",
     garage: "ADVANCED AUTO",
     owner: "Sarah Smith, Manager",
-    logo: "/grage-moto-logo.webp" // Reusing same logo as placeholder
+    logo: "/grage-moto-logo.webp"
   },
   {
     text: "The recruiting services provided by the team were instrumental in finding top-tier mechanics for our growing business. Their professional approach and deep industry knowledge made all the difference. Highly recommended for any serious garage owner.",
     garage: "ELITE MECHANICS",
     owner: "Mike Ross, Founder",
-    logo: "/grage-moto-logo.webp" // Reusing same logo as placeholder
+    logo: "/grage-moto-logo.webp"
   }
 ];
 
+const AUTO_INTERVAL = 5000;
+
 export default function Testimonial() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const timerRef = useRef(null);
 
-  const nextTestimonial = () => {
-    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+  const startTimer = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setActiveIndex(prev => (prev + 1) % testimonials.length);
+    }, AUTO_INTERVAL);
   };
 
-  const prevTestimonial = () => {
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  useEffect(() => {
+    startTimer();
+    return () => clearInterval(timerRef.current);
+  }, []);
+
+  const goTo = (index) => {
+    setActiveIndex(index);
+    startTimer();
   };
+
+  const prev = () => goTo((activeIndex - 1 + testimonials.length) % testimonials.length);
+  const next = () => goTo((activeIndex + 1) % testimonials.length);
 
   const current = testimonials[activeIndex];
 
@@ -63,12 +78,11 @@ export default function Testimonial() {
             </div>
 
             <div className="logo-circles">
-              {/* Circle elements for background effects */}
               <div className="dots-accent"></div>
               <div className="circle circle-1"></div>
               <div className="circle circle-2"></div>
               <div className="circle circle-3">
-                 <img src={current.logo} alt={`${current.garage} Logo`} className="testimonial-logo" />
+                <img src={current.logo} alt={`${current.garage} Logo`} className="testimonial-logo" />
               </div>
             </div>
           </div>
@@ -76,16 +90,20 @@ export default function Testimonial() {
           <div className="slider-navigation">
             <div className="slider-dots">
               {testimonials.map((_, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className={`dot ${index === activeIndex ? "active" : ""}`}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => goTo(index)}
                 ></div>
               ))}
             </div>
             <div className="slider-arrows">
-              <button className="arrow-btn" onClick={prevTestimonial}><i className="bi bi-arrow-left"></i></button>
-              <button className="arrow-btn" onClick={nextTestimonial}><i className="bi bi-arrow-right"></i></button>
+              <button className="arrow-btn" onClick={prev} aria-label="Previous">
+                <i className="bi bi-arrow-left"></i>
+              </button>
+              <button className="arrow-btn" onClick={next} aria-label="Next">
+                <i className="bi bi-arrow-right"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -95,7 +113,7 @@ export default function Testimonial() {
       <section className="cta-section container">
         <h2 className="section-title">Stop losing time to<br />paperwork</h2>
         <p className="section-desc">Join thousands of workshop owners who run their business on WorkshopEdge.</p>
-        
+
         <div className="cta-buttons">
           <button className="btn-primary">Get Started</button>
           <button className="btn-secondary">Demo</button>
@@ -107,9 +125,8 @@ export default function Testimonial() {
               Dashboard Preview (To be added later)
             </div>
           </div>
-          {/* Floating Phone mock */}
           <div className="floating-phone-mock">
-             <i className="bi bi-phone floating-phone-icon"></i>
+            <i className="bi bi-phone floating-phone-icon"></i>
           </div>
         </div>
       </section>

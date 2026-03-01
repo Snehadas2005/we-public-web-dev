@@ -13,7 +13,6 @@ export default function LandingIntro() {
 
   return (
     <>
-      {/* Hero Section */}
       <section className="hero">
         <div className="container-wide">
           <div className="hero-video-wrapper">
@@ -28,7 +27,7 @@ export default function LandingIntro() {
               Your browser does not support the video tag.
             </video>
             <div className="hero-content-overlay">
-              <h1 className="hero-title">Workshop management<br />made simple</h1>
+              <h1 className="hero-title">Workshop management made simple</h1>
               <p className="hero-desc">
                 WorkshopEdge cuts through the noise of garage operations. <br/>Built for those who know that time wasted on paperwork <br/>is money lost on the floor.
               </p>
@@ -37,7 +36,7 @@ export default function LandingIntro() {
         </div>
       </section>
 
-      {/* About Section */}
+
       <section className="about">
         <div className="container">
           <div className="about-logo">

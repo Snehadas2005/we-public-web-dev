@@ -39,7 +39,7 @@ export default function Features() {
     },
     {
       title: "Automatic Software Update",
-      desc: "It’s all done automatically while you focus on growing your business.",
+      desc: "It's all done automatically while you focus on growing your business.",
       icon: <i className="bi bi-arrow-repeat"></i>
     },
     {
@@ -51,12 +51,12 @@ export default function Features() {
 
   return (
     <div className="features-wrapper" id="features">
-      {/* Split Section */}
+
       <section className="split-section container">
         <div className="image-container">
-          <img 
-            src="/india-garage-workshop-sadaramangala-bangalore.avif" 
-            alt="Working Mechanic" 
+          <img
+            src="/india-garage-workshop-sadaramangala-bangalore.avif"
+            alt="Working Mechanic"
           />
         </div>
         <div className="content">
@@ -67,7 +67,7 @@ export default function Features() {
           </div>
           <div className="feature-item">
             <h3>Seamless Experience</h3>
-            <p>We strive to provide you a seamless and smooth experience so that you don’t have to worry about managing.</p>
+            <p>We strive to provide you a seamless and smooth experience so that you don't have to worry about managing.</p>
           </div>
           <div className="feature-item">
             <h3>Integrated Management</h3>
@@ -84,18 +84,21 @@ export default function Features() {
         </div>
       </section>
 
-      {/* Grid Section */}
+
       <section className="everything-section container">
         <h2 className="section-title">Simple-To-Use Features</h2>
         <p className="section-desc">Experience the best with our intuitive and powerful management tools.</p>
-        
+
         <div className="features-grid">
           {gridFeatures.map((f, i) => (
             <div key={i} className="feature-card">
               <div className="feature-icon">{f.icon}</div>
-              <h4>{f.title}</h4>
-              <p>{f.desc}</p>
-              <a href="#">Explore &gt;</a>
+
+              <div className="feature-card-body">
+                <h4>{f.title}</h4>
+                <p>{f.desc}</p>
+                <a href="#">Explore &gt;</a>
+              </div>
             </div>
           ))}
         </div>

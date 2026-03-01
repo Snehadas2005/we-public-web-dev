@@ -7,7 +7,7 @@ export default function Packages() {
       <p className="section-desc">Workshop Edge has customised packages for every type of business owner from small to large garages curated specifically for their needs.</p>
 
       <div className="center-layout">
-        {/* Left Side Points */}
+
         <div className="package-col-left">
           <div className="package-item">
             <div className="feature-icon align-right"><i className="bi bi-lightning-charge"></i></div>
@@ -21,7 +21,7 @@ export default function Packages() {
           </div>
         </div>
 
-        {/* Middle Image */}
+
         <div className="image-container">
           <img 
             src="/india-garage-working-person.jpg" 
@@ -29,7 +29,7 @@ export default function Packages() {
           />
         </div>
 
-        {/* Right Side Points */}
+
         <div className="package-col-right">
           <div className="package-item">
             <div className="feature-icon"><i className="bi bi-building"></i></div>

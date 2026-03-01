@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-/* ===== Public website ===== */
+
 import Navbar from "./components/Navbar";
 import LandingIntro from "./components/LandingIntro";
 import Features from "./components/Features";
@@ -8,7 +8,7 @@ import Packages from "./components/Packages";
 import Testimonial from "./components/Testimonial";
 import Footer from "./components/Footer";
 
-/* ===== Public Home Wrapper ===== */
+
 function Home() {
   return (
     <>

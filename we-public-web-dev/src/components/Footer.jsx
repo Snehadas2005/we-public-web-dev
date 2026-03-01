@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer-grid">
-          {/* Column 1: Logo & Subscribe */}
+
           <div className="footer-col subscribe-col">
             <img src="/we.png" alt="WE Logo" className="footer-logo" />
             <p className="footer-desc">
@@ -20,7 +20,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Column 2: Product */}
+
           <div className="footer-col">
             <h4>Product</h4>
             <ul>
@@ -32,7 +32,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: About */}
+
           <div className="footer-col">
             <h4>About</h4>
             <ul>
@@ -44,7 +44,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Socials */}
+
           <div className="footer-col">
             <h4>Socials</h4>
             <ul className="social-links">

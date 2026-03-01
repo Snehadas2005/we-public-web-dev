@@ -6,21 +6,21 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
 
   const scrollToDiv = (id) => {
     const element = document.getElementById(id);
     if (element) {
       setMobileMenuOpen(false);
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: element.offsetTop - 70, behavior: "smooth" });
     }
   };
 
@@ -32,23 +32,28 @@ export default function Navbar() {
           <span>WORKSHOPEDGE</span>
         </a>
 
-        {/* Mobile Toggle */}
-        <button 
-          className="mobile-toggle d-lg-none" 
+
+        <button
+          className="mobile-toggle d-lg-none"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle navigation"
         >
-          <i className={`bi ${mobileMenuOpen ? 'bi-x' : 'bi-list'}`}></i>
+          <i className={`bi ${mobileMenuOpen ? "bi-x" : "bi-list"}`}></i>
         </button>
 
-        {/* Desktop Links */}
+
         <ul className="nav-links d-none d-lg-flex">
           <li><a onClick={() => scrollToDiv("hero")}>Home</a></li>
           <li><a onClick={() => scrollToDiv("features")}>Features</a></li>
           <li><a onClick={() => scrollToDiv("packages")}>Pricing</a></li>
-          <li><a onClick={() => scrollToDiv("contact")}>Resources <i className="bi bi-chevron-down chevron-icon"></i></a></li>
+          <li>
+            <a onClick={() => scrollToDiv("contact")}>
+              Resources <i className="bi bi-chevron-down chevron-icon"></i>
+            </a>
+          </li>
         </ul>
 
-        {/* Mobile Links */}
+
         {mobileMenuOpen && (
           <div className="mobile-menu d-lg-none">
             <a onClick={() => scrollToDiv("hero")}>Home</a>
