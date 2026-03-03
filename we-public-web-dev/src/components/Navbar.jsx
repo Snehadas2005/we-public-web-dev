@@ -44,8 +44,8 @@ export default function Navbar() {
 
         <ul className="nav-links d-none d-lg-flex">
           <li><a onClick={() => scrollToDiv("hero")}>Home</a></li>
-          <li><a onClick={() => scrollToDiv("features")}>Features</a></li>
-          <li><a onClick={() => scrollToDiv("packages")}>Pricing</a></li>
+          <li><a onClick={() => scrollToDiv("packages")}>Pricing & Plans</a></li>
+          <li><a onClick={() => scrollToDiv("contact")}>Contact Us</a></li>
           <li>
             <a onClick={() => scrollToDiv("contact")}>
               Resources <i className="bi bi-chevron-down chevron-icon"></i>
@@ -54,18 +54,21 @@ export default function Navbar() {
         </ul>
 
 
-        {mobileMenuOpen && (
-          <div className="mobile-menu d-lg-none">
-            <a onClick={() => scrollToDiv("hero")}>Home</a>
-            <a onClick={() => scrollToDiv("features")}>Features</a>
-            <a onClick={() => scrollToDiv("packages")}>Pricing</a>
-            <a onClick={() => scrollToDiv("contact")}>Resources</a>
-            <div className="mobile-nav-actions">
-              <a href={import.meta.env.VITE_LOGIN_URL}>Sign in</a>
-              <button className="btn-primary" onClick={() => scrollToDiv("contact")}>Start free</button>
-            </div>
+        {/* Backdrop for mobile menu */}
+        <div 
+          className={`mobile-menu-backdrop ${mobileMenuOpen ? "active" : ""}`} 
+          onClick={() => setMobileMenuOpen(false)}
+        ></div>
+
+        <div className={`mobile-menu d-lg-none ${mobileMenuOpen ? "active" : ""}`}>
+          <a onClick={() => scrollToDiv("hero")}>Home</a>
+          <a onClick={() => scrollToDiv("packages")}>Pricing</a>
+          <a onClick={() => scrollToDiv("contact")}>Resources</a>
+          <div className="mobile-nav-actions">
+            <a href={import.meta.env.VITE_LOGIN_URL}>Sign in</a>
+            <button className="btn-primary" onClick={() => scrollToDiv("contact")}>Start free</button>
           </div>
-        )}
+        </div>
 
         <div className="nav-actions d-none d-lg-flex">
           <a href={import.meta.env.VITE_LOGIN_URL} className="btn-signin">Sign in</a>

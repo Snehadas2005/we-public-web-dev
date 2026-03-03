@@ -24,8 +24,7 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Product</h4>
             <ul>
-              <li><a href="#">Features</a></li>
-              <li><a href="#">Pricing</a></li>
+              <li><a href="#">Pricing & Plans</a></li>
               <li><a href="#">Contact</a></li>
               <li><a href="#">Home</a></li>
               <li><a href="#">Company</a></li>
@@ -37,8 +36,6 @@ export default function Footer() {
             <h4>About</h4>
             <ul>
               <li><a href="#">Blog</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Press</a></li>
               <li><a href="#">Follow us</a></li>
               <li><a href="#">Facebook</a></li>
             </ul>
@@ -49,7 +46,6 @@ export default function Footer() {
             <h4>Socials</h4>
             <ul className="social-links">
               <li><a href="#"><i className="bi bi-facebook social-icon"></i> Facebook</a></li>
-              <li><a href="#"><i className="bi bi-instagram social-icon"></i> Instagram</a></li>
               <li><a href="#"><i className="bi bi-twitter-x social-icon"></i> X</a></li>
               <li><a href="#"><i className="bi bi-linkedin social-icon"></i> LinkedIn</a></li>
               <li><a href="#"><i className="bi bi-youtube social-icon"></i> YouTube</a></li>
