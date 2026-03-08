@@ -46,10 +46,14 @@ export default function Navbar() {
           <li><a onClick={() => scrollToDiv("hero")}>Home</a></li>
           <li><a onClick={() => scrollToDiv("packages")}>Pricing & Plans</a></li>
           <li><a onClick={() => scrollToDiv("contact")}>Contact Us</a></li>
-          <li>
-            <a onClick={() => scrollToDiv("contact")}>
+          <li className="nav-dropdown">
+            <a className="nav-dropdown-trigger">
               Resources <i className="bi bi-chevron-down chevron-icon"></i>
             </a>
+            <ul className="dropdown-menu">
+              <li><a href="#">Mobile app</a></li>
+              <li><a href="#">Website</a></li>
+            </ul>
           </li>
         </ul>
 

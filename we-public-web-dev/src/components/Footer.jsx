@@ -46,7 +46,7 @@ export default function Footer() {
             <h4>Socials</h4>
             <ul className="social-links">
               <li><a href="#"><i className="bi bi-facebook social-icon"></i> Facebook</a></li>
-              <li><a href="#"><i className="bi bi-twitter-x social-icon"></i> X</a></li>
+              <li><a href="#"><i className="bi bi-instagram social-icon"></i> Instagram</a></li>
               <li><a href="#"><i className="bi bi-linkedin social-icon"></i> LinkedIn</a></li>
               <li><a href="#"><i className="bi bi-youtube social-icon"></i> YouTube</a></li>
             </ul>
@@ -55,11 +55,10 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <div className="footer-bottom-left">
-            <span>Terms of service</span>
+            {/* <span>Terms of service</span> */}
           </div>
           <div className="footer-bottom-right">
             <a href="#">Cookies settings</a>
-            <a href="#">Legal terms</a>
             <a href="#">Cookie policy</a>
           </div>
         </div>
