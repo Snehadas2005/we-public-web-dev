@@ -64,13 +64,13 @@ export default function Features() {
       <section className="split-section container">
         <div className="image-container">
           <img
-            src="/india-garage-working-person.jpg"
+            src="/india-garage-workshop-sadaramangala-bangalore.avif"
             alt="Working Mechanic"
           />
-          <div className="image-overlay">
+          {/* <div className="image-overlay">
             <span className="overlay-garage-name">Indian Motors</span>
             <span className="overlay-location">Bangalore, India</span>
-          </div>
+          </div> */}
         </div>
         <div className="content">
           <h2 className="section-title left">Why Choose Us?</h2>

@@ -27,10 +27,10 @@ export default function Packages() {
             src="/india-garage-working-person.jpg" 
             alt="Garage Workshop" 
           />
-          <div className="image-overlay">
+          {/* <div className="image-overlay">
             <span className="overlay-garage-name">Workshop Motors</span>
             <span className="overlay-location">Bangalore, India</span>
-          </div>
+          </div> */}
         </div>
 
 

@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import "../home.css";
 
 export default function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" id="contact">
       <div className="container">
         <div className="footer-grid">
 
@@ -24,9 +25,9 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Product</h4>
             <ul>
-              <li><a href="#">Pricing & Plans</a></li>
-              <li><a href="#">Contact</a></li>
-              <li><a href="#">Home</a></li>
+              <li><Link to="/pricing">Pricing & Plans</Link></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><Link to="/">Home</Link></li>
               <li><a href="#">Company</a></li>
             </ul>
           </div>
@@ -55,11 +56,12 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <div className="footer-bottom-left">
-            {/* <span>Terms of service</span> */}
+            <span>Terms of service</span>
           </div>
           <div className="footer-bottom-right">
             <a href="#">Cookies settings</a>
             <a href="#">Cookie policy</a>
+            <a href="#">Legal terms</a>
           </div>
         </div>
       </div>

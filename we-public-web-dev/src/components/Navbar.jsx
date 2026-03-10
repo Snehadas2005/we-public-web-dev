@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../home.css";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -17,6 +20,18 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   const scrollToDiv = (id) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      // Wait for navigation to complete before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          window.scrollTo({ top: element.offsetTop - 70, behavior: "smooth" });
+        }
+      }, 100);
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
       setMobileMenuOpen(false);
@@ -27,10 +42,10 @@ export default function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="container">
-        <a className="navbar-brand" href="/">
+        <Link className="navbar-brand" to="/">
           <img src="/we.png" alt="WE Logo" />
           <span>WORKSHOPEDGE</span>
-        </a>
+        </Link>
 
 
         <button
@@ -44,7 +59,7 @@ export default function Navbar() {
 
         <ul className="nav-links d-none d-lg-flex">
           <li><a onClick={() => scrollToDiv("hero")}>Home</a></li>
-          <li><a onClick={() => scrollToDiv("packages")}>Pricing & Plans</a></li>
+          <li><Link to="/pricing">Pricing & Plans</Link></li>
           <li><a onClick={() => scrollToDiv("contact")}>Contact Us</a></li>
           <li className="nav-dropdown">
             <a className="nav-dropdown-trigger">
@@ -66,7 +81,7 @@ export default function Navbar() {
 
         <div className={`mobile-menu d-lg-none ${mobileMenuOpen ? "active" : ""}`}>
           <a onClick={() => scrollToDiv("hero")}>Home</a>
-          <a onClick={() => scrollToDiv("packages")}>Pricing</a>
+          <Link to="/pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
           <a onClick={() => scrollToDiv("contact")}>Resources</a>
           <div className="mobile-nav-actions">
             <a href={import.meta.env.VITE_LOGIN_URL}>Sign in</a>

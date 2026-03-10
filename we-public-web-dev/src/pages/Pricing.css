@@ -1,0 +1,639 @@
+.bg-light-blue {
+    background-color: #E5F1FF;
+}
+
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h1 {
+    font-size: 38px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.section-header h2 {
+    font-size: 34px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.section-header p {
+    font-size: 15px;
+    color: var(--text-light);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* 1. Intro Section */
+.pricing-intro {
+    padding: 80px 20px 40px;
+    text-align: center;
+}
+
+.pricing-header h1 {
+    font-size: 38px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+}
+
+.pricing-header p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-light);
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+/* 2. Plan Overview Section */
+.plan-overview-section {
+    padding: 80px 0;
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.overview-item {
+    text-align: center;
+    padding: 30px;
+    background: #EBF5FF;
+    /* Added background color */
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.overview-item:hover {
+    transform: translateY(-5px);
+    background: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 20px rgba(60, 149, 232, 0.1);
+}
+
+.overview-item h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.overview-item p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-light);
+}
+
+/* 3. Comparison Table */
+.comparison-section {
+    padding: 60px 20px 80px;
+    text-align: center;
+}
+
+.comparison-header h2 {
+    font-size: 34px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.comparison-header p {
+    font-size: 15px;
+    color: var(--text-light);
+    margin-bottom: 40px;
+}
+
+.comparison-table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.comparison-table th {
+    padding: 20px 15px;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 2px solid #F3F4F6;
+}
+
+.comparison-table .feature-category-col {
+    width: 40%;
+}
+
+.comparison-table .tier-col {
+    width: 20%;
+    text-align: center;
+}
+
+.comparison-table td {
+    padding: 14px 15px;
+    font-size: 14px;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.comparison-table td:not(:first-child) {
+    text-align: center;
+}
+
+.category-row td {
+    background-color: #F9FAFB;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 18px 15px;
+    color: black;
+}
+
+.alt-bg {
+    background-color: #EBF5FF;
+}
+
+.green {
+    color: #10B981;
+    font-size: 20px;
+}
+
+.red {
+    color: #EF4444;
+    font-size: 20px;
+}
+
+/* 4. Core Platform Benefits */
+.benefits-section {
+    padding: 60px 0 100px;
+    /* Increased top spacing and bottom padding */
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.benefit-card {
+    background: #EBF5FF;
+    /* Added background color to boxes */
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    background: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 20px rgba(60, 149, 232, 0.1);
+}
+
+.benefit-card i {
+    font-size: 40px;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.benefit-card p {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* 5. Pricing Cards */
+.plan-selection-section {
+    padding: 100px 20px;
+}
+
+.plan-selection-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.plan-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.plan-card {
+    position: relative;
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 24px;
+    padding: 40px 30px;
+    transition: all 0.3s ease;
+}
+
+.plan-card.featured {
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 15px 40px rgba(60, 149, 232, 0.15);
+}
+
+.plan-tag {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    color: white;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.plan-card h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.plan-subtitle {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 30px;
+    min-height: 40px;
+}
+
+.plan-features {
+    margin-bottom: 40px;
+    flex: 1;
+}
+
+.plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: #4B5563;
+}
+
+.plan-features i {
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.btn-plan-outline,
+.btn-plan-solid,
+.btn-plan-dark {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn-plan-outline {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    background: transparent;
+}
+
+.btn-plan-solid {
+    border: none;
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-plan-dark {
+    border: 2px solid #1F2937;
+    color: #1F2937;
+    background: transparent;
+}
+
+/* Upgrade Guidance Section (Enhanced) */
+.upgrade-guidance {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #F0F7FF 0%, #FFFFFF 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.upgrade-guidance::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(60, 149, 232, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.guidance-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.guidance-header h2 {
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.guidance-header p {
+    font-size: 16px;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.guidance-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.guidance-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 24px;
+    border: 1px solid rgba(60, 149, 232, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.guidance-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-color);
+    box-shadow: 0 20px 40px rgba(60, 149, 232, 0.1);
+}
+
+.guidance-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: #E5F1FF;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+
+.guidance-card:hover .guidance-icon-wrapper {
+    background: var(--primary-color);
+    transform: rotate(-10deg);
+}
+
+.guidance-icon-wrapper i {
+    font-size: 28px;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.guidance-card:hover .guidance-icon-wrapper i {
+    color: white;
+}
+
+.guidance-card h3 {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+.guidance-card p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #6B7280;
+    margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .guidance-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .guidance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .upgrade-guidance {
+        padding: 80px 20px;
+    }
+}
+
+/* Pricing FAQ (ACCORDION STYLES) */
+.pricing-faq {
+    padding: 100px 20px;
+}
+
+.faq-accordion {
+    max-width: 800px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-item {
+    background: white;
+    /* Changed to white since section is blue */
+    border-radius: 20px;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    border: 1px solid transparent;
+}
+
+.faq-item:hover {
+    background: #F9FAFB;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.faq-item.active {
+    background: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 25px rgba(60, 149, 232, 0.12);
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    user-select: none;
+}
+
+.faq-question h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: #111827;
+    transition: color 0.3s ease;
+}
+
+.faq-item.active .faq-question h4 {
+    color: var(--primary-color);
+}
+
+.faq-icon {
+    font-size: 18px;
+    color: #111827;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(135deg);
+    /* Plus to X effect */
+    color: var(--primary-color);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    /* Large enough to hold content */
+    opacity: 1;
+}
+
+.faq-answer-content {
+    padding: 0 30px 25px;
+    transform: translateY(-10px);
+    transition: transform 0.4s ease;
+}
+
+.faq-item.active .faq-answer-content {
+    transform: translateY(0);
+}
+
+.faq-answer p {
+    font-size: 15px;
+    color: #4B5563;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* CTA Section */
+.pricing-cta-section {
+    padding: 60px 20px 100px;
+    background-color: #E5F1FF;
+}
+
+.pricing-cta-box {
+    position: relative;
+    background-color: white;
+    border-radius: 20px;
+    padding: 80px 40px;
+    text-align: center;
+    overflow: hidden;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.cta-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+    z-index: 1;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.cta-content h2 {
+    font-size: 38px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.cta-content p {
+    font-size: 15px;
+    color: #4B5563;
+    margin-bottom: 32px;
+}
+
+
+.btn-glass {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(2, 7, 4, 0.15);
+    color: var(--text-dark);
+    padding: 12px 30px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 160px;
+}
+
+.btn-glass:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 992px) {
+
+    .overview-grid,
+    .plan-cards-container,
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-header h1,
+    .cta-content h2 {
+        font-size: 30px;
+    }
+
+    .faq-item {
+        padding: 20px;
+    }
+}
