@@ -9,6 +9,7 @@ import Packages from "./components/Packages";
 import Testimonial from "./components/Testimonial";
 import Footer from "./components/Footer";
 import Pricing from "./pages/Pricing";
+import Contact from "./pages/Contact";
 
 
 function ScrollToTop() {
@@ -42,6 +43,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </>
   );

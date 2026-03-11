@@ -620,20 +620,111 @@
     transform: translateY(-2px);
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
+    .overview-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .plan-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .guidance-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pricing-header h1 {
+        font-size: 32px;
+    }
+
+    .section-header h2 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 767px) {
+    .pricing-intro {
+        padding: 60px 15px 30px;
+    }
+
+    .pricing-header h1 {
+        font-size: 28px;
+    }
+
+    .pricing-header p {
+        font-size: 14px;
+    }
 
     .overview-grid,
     .plan-cards-container,
-    .benefits-grid {
+    .benefits-grid,
+    .guidance-grid {
         grid-template-columns: 1fr;
     }
 
-    .pricing-header h1,
-    .cta-content h2 {
-        font-size: 30px;
+    .comparison-table-wrapper {
+        margin: 0 -15px;
+        width: calc(100% + 30px);
+        border-radius: 0;
     }
 
-    .faq-item {
+    .comparison-table th, 
+    .comparison-table td {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+
+    .comparison-table .feature-category-col {
+        min-width: 150px;
+    }
+
+    .comparison-table .tier-col {
+        min-width: 100px;
+    }
+
+    .plan-card {
+        padding: 30px 20px;
+    }
+
+    .plan-card h3 {
+        font-size: 24px;
+    }
+
+    .upgrade-guidance h2,
+    .pricing-faq h2,
+    .pricing-cta-box h2 {
+        font-size: 26px;
+    }
+
+    .pricing-cta-box {
+        padding: 60px 20px;
+    }
+
+    .faq-question h4 {
+        font-size: 16px;
+    }
+
+    .faq-question {
         padding: 20px;
     }
+
+    .faq-answer-content {
+        padding: 0 20px 20px;
+    }
 }
+
+@media (max-width: 480px) {
+    .pricing-header h1 {
+        font-size: 24px;
+    }
+
+    .btn-glass {
+        width: 100%;
+    }
+}

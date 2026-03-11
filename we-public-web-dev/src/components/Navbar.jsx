@@ -22,7 +22,6 @@ export default function Navbar() {
   const scrollToDiv = (id) => {
     if (location.pathname !== "/") {
       navigate("/");
-      // Wait for navigation to complete before scrolling
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
@@ -60,7 +59,7 @@ export default function Navbar() {
         <ul className="nav-links d-none d-lg-flex">
           <li><a onClick={() => scrollToDiv("hero")}>Home</a></li>
           <li><Link to="/pricing">Pricing & Plans</Link></li>
-          <li><a onClick={() => scrollToDiv("contact")}>Contact Us</a></li>
+          <li><Link to="/contact">Contact Us</Link></li>
           <li className="nav-dropdown">
             <a className="nav-dropdown-trigger">
               Resources <i className="bi bi-chevron-down chevron-icon"></i>
@@ -82,7 +81,7 @@ export default function Navbar() {
         <div className={`mobile-menu d-lg-none ${mobileMenuOpen ? "active" : ""}`}>
           <a onClick={() => scrollToDiv("hero")}>Home</a>
           <Link to="/pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
-          <a onClick={() => scrollToDiv("contact")}>Resources</a>
+          <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact Us</Link>
           <div className="mobile-nav-actions">
             <a href={import.meta.env.VITE_LOGIN_URL}>Sign in</a>
             <button className="btn-primary" onClick={() => scrollToDiv("contact")}>Start free</button>
