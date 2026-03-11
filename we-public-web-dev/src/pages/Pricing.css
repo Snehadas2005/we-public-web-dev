@@ -77,6 +77,13 @@
     box-shadow: 0 10px 20px rgba(60, 149, 232, 0.1);
 }
 
+.overview-item i {
+    font-size: 44px;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    display: block;
+}
+
 .overview-item h3 {
     font-size: 24px;
     margin-bottom: 15px;
@@ -218,6 +225,10 @@
     padding: 100px 20px;
 }
 
+.plan-selection-section.container {
+    max-width: 1400px;
+}
+
 .plan-selection-header {
     text-align: center;
     margin-bottom: 60px;
@@ -227,6 +238,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
 .plan-card {
@@ -285,6 +298,20 @@
 .plan-features i {
     color: var(--primary-color);
     font-size: 18px;
+}
+
+.include-text {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: var(--primary-color) !important;
+    margin-bottom: 25px !important;
+    display: flex;
+    align-items: center;
+}
+
+.include-text i {
+    font-size: 24px !important;
+    margin-left: 5px;
 }
 
 .btn-plan-outline,

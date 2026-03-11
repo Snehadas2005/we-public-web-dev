@@ -55,14 +55,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <div className="footer-bottom-left">
-            <span>Terms of service</span>
-          </div>
-          <div className="footer-bottom-right">
-            <a href="#">Cookies settings</a>
-            <a href="#">Cookie policy</a>
-            <a href="#">Legal terms</a>
-          </div>
+          <span>Copyright © Workshop Edge | All Rights Reserved</span>
         </div>
       </div>
     </footer>

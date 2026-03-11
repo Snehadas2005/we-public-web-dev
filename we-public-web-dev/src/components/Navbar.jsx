@@ -65,8 +65,8 @@ export default function Navbar() {
               Resources <i className="bi bi-chevron-down chevron-icon"></i>
             </a>
             <ul className="dropdown-menu">
-              <li><a href="#">Mobile app</a></li>
-              <li><a href="#">Website</a></li>
+              <li><span className="dropdown-item-static">Mobile app</span></li>
+              <li><span className="dropdown-item-static">Website</span></li>
             </ul>
           </li>
         </ul>
@@ -84,13 +84,13 @@ export default function Navbar() {
           <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact Us</Link>
           <div className="mobile-nav-actions">
             <a href={import.meta.env.VITE_LOGIN_URL}>Sign in</a>
-            <button className="btn-primary" onClick={() => scrollToDiv("contact")}>Start free</button>
+            <Link to="/contact" className="btn-primary" onClick={() => setMobileMenuOpen(false)}>Start Trial</Link>
           </div>
         </div>
 
         <div className="nav-actions d-none d-lg-flex">
           <a href={import.meta.env.VITE_LOGIN_URL} className="btn-signin">Sign in</a>
-          <button className="btn-primary" onClick={() => scrollToDiv("contact")}>Start free</button>
+          <Link to="/contact" className="btn-primary">Start Trial</Link>
         </div>
       </div>
     </nav>

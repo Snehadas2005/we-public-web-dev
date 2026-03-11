@@ -49,8 +49,7 @@ export default function Packages() {
       </div>
 
       <div className="package-buttons">
-        <button className="btn-secondary">See Demo</button>
-        <button className="btn-secondary">Discuss &gt;</button>
+        <a href="/contact"><button className="btn-secondary">Discuss &gt;</button></a>
       </div>
     </section>
   );

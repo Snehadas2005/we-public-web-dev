@@ -47,8 +47,8 @@ export default function LandingIntro() {
             WorkshopEdge was built from field in the. The founders spend close to five year running service station across the country and felt need to create tools. They build this software.
           </p>
           <div className="about-links">
-            <a href="#">Learn more</a>
-            <a href="#">Explore &gt;</a>
+            <a onClick={() => scrollToDiv("everything-section")}>Learn more</a>
+            <a href="/contact">Explore &gt;</a> 
           </div>
         </div>
       </section>

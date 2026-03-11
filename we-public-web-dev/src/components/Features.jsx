@@ -98,7 +98,7 @@ export default function Features() {
       </section>
 
 
-      <section className="everything-section container">
+      <section className="everything-section container" id="everything-section">
         <h2 className="section-title">Simple-To-Use Features</h2>
         <p className="section-desc">Experience the best with our intuitive and powerful management tools.</p>
 
@@ -111,7 +111,7 @@ export default function Features() {
                 <h4>{f.title}</h4>
                 <p className="one-liner">{f.oneLiner}</p>
                 <p className="detailed-desc">{f.desc}</p>
-                <a href="#">Explore &gt;</a>
+                <a href="/contact">Explore &gt;</a>
               </div>
             </div>
           ))}

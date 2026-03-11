@@ -62,20 +62,6 @@ export default function Contact() {
   return (
     <div className="contact-page">
       <Navbar />
-      
-      {/* Hero Section */}
-      <section className="contact-hero">
-        <div className="container">
-          <h1>We're here to help</h1>
-          <p>
-            Have questions about WorkshopEdge? Reach out to our team and we'll get back to you quickly with answers and support.
-          </p>
-          <div className="hero-btns">
-            <button className="btn-primary" onClick={scrollToForm}>Contact us</button>
-            <button className="btn-secondary">Learn more</button>
-          </div>
-        </div>
-      </section>
 
       {/* Form Section */}
       <section className="contact-section" id="contact-form">
@@ -86,13 +72,17 @@ export default function Contact() {
               <p className="desc">Fill out the form below and we'll respond within one business day</p>
               
               <div className="contact-details">
-                <a href="mailto:support@workshopedge.com" className="contact-item">
+                <a href="mailto:contact@dev.workshopedge.com" className="contact-item">
                   <i className="bi bi-envelope"></i>
-                  <span>support@workshopedge.com</span>
+                  <span>contact@dev.workshopedge.com</span>
                 </a>
-                <a href="tel:+18005550147" className="contact-item">
+                <a href="tel:+916361832517" className="contact-item">
                   <i className="bi bi-telephone"></i>
-                  <span>+1 (800) 555-0147</span>
+                  <span>+91 6361832517</span>
+                </a>
+                <a href="https://wa.me/916361832517" target="_blank" rel="noopener noreferrer" className="contact-item">
+                  <i className="bi bi-whatsapp"></i>
+                  <span>+91 6361832517</span>
                 </a>
               </div>
             </div>
@@ -167,15 +157,6 @@ export default function Contact() {
               <FAQItem key={index} question={faq.question} answer={faq.answer} />
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Bottom Help Section */}
-      <section className="help-section">
-        <div className="container">
-          <h3>Need more help?</h3>
-          <p>Our team is ready to answer any questions you have about WorkshopEdge</p>
-          <button className="btn-secondary" onClick={scrollToForm}>Contact us</button>
         </div>
       </section>
 

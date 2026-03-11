@@ -34,17 +34,30 @@
     background-color: #F0F7FF;
 }
 
+.contact-info h2 {
+    font-size: 34px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+.contact-info .desc {
+    font-size: 17px;
+    color: var(--text-light);
+    margin-bottom: 40px;
+}
+
 .contact-container {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 60px;
-    align-items: flex-start;
+    align-items: center;
     max-width: 1100px;
     margin: 0 auto;
 }
 
 .contact-info {
-    padding-top: 20px;
+    padding-top: 0;
 }
 
 .contact-info h2 {

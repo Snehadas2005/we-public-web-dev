@@ -3,21 +3,21 @@ import "../home.css";
 
 const testimonials = [
   {
-    text: "WorkshopEdge transformed our operations quickly. Their exceptional administrative support, bookkeeping, and recruiting services significantly improved our processes and boosted lead conversion rates. Their integrity, professionalism, and tailored approach set them apart, making them valuable partners in our growth.",
-    garage: "MOTOR GARAGE",
-    owner: "John Doe, Owner",
-    logo: "/grage-moto-logo.webp"
+    text: "WorkshopEdge has completely streamlined our workshop floor. Their backend support and bookkeeping are top-notch, allowing me to focus on the technical side. We've seen a massive jump in customer trust and lead conversions. They aren't just a service provider; they feel like part of our core team.",
+    garage: "The Workshop Automotive",
+    owner: "Arjun Mehta, Proprietor",
+    logo: "/theworkshop.png"
   },
   {
-    text: "Since switching to WorkshopEdge, our workshop's efficiency has skyrocketed. The administrative support is second to none, and our bookings have increased by 40% in just three months. They truly understand the needs of workshop owners.",
-    garage: "ADVANCED AUTO",
-    owner: "Sarah Smith, Manager",
-    logo: "/grage-moto-logo.webp"
+    text: "Since we started with WorkshopEdge, our service bay efficiency has reached a new level. Their administrative handling is seamless, and our monthly bookings have grown by nearly 40%. They truly understand the local Indian market and the specific challenges we face with parts and scheduling.",
+    garage: "Workshop Automotive",
+    owner: "Rajesh Sharma, Managing Director",
+    logo: "/automotive.avif"
   },
   {
-    text: "The recruiting services provided by the team were instrumental in finding top-tier mechanics for our growing business. Their professional approach and deep industry knowledge made all the difference. Highly recommended for any serious garage owner.",
-    garage: "ELITE MECHANICS",
-    owner: "Mike Ross, Founder",
+    text: "Finding skilled mechanics was our biggest bottleneck until WorkshopEdge stepped in. Their recruiting services helped us onboard three senior technicians who are experts in modern engine diagnostics. For any garage owner looking to scale professionally in India, this is the right partner.",
+    garage: "Motor Garage & Services",
+    owner: "Vikram Singh, Founder",
     logo: "/grage-moto-logo.webp"
   }
 ];
@@ -115,18 +115,15 @@ export default function Testimonial() {
         <p className="section-desc">Join thousands of workshop owners who run their business on WorkshopEdge.</p>
 
         <div className="cta-buttons">
-          <button className="btn-primary">Get Started</button>
-          <button className="btn-secondary">Demo</button>
+          <a href="/contact"><button className="btn-primary">Get Started</button></a>
         </div>
 
         <div className="dashboard-preview">
           <div className="browser-mock">
-            <div className="placeholder-box dashboard-placeholder">
-              Dashboard Preview (To be added later)
-            </div>
+            <img src="/website-preview.png" alt="WorkshopEdge Dashboard" className="preview-image" />
           </div>
           <div className="floating-phone-mock">
-            <i className="bi bi-phone floating-phone-icon"></i>
+            <img src="/mobile-preview.png" alt="WorkshopEdge Mobile App" className="mobile-preview-image" />
           </div>
         </div>
       </section>

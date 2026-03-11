@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import './Pricing.css';
@@ -8,6 +9,16 @@ const Pricing = () => {
 
     const toggleFaq = (index) => {
         setOpenFaq(openFaq === index ? null : index);
+    };
+
+    const scrollToDiv = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            window.scrollTo({
+                top: element.offsetTop - 80,
+                behavior: "smooth"
+            });
+        }
     };
 
     const faqs = [
@@ -33,7 +44,7 @@ const Pricing = () => {
         <div className="pricing-page">
             <Navbar />
             
-            {/* 1. Intro Section */}
+            {/* Intro Section */}
             <section className="pricing-intro container">
                 <div className="pricing-header">
                     <h1>Flexible Plans for Every Workshop</h1>
@@ -41,7 +52,7 @@ const Pricing = () => {
                 </div>
             </section>
 
-            {/* 2. Plan Overview Section */}
+            {/* Plan Overview Section */}
             <section className="plan-overview-section">
                 <div className="container">
                     <div className="section-header">
@@ -49,14 +60,17 @@ const Pricing = () => {
                     </div>
                     <div className="overview-grid">
                         <div className="overview-item">
+                            <i className="bi bi-lightning-charge"></i>
                             <h3>Lite</h3>
                             <p>Best for small garages and independent mechanics who need essential tools to manage jobs, customers, and daily operations.</p>
                         </div>
                         <div className="overview-item">
+                            <i className="bi bi-star-fill"></i>
                             <h3>Prime</h3>
                             <p>Ideal for growing workshops that need advanced reporting, GST invoicing, inventory tracking, and better staff coordination.</p>
                         </div>
                         <div className="overview-item">
+                            <i className="bi bi-boxes"></i>
                             <h3>Enterprise</h3>
                             <p>Designed for large garages and multi-location businesses that require full operational control, advanced integrations, and customized solutions.</p>
                         </div>
@@ -64,7 +78,7 @@ const Pricing = () => {
                 </div>
             </section>
 
-            {/* 3. Comparison Table Section */}
+            {/* Comparison Table Section */}
             <section className="comparison-section container">
                 <div className="comparison-header">
                     <h2>See what's included</h2>
@@ -94,42 +108,48 @@ const Pricing = () => {
                                 <td><i className="bi bi-check green"></i></td>
                             </tr>
                             <tr className="alt-bg">
-                                <td>Non-GST invoicing</td>
+                                <td>Unlimited invoices</td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                             </tr>
                             <tr>
-                                <td>GST invoicing</td>
-                                <td><i className="bi bi-x red"></i></td>
+                                <td>Non-GST / Non-Tax invoices</td>
+                                <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                             </tr>
                             <tr className="alt-bg">
+                                <td>GST / Tax invoices</td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                            </tr>
+                            <tr>
                                 <td>Staff management</td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                             </tr>
-                            <tr>
+                            <tr className="alt-bg">
                                 <td>Staff login</td>
                                 <td><i className="bi bi-x red"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                             </tr>
-                            <tr className="alt-bg">
+                            <tr>
                                 <td>Staff mobile app</td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                             </tr>
-                            <tr>
-                                <td>Customer mobile app (Live Status)</td>
+                            <tr className="alt-bg">
+                                <td>Customer mobile app (live status)</td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                             </tr>
-                            <tr className="alt-bg">
+                            <tr>
                                 <td>Dashboard level</td>
                                 <td>Basic</td>
                                 <td>Advanced</td>
@@ -143,19 +163,19 @@ const Pricing = () => {
                                 <td colSpan="4">Reporting & Analytics</td>
                             </tr>
                             <tr>
-                                <td>Sales Reports</td>
-                                <td><i className="bi bi-check green"></i></td>
-                                <td><i className="bi bi-check green"></i></td>
-                                <td><i className="bi bi-check green"></i></td>
-                            </tr>
-                            <tr className="alt-bg">
-                                <td>Detailed Reports</td>
+                                <td>Detailed reports</td>
                                 <td><i className="bi bi-x red"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                             </tr>
+                            <tr className="alt-bg">
+                                <td>Sales reports</td>
+                                <td><i className="bi bi-check green"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                            </tr>
                             <tr>
-                                <td>Profit Reports</td>
+                                <td>Profit reports</td>
                                 <td><i className="bi bi-x red"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
@@ -197,12 +217,54 @@ const Pricing = () => {
                                 <td><i className="bi bi-check green"></i></td>
                                 <td><i className="bi bi-check green"></i></td>
                             </tr>
+                            <tr>
+                                <td>Appointment booking (Customers)</td>
+                                <td><i className="bi bi-check green"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                            </tr>
+                            <tr className="alt-bg">
+                                <td>Appointment booking (Public)</td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Email notifications</td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                            </tr>
+                            <tr className="alt-bg">
+                                <td>Website (.in domain)</td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Data export as Excel</td>
+                                <td><i className="bi bi-check green"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                            </tr>
+                            <tr className="alt-bg">
+                                <td>Data export as CSV</td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Data export as PDF</td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-x red"></i></td>
+                                <td><i className="bi bi-check green"></i></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            {/* 4. Core Platform Benefits Section */}
+            {/* Core Platform Benefits Section */}
             <section className="benefits-section">
                 <div className="container">
                     <div className="section-header">
@@ -238,7 +300,7 @@ const Pricing = () => {
                 </div>
             </section>
 
-            {/* 5. Pricing Cards Section */}
+            {/* Pricing Cards Section */}
             <section className="plan-selection-section container">
                 <div className="plan-selection-header">
                     <h2>Choose Your Plan</h2>
@@ -250,14 +312,17 @@ const Pricing = () => {
                     <div className="plan-card">
                         <div className="plan-card-inner">
                             <h3>Lite</h3>
-                            <p className="plan-subtitle">Essential tools for small workshops.</p>
+                            <p className="plan-subtitle">Ideal for workshops looking for essential tools to enhance daily operations.</p>
                             <ul className="plan-features">
-                                <li><i className="bi bi-check-circle-fill"></i> Job Management & History</li>
-                                <li><i className="bi bi-check-circle-fill"></i> Purchase & Sale Management</li>
-                                <li><i className="bi bi-check-circle-fill"></i> Basic Reporting</li>
-                                <li><i className="bi bi-check-circle-fill"></i> Excel Data Export</li>
+                                <li><i className="bi bi-check-lg"></i> Job Management & Vehicle History</li>
+                                <li><i className="bi bi-check-lg"></i> Purchase & Sale Management</li>
+                                <li><i className="bi bi-check-lg"></i> Powerful Searching</li>
+                                <li><i className="bi bi-check-lg"></i> Excel Export Data</li>
+                                <li><i className="bi bi-check-lg"></i> Registration Number Tracking</li>
+                                <li><i className="bi bi-check-lg"></i> Customer, Supplier & Employee</li>
+                                <li><i className="bi bi-check-lg"></i> Quarterly Software Updates</li>
                             </ul>
-                            <button className="btn-plan-outline">Free Trial</button>
+                            <button className="btn-plan-outline" onClick={() => scrollToDiv("contact-form")}>Free Trial</button>
                         </div>
                     </div>
 
@@ -266,15 +331,16 @@ const Pricing = () => {
                         <div className="plan-tag">MOST POPULAR</div>
                         <div className="plan-card-inner">
                             <h3>Prime</h3>
-                            <p className="plan-subtitle">Comprehensive tools for growing teams.</p>
+                            <p className="plan-subtitle">Designed for workshops that require comprehensive tools.</p>
                             <ul className="plan-features">
-                                <li><i className="bi bi-check-circle-fill"></i> Everything in Lite</li>
-                                <li><i className="bi bi-check-circle-fill"></i> Inventory Management</li>
-                                <li><i className="bi bi-check-circle-fill"></i> GST/Tax Invoicing</li>
-                                <li><i className="bi bi-check-circle-fill"></i> Customized Reporting</li>
-                                <li><i className="bi bi-check-circle-fill"></i> Monthly Software Updates</li>
+                                <li className="include-text">Lite <i className="bi bi-plus"></i></li>
+                                <li><i className="bi bi-check-lg"></i> Inventory Management</li>
+                                <li><i className="bi bi-check-lg"></i> GST/Tax Invoice</li>
+                                <li><i className="bi bi-check-lg"></i> Customize Reports</li>
+                                <li><i className="bi bi-check-lg"></i> Excel & PDF Export</li>
+                                <li><i className="bi bi-check-lg"></i> Monthly Updates</li>
                             </ul>
-                            <button className="btn-plan-solid">Free Trial</button>
+                            <button className="btn-plan-solid" onClick={() => scrollToDiv("contact-form")}>Free Trial</button>
                         </div>
                     </div>
 
@@ -282,15 +348,16 @@ const Pricing = () => {
                     <div className="plan-card">
                         <div className="plan-card-inner">
                             <h3>Enterprise</h3>
-                            <p className="plan-subtitle">Full suite for vehicle trade chains.</p>
-                            <div className="plan-price-large">Custom</div>
+                            <p className="plan-subtitle">Perfect for businesses involved in vehicle trade.</p>
                             <ul className="plan-features">
-                                <li><i className="bi bi-check-circle-fill"></i> Everything in Prime</li>
-                                <li><i className="bi bi-check-circle-fill"></i> Weekly Software Updates</li>
-                                <li><i className="bi bi-check-circle-fill"></i> Multi-location Sync</li>
-                                <li><i className="bi bi-check-circle-fill"></i> Advanced Document Storage</li>
+                                <li className="include-text">Prime <i className="bi bi-plus"></i></li>
+                                <li><i className="bi bi-check-lg"></i> Weekly Software Updates</li>
+                                <li><i className="bi bi-check-lg"></i> Export Data on Mail</li>
+                                <li><i className="bi bi-check-lg"></i> Manage Images/Documents</li>
+                                <li><i className="bi bi-check-lg"></i> Track Workshop Cost</li>
+                                <li><i className="bi bi-check-lg"></i> Client Vehicle Preview</li>
                             </ul>
-                            <button className="btn-plan-dark">Contact Sales</button>
+                            <button className="btn-plan-dark" onClick={() => scrollToDiv("contact-form")}>Contact Sales</button>
                         </div>
                     </div>
                 </div>
@@ -340,7 +407,7 @@ const Pricing = () => {
                 </div>
             </section>
 
-            {/* 8. Pricing FAQ Section */}
+            {/* Pricing FAQ Section */}
             <section className="pricing-faq bg-light-blue">
                 <div className="container">
                     <div className="section-header">
@@ -371,16 +438,16 @@ const Pricing = () => {
                 </div>
             </section>
 
-            {/* 9. CTA Section */}
-            <section className="pricing-cta-section">
+            {/* CTA Section */}
+            <section className="pricing-cta-section" id="contact-form">
                 <div className="pricing-cta-box">
                     <img src="/workshop-footer.png" alt="CTA Background" className="cta-bg-image" />
                     <div className="cta-content">
                         <h2>Ready to streamline</h2>
                         <p>Start managing your workshop better today with WorkshopEdge</p>
                         <div className="cta-buttons">
-                            <button className="btn-primary">Start Free Trial</button>
-                            <button className="btn-glass">Start Demo</button>
+                            <Link to="/contact" className="btn-primary">Start Free Trial</Link>
+                            <Link to="/contact" className="btn-glass">Start Demo</Link>
                         </div>
                     </div>
                 </div>
