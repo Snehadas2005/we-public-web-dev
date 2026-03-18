@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-
 import Navbar from "./components/Navbar";
 import LandingIntro from "./components/LandingIntro";
 import Features from "./components/Features";
@@ -11,17 +10,11 @@ import Footer from "./components/Footer";
 import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
 
-
 function ScrollToTop() {
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 }
-
 
 function Home() {
   return (

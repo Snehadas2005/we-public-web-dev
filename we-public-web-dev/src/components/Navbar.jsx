@@ -1,98 +1,187 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import "../home.css";
+
+const NEUE = `"Neue", "Neue Haas Grotesk", "Helvetica Neue", Arial, sans-serif`;
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [scrolled, setScrolled]         = useState(false);
+  const [mobileOpen, setMobileOpen]     = useState(false);
+  const navigate  = useNavigate();
+  const location  = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [mobileMenuOpen]);
+  }, [mobileOpen]);
 
-  const scrollToDiv = (id) => {
+  const scrollTo = (id) => {
+    setMobileOpen(false);
     if (location.pathname !== "/") {
       navigate("/");
       setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          window.scrollTo({ top: element.offsetTop - 70, behavior: "smooth" });
-        }
-      }, 100);
+        const el = document.getElementById(id);
+        if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: "smooth" });
+      }, 120);
       return;
     }
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: "smooth" });
+  };
 
-    const element = document.getElementById(id);
-    if (element) {
-      setMobileMenuOpen(false);
-      window.scrollTo({ top: element.offsetTop - 70, behavior: "smooth" });
-    }
+  const navStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    height: "60px",
+    display: "flex",
+    alignItems: "center",
+    padding: "0 2.4vw",
+    background: scrolled ? "rgba(248,248,246,0.92)" : "transparent",
+    backdropFilter: scrolled ? "blur(14px)" : "none",
+    borderBottom: scrolled ? "1px solid rgba(0,0,0,0.06)" : "none",
+    transition: "background 0.35s ease, border-color 0.35s ease",
+    fontFamily: NEUE,
+    fontStyle: "normal",
+  };
+
+  const linkBase = {
+    fontFamily: NEUE,
+    fontStyle: "normal",
+    fontWeight: 500,
+    fontSize: "13px",
+    letterSpacing: "0.04em",
+    textTransform: "uppercase",
+    color: "#111",
+    textDecoration: "none",
+    cursor: "pointer",
+    transition: "opacity 0.2s",
+    whiteSpace: "nowrap",
+  };
+
+  const mobileLinkBase = {
+    ...linkBase,
+    fontSize: "22px",
+    letterSpacing: "0.06em",
+    display: "block",
+    padding: "10px 0",
   };
 
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <div className="container">
-        <Link className="navbar-brand" to="/">
-          <img src="/we.png" alt="WE Logo" />
-          <span>WORKSHOPEDGE</span>
+    <>
+      <nav style={navStyle}>
+
+        <Link to="/" style={{ textDecoration: "none", flexShrink: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <img src="/we.png" alt="WorkshopEdge" style={{ height: "22px", objectFit: "contain" }} />
+            <span style={{
+              fontFamily: NEUE,
+              fontStyle: "normal",
+              fontWeight: 700,
+              fontSize: "13px",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "#111",
+            }}>
+              workshopedge
+            </span>
+          </div>
         </Link>
 
+        <div style={{
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+          display: "flex",
+          gap: "3.2vw",
+          alignItems: "center",
+        }} className="nav-center-links">
+          <a onClick={() => scrollTo("hero")} style={linkBase}>Home</a>
+          <Link to="/pricing" style={linkBase}>Pricing &amp; Plans</Link>
+          <Link to="/contact" style={linkBase}>Contact us</Link>
+        </div>
+
+        <Link
+          to="/contact"
+          style={{
+            ...linkBase,
+            fontWeight: 700,
+            fontSize: "13px",
+            letterSpacing: "0.06em",
+            marginLeft: "auto",
+            borderBottom: "1.5px solid #111",
+            paddingBottom: "1px",
+          }}
+          className="nav-start-trial"
+        >
+          ↗ START TRIAL
+        </Link>
 
         <button
-          className="mobile-toggle d-lg-none"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle navigation"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="nav-mobile-toggle"
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: "4px",
+            marginLeft: "auto",
+            display: "none",
+            flexDirection: "column",
+            gap: "5px",
+          }}
+          aria-label="Menu"
         >
-          <i className={`bi ${mobileMenuOpen ? "bi-x" : "bi-list"}`}></i>
+          <span style={{ display: "block", width: "22px", height: "1.5px", background: "#111", transition: "transform 0.3s", transform: mobileOpen ? "rotate(45deg) translateY(6.5px)" : "none" }} />
+          <span style={{ display: "block", width: "22px", height: "1.5px", background: "#111", opacity: mobileOpen ? 0 : 1, transition: "opacity 0.3s" }} />
+          <span style={{ display: "block", width: "22px", height: "1.5px", background: "#111", transition: "transform 0.3s", transform: mobileOpen ? "rotate(-45deg) translateY(-6.5px)" : "none" }} />
         </button>
 
+      </nav>
 
-        <ul className="nav-links d-none d-lg-flex">
-          <li><a onClick={() => scrollToDiv("hero")}>Home</a></li>
-          <li><Link to="/pricing">Pricing & Plans</Link></li>
-          <li><Link to="/contact">Contact Us</Link></li>
-          <li className="nav-dropdown">
-            <a className="nav-dropdown-trigger">
-              Resources <i className="bi bi-chevron-down chevron-icon"></i>
-            </a>
-            <ul className="dropdown-menu">
-              <li><span className="dropdown-item-static">Mobile app</span></li>
-              <li><span className="dropdown-item-static">Website</span></li>
-            </ul>
-          </li>
-        </ul>
-
-
-        {/* Backdrop for mobile menu */}
-        <div 
-          className={`mobile-menu-backdrop ${mobileMenuOpen ? "active" : ""}`} 
-          onClick={() => setMobileMenuOpen(false)}
-        ></div>
-
-        <div className={`mobile-menu d-lg-none ${mobileMenuOpen ? "active" : ""}`}>
-          <a onClick={() => scrollToDiv("hero")}>Home</a>
-          <Link to="/pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
-          <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact Us</Link>
-          <div className="mobile-nav-actions">
-            <a href={import.meta.env.VITE_LOGIN_URL}>Sign in</a>
-            <Link to="/contact" className="btn-primary" onClick={() => setMobileMenuOpen(false)}>Start Trial</Link>
+      {mobileOpen && (
+        <div style={{
+          position: "fixed",
+          inset: 0,
+          background: "#F8F8F6",
+          zIndex: 999,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          justifyContent: "center",
+          padding: "0 8vw",
+          gap: "6px",
+        }}>
+          <a onClick={() => scrollTo("hero")} style={mobileLinkBase}>HOME</a>
+          <Link to="/pricing" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>PRICING &amp; PLANS</Link>
+          <Link to="/contact" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>CONTACT US</Link>
+          <div style={{ marginTop: "24px" }}>
+            <Link to="/contact" onClick={() => setMobileOpen(false)} style={{
+              ...mobileLinkBase,
+              fontWeight: 700,
+              borderBottom: "2px solid #111",
+              paddingBottom: "2px",
+            }}>
+              ↗ START TRIAL
+            </Link>
           </div>
         </div>
+      )}
 
-        <div className="nav-actions d-none d-lg-flex">
-          <a href={import.meta.env.VITE_LOGIN_URL} className="btn-signin">Sign in</a>
-          <Link to="/contact" className="btn-primary">Start Trial</Link>
-        </div>
-      </div>
-    </nav>
+      <style>{`
+        @media (max-width: 768px) {
+          .nav-center-links { display: none !important; }
+          .nav-start-trial  { display: none !important; }
+          .nav-mobile-toggle { display: flex !important; }
+        }
+      `}</style>
+    </>
   );
 }
