@@ -1,25 +1,67 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
 
-import Navbar from "./components/Navbar";
+import Navbar    from "./components/Navbar";
 import LandingIntro from "./components/LandingIntro";
-import Features from "./components/Features";
-import Packages from "./components/Packages";
+import Features  from "./components/Features";
+import Packages  from "./components/Packages";
 import Testimonial from "./components/Testimonial";
-import Footer from "./components/Footer";
-import Pricing from "./pages/Pricing";
-import Contact from "./pages/Contact";
+import Footer    from "./components/Footer";
+import Pricing   from "./pages/Pricing";
+import Contact   from "./pages/Contact";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// ── Global Lenis smooth scroll ────────────────────────────────────────────
+let lenisInstance = null;
+
+function initLenis() {
+  if (lenisInstance) { lenisInstance.destroy(); lenisInstance = null; }
+
+  lenisInstance = new Lenis({
+    duration:        1.1,
+    easing:          (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel:     true,
+    wheelMultiplier: 0.88,
+    touchMultiplier: 1.6,
+  });
+
+  lenisInstance.on("scroll", ScrollTrigger.update);
+
+  function raf(time) {
+    lenisInstance?.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    lenisInstance?.scrollTo(0, { immediate: true });
+  }, [pathname]);
   return null;
 }
 
+// ── Home ──────────────────────────────────────────────────────────────────
 function Home() {
+  useEffect(() => {
+    initLenis();
+    return () => {};
+  }, []);
+
   return (
     <>
       <Navbar />
+      {/*
+        LandingIntro pins itself for 4800px via GSAP ScrollTrigger.
+        After that pin spacer ends, Features sits immediately below —
+        no wrapper, no clipPath, no translateY. Zero gap.
+      */}
       <LandingIntro />
       <Features />
       <Packages />
@@ -29,14 +71,26 @@ function Home() {
   );
 }
 
+// ── Pricing ───────────────────────────────────────────────────────────────
+function PricingPage() {
+  useEffect(() => { initLenis(); return () => {}; }, []);
+  return <Pricing />;
+}
+
+// ── Contact ───────────────────────────────────────────────────────────────
+function ContactPage() {
+  useEffect(() => { initLenis(); return () => {}; }, []);
+  return <Contact />;
+}
+
 export default function App() {
   return (
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/"        element={<Home />}        />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </>
   );

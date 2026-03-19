@@ -32,12 +32,34 @@ export default function LandingIntro() {
         const about2   = about2Ref.current;
         const about3   = about3Ref.current;
 
-        gsap.set(wrapper,  { width: "40vw", height: "20vw"});
-        gsap.set(logoVid,  { opacity: 0.78, scale: 3 });
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+
+        const startW = vw * 0.40;
+        const startH = vw * 0.22;   // ~16:9 of startW
+
+        gsap.set(wrapper, {
+          width:  startW,
+          height: startH,
+          top:    (vh - startH) / 2,
+          left:   (vw - startW) / 2,
+          borderRadius: 7,
+        });
+
+        gsap.set(logoVid,  { opacity: 0.85, scale: 3 });
         gsap.set(leftTag,  { opacity: 0, x: -18 });
         gsap.set(rightTag, { opacity: 0, x:  18 });
-
         gsap.set([about1, about2, about3], { opacity: 0, y: 32 });
+
+        const midW  = vw * 0.70;
+        const midH  = vw * 0.44;    // ~16:9 of midW
+        const midTop  = (vh - midH) / 2;
+        const midLeft = (vw - midW) / 2;
+
+        const fullW = vw - 16;
+        const fullH = vh - 16;
+        const fullTop  = 8;
+        const fullLeft = 8;
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -55,9 +77,12 @@ export default function LandingIntro() {
         }, 0);
 
         tl.to(wrapper, {
-          width: "70vw", height: "44vw",
-          borderRadius: "14px",
-          duration: 0.20, ease: "power2.inOut",
+          width:  midW,
+          height: midH,
+          top:    midTop,
+          left:   midLeft,
+          borderRadius: 14,
+          duration: 0.22, ease: "power2.inOut",
         }, 0);
 
         tl.to(leftTag,  { opacity: 1, x: 0, duration: 0.12, ease: "power3.out" }, 0.06);
@@ -72,42 +97,55 @@ export default function LandingIntro() {
           opacity: 0, duration: 0.10, ease: "power2.in",
         }, 0.26);
 
+        // This is the key: animate top/left/width/height in px — no calc()
         tl.to(wrapper, {
-          width:  "calc(100vw - 16px)",
-          height: "calc(100vh - 16px)",
-          borderRadius: "10px",
-          duration: 0.30, ease: "power2.inOut",
+          width:  fullW,
+          height: fullH,
+          top:    fullTop,
+          left:   fullLeft,
+          borderRadius: 10,
+          duration: 0.32, ease: "power2.inOut",
         }, 0.24);
 
         tl.to(about1, {
-          opacity: 1, y: 0,
-          duration: 0.08, ease: "power3.out",
+          opacity: 1, y: 0, duration: 0.08, ease: "power3.out",
         }, 0.56);
 
         tl.to(about1, {
-          opacity: 0, y: -20,
-          duration: 0.06, ease: "power2.in",
+          opacity: 0, y: -20, duration: 0.06, ease: "power2.in",
         }, 0.66);
 
         tl.to(about2, {
-          opacity: 1, y: 0,
-          duration: 0.08, ease: "power3.out",
+          opacity: 1, y: 0, duration: 0.08, ease: "power3.out",
         }, 0.70);
 
         tl.to(about2, {
-          opacity: 0, y: -20,
-          duration: 0.06, ease: "power2.in",
+          opacity: 0, y: -20, duration: 0.06, ease: "power2.in",
         }, 0.79);
 
         tl.to(about3, {
-          opacity: 1, y: 0,
-          duration: 0.08, ease: "power3.out",
+          opacity: 1, y: 0, duration: 0.08, ease: "power3.out",
         }, 0.83);
 
         tl.to(about3, {
-          opacity: 0, y: -20,
-          duration: 0.06, ease: "power2.in",
+          opacity: 0, y: -20, duration: 0.06, ease: "power2.in",
         }, 0.93);
+
+        const onResize = () => {
+          const nvw = window.innerWidth;
+          const nvh = window.innerHeight;
+          const nStartW = nvw * 0.40;
+          const nStartH = nvw * 0.22;
+          gsap.set(wrapper, {
+            width:  nStartW,
+            height: nStartH,
+            top:    (nvh - nStartH) / 2,
+            left:   (nvw - nStartW) / 2,
+          });
+          ScrollTrigger.refresh();
+        };
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
 
       }, pinRef);
 
@@ -117,12 +155,13 @@ export default function LandingIntro() {
     return () => clearTimeout(timer);
   }, []);
 
-  const NEUE = `"Neue", "Neue Haas Grotesk", "Helvetica Neue", Arial, sans-serif`;
+  const NEUE        = `"Epilogue", "Outfit", "Google Sans", sans-serif`;
+  const GOOGLE_SANS = `"Google Sans", "Outfit", "Epilogue", sans-serif`;
 
   const bigWordStyle = {
-    fontFamily: NEUE,
+    fontFamily: GOOGLE_SANS,
     fontStyle: "normal",
-    fontWeight: 900,
+    fontWeight: 600,
     fontSize: "clamp(72px, 12.5vw, 196px)",
     lineHeight: 0.88,
     letterSpacing: "-0.03em",
@@ -172,11 +211,9 @@ export default function LandingIntro() {
         position: "relative",
         width: "100%",
         height: "100vh",
-        background: "#F8F8F6",
+        background: "#ffffffff",
+        // NO flexbox here — wrapper is position:absolute, GSAP moves it
         overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
       }}
     >
 
@@ -184,7 +221,7 @@ export default function LandingIntro() {
         ref={topWordRef}
         style={{
           position: "absolute",
-          top: "1.8vw",
+          top: "2vw",
           left: 0,
           right: 0,
           display: "flex",
@@ -201,7 +238,7 @@ export default function LandingIntro() {
         ref={botWordRef}
         style={{
           position: "absolute",
-          bottom: "-0.3vw",
+          bottom: "0.5vw",
           left: 0,
           right: 0,
           display: "flex",
@@ -252,14 +289,13 @@ export default function LandingIntro() {
       <div
         ref={wrapperRef}
         style={{
-          position: "relative",
+          position: "absolute",   // ← KEY: absolute so GSAP top/left/width/height work in px
           overflow: "hidden",
-          flexShrink: 0,
           zIndex: 4,
           boxShadow: "0 22px 64px rgba(0,0,0,0.28)",
+          // Initial top/left/width/height set by GSAP in useEffect
         }}
       >
-
         <video
           autoPlay loop muted playsInline
           style={{
