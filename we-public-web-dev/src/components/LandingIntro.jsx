@@ -212,7 +212,6 @@ export default function LandingIntro() {
         width: "100%",
         height: "100vh",
         background: "#ffffffff",
-        // NO flexbox here — wrapper is position:absolute, GSAP moves it
         overflow: "hidden",
       }}
     >
@@ -293,7 +292,6 @@ export default function LandingIntro() {
           overflow: "hidden",
           zIndex: 4,
           boxShadow: "0 22px 64px rgba(0,0,0,0.28)",
-          // Initial top/left/width/height set by GSAP in useEffect
         }}
       >
         <video

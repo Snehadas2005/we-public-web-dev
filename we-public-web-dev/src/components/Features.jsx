@@ -194,8 +194,7 @@ export default function Features() {
         });
       }
 
-      /* ── ENTER next slide (starts slightly after exit begins) ── */
-      const ENTER_DELAY = 0.35; // let exit get well underway first
+      const ENTER_DELAY = 0.35; 
 
       const nSlide = slideRefs.current[next];
       const nImg   = imgRefs.current[next];
@@ -213,7 +212,6 @@ export default function Features() {
         gsap.set(body,    { opacity: 0, y: dir * 24 });
         gsap.set(bullets, { opacity: 0, x: -20 });
 
-        // words cascade in with generous stagger
         gsap.to(words, {
           yPercent: 0,
           duration: 1.0,
@@ -235,10 +233,8 @@ export default function Features() {
           stagger: 0.07,
           ease: "power2.out",
           delay: ENTER_DELAY + 0.38,
-          // unlock animation flag after last bullet lands
           onComplete: () => {
             isAnimating.current = false;
-            // flush pending if any
             if (pendingSlide.current !== null) {
               const { next: pn, dir: pd } = pendingSlide.current;
               pendingSlide.current = null;
@@ -309,7 +305,7 @@ export default function Features() {
           height: 100vh;
           display: grid;
           grid-template-columns: 48% 52%;
-          background: #f4f2ee;
+          background: #ecf4feff;
           overflow: hidden;
           position: relative;
         }
@@ -469,7 +465,7 @@ export default function Features() {
           font-weight: 900;
           font-size: clamp(90px, 13vw, 170px);
           letter-spacing: -0.06em;
-          color: rgba(0,0,0,0.045);
+          color: rgba(0, 0, 0, 0.04);
           pointer-events: none;
           user-select: none;
           line-height: 1;
