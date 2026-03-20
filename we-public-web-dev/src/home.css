@@ -300,7 +300,8 @@ body {
 .dropdown-menu li .dropdown-item-static {
   padding: 10px 20px;
   display: block;
-  color: #6B7280; /* Brighter gray to show it's info-only */
+  color: #6B7280;
+  /* Brighter gray to show it's info-only */
   font-size: 14px;
   font-weight: 500;
   cursor: not-allowed;
@@ -1838,5 +1839,523 @@ body {
 
   .navbar-brand span {
     font-size: 13px;
+  }
+}
+
+/* ============================================================
+   FEATURES — SCROLL-PINNED FEATURE SHOWCASE
+   Add these rules to the bottom of home.css
+   ============================================================ */
+
+/* ── Outer spacer (provides scroll height, never moves) ────── */
+.feat-spacer {
+  /* height is set dynamically by JS */
+  position: relative;
+  width: 100%;
+}
+
+/* ── Pinned full-screen panel ───────────────────────────────── */
+.feat-pin {
+  width: 100%;
+  height: 100vh;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Thin progress bar at the very top ─────────────────────── */
+.feat-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 20;
+}
+
+.feat-progress-fill {
+  height: 100%;
+  transition: width 0.4s ease, background 0.4s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── Left text panel ────────────────────────────────────────── */
+.feat-left {
+  width: 46%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 5vw 0 6vw;
+  position: relative;
+  z-index: 5;
+  overflow: hidden;
+}
+
+/* Inner content — this is what animates */
+.feat-left-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── RIGHT visual panel ─────────────────────────────────────── */
+.feat-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.feat-right-visual {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* ── Transition: EXIT (slide out in direction of scroll) ─────
+   CSS custom property --dir: 1 (down/forward) or -1 (up/back)
+────────────────────────────────────────────────────────────── */
+.feat-left-content--exit {
+  animation: featLeftExit 0.28s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.feat-right-visual--exit {
+  animation: featRightExit 0.28s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes featLeftExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(calc(var(--dir, 1) * -40px));
+  }
+}
+
+@keyframes featRightExit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(calc(var(--dir, 1) * -30px)) scale(0.97);
+  }
+}
+
+/* ── Transition: ENTER (slide in from opposite direction) ───── */
+.feat-left-content--enter {
+  animation: featLeftEnter 0.42s cubic-bezier(0.0, 0, 0.2, 1) forwards;
+}
+
+.feat-right-visual--enter {
+  animation: featRightEnter 0.42s cubic-bezier(0.0, 0, 0.2, 1) forwards;
+}
+
+@keyframes featLeftEnter {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--dir, 1) * 50px));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes featRightEnter {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--dir, 1) * 40px)) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Idle = fully visible, no animation */
+.feat-left-content--idle,
+.feat-right-visual--idle {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Decorative blob (accent glow) ─────────────────────────── */
+.feat-blob {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: background 0.5s ease;
+  filter: blur(60px);
+  z-index: 0;
+}
+
+/* ── Watermark number ───────────────────────────────────────── */
+.feat-watermark {
+  position: absolute;
+  bottom: -20px;
+  right: -10px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 900;
+  font-size: clamp(120px, 18vw, 240px);
+  letter-spacing: -0.06em;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  transition: color 0.5s ease;
+  z-index: 0;
+}
+
+/* ── Text content styles ────────────────────────────────────── */
+.feat-eyebrow {
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  font-size: clamp(10px, 0.7vw, 11px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0 0 20px 0;
+}
+
+.feat-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  border: 1px solid;
+  font-family: "Outfit", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 18px;
+  width: fit-content;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.feat-tag i {
+  font-size: 13px;
+}
+
+.feat-num-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.feat-num {
+  font-family: "Outfit", sans-serif;
+  font-weight: 800;
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  transition: color 0.4s ease;
+}
+
+.feat-num-of {
+  font-family: "Outfit", sans-serif;
+  font-weight: 400;
+  font-size: clamp(13px, 1vw, 16px);
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.feat-title {
+  font-family: "Outfit", sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 4.2vw, 64px);
+  letter-spacing: -0.04em;
+  color: #fff;
+  line-height: 1.0;
+  margin: 0 0 22px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.feat-title-line {
+  display: block;
+}
+
+.feat-title-line:last-child {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.feat-desc {
+  font-family: "Outfit", sans-serif;
+  font-weight: 400;
+  font-size: clamp(13px, 1vw, 15.5px);
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.7;
+  margin: 0 0 32px 0;
+  max-width: 360px;
+}
+
+/* ── Dot navigation ─────────────────────────────────────────── */
+.feat-dot-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.feat-dot-pip {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  transition: background 0.3s ease, transform 0.3s ease, width 0.3s ease;
+  cursor: default;
+}
+
+.feat-dot-pip.active {
+  width: 20px;
+  border-radius: 3px;
+  transform: none;
+}
+
+.feat-hint {
+  font-family: "Outfit", sans-serif;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.18);
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DEVICE MOCKS
+══════════════════════════════════════════════════════════════ */
+
+.feat-devices {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* When only mobile: center it  */
+.feat-devices--mobile {
+  justify-content: center;
+}
+
+/* When both: desktop behind, phone overlapping bottom-right */
+.feat-devices--both {
+  justify-content: center;
+}
+
+/* ── Browser / desktop mock ─────────────────────────────────── */
+.feat-browser {
+  width: clamp(300px, 38vw, 580px);
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 28px 60px rgba(0, 0, 0, 0.7),
+    0 4px 16px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+.feat-browser-chrome {
+  height: 36px;
+  background: #252525;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.feat-chrome-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.feat-chrome-bar {
+  flex: 1;
+  margin: 0 8px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-family: "Outfit", monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0;
+}
+
+.feat-browser-screen {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #111;
+}
+
+.feat-browser-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+/* ── Phone mock ─────────────────────────────────────────────── */
+.feat-phone {
+  width: clamp(110px, 13vw, 190px);
+  background: #1c1c1e;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.10),
+    0 24px 48px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 6px 6px;
+  gap: 4px;
+}
+
+/* Solo phone (device="mobile") — make it bigger */
+.feat-devices--mobile .feat-phone {
+  width: clamp(160px, 18vw, 260px);
+  border-radius: 36px;
+  padding: 14px 8px 8px;
+}
+
+.feat-phone-island {
+  width: 35%;
+  height: 10px;
+  background: #000;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.feat-devices--mobile .feat-phone-island {
+  height: 14px;
+  border-radius: 8px;
+}
+
+.feat-phone-screen {
+  width: 100%;
+  flex: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111;
+}
+
+.feat-phone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+.feat-phone-home {
+  width: 30%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  .feat-pin {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .feat-left {
+    width: 100%;
+    padding: 64px 6vw 20px;
+    align-items: flex-start;
+  }
+
+  .feat-left-content {
+    gap: 0;
+  }
+
+  .feat-right {
+    width: 100%;
+    flex: 1;
+    padding-bottom: 24px;
+  }
+
+  .feat-title {
+    font-size: clamp(26px, 7vw, 42px);
+  }
+
+  .feat-num {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  .feat-watermark {
+    font-size: 28vw;
+    right: -5px;
+    bottom: -10px;
+  }
+
+  .feat-blob {
+    width: 300px;
+    height: 300px;
+  }
+
+  .feat-browser {
+    width: clamp(240px, 72vw, 420px);
+  }
+
+  .feat-devices--both .feat-phone {
+    width: clamp(80px, 16vw, 130px);
+    right: -12px;
+    bottom: -16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .feat-left {
+    padding: 56px 5vw 12px;
+  }
+
+  .feat-desc {
+    font-size: 13px;
+    max-width: 100%;
+  }
+
+  .feat-title {
+    font-size: clamp(24px, 8vw, 36px);
   }
 }

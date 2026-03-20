@@ -1,275 +1,122 @@
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../home.css";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const NEUE = `"Outfit", "Neue Haas Grotesk", "Helvetica Neue", Arial, sans-serif`;
-
-const GRID_FEATURES = [
-  { title: "Access Anywhere/ Any Device",  icon: "bi-display",        oneLiner: "Have 24x7 access to your workshop, from anywhere on any device."                          },
-  { title: "One-Click Management",         icon: "bi-cursor",         oneLiner: "Find your destination file with just one click from your fingertips."                      },
-  { title: "No Installation Required",     icon: "bi-cloud-check",    oneLiner: "No unnecessary step of installation — nothing extra to install."                           },
-  { title: "Accounting",                   icon: "bi-calculator",     oneLiner: "Real numbers that count every aspect of your business."                                     },
-  { title: "History",                      icon: "bi-clock-history",  oneLiner: "Vehicle, parts, income and expenses history all in one place."                             },
-  { title: "Graphical Reports",            icon: "bi-bar-chart-line", oneLiner: "Periodic visual reports that make your business instantly clear."                           },
-  { title: "Employee Management",          icon: "bi-people",         oneLiner: "Personal details, performance and experience all managed together."                         },
-  { title: "Automatic Software Update",    icon: "bi-arrow-repeat",   oneLiner: "Software updates itself so you stay focused on growth."                                     },
-  { title: "Integrated Inventory",         icon: "bi-box-seam",       oneLiner: "Real-time stock alerts and full purchase history built in."                                 },
-];
-
-// ── Single feature card: title+icon front, oneLiner revealed on hover ─────
-function FeatureCard({ title, icon, oneLiner }) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        flexShrink: 0,
-        width:  "200px",
-        height: "200px",
-        borderRadius: "16px",
-        border: "1px solid #E0E0E0",
-        background: "#fff",
-        position: "relative",
-        overflow: "hidden",
-        cursor: "default",
-        boxShadow: "0 2px 14px rgba(0,0,0,0.05)",
-        transition: "box-shadow 0.3s ease, border-color 0.3s ease",
-        ...(hovered ? { boxShadow: "0 8px 28px rgba(0,0,0,0.12)", borderColor: "#ccc" } : {}),
-      }}
-    >
-      {/* Front: icon + title */}
-      <div style={{
-        position: "absolute", inset: 0,
-        display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center",
-        gap: "14px", padding: "20px",
-        transition: "opacity 0.35s ease, transform 0.35s ease",
-        opacity: hovered ? 0 : 1,
-        transform: hovered ? "translateY(-12px)" : "translateY(0px)",
-      }}>
-        <i className={`bi ${icon}`} style={{ fontSize: "30px", color: "#111" }} />
-        <span style={{
-          fontFamily: NEUE, fontWeight: 600, fontSize: "13px",
-          color: "#111", textAlign: "center", lineHeight: 1.3,
-        }}>
-          {title}
-        </span>
-      </div>
-
-      {/* Back: oneLiner slides up on hover */}
-      <div style={{
-        position: "absolute", inset: 0,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        padding: "20px",
-        background: "#111",
-        transition: "opacity 0.35s ease, transform 0.35s ease",
-        opacity: hovered ? 1 : 0,
-        transform: hovered ? "translateY(0px)" : "translateY(20px)",
-      }}>
-        <span style={{
-          fontFamily: NEUE, fontWeight: 400, fontSize: "12.5px",
-          color: "rgba(255,255,255,0.90)", textAlign: "center", lineHeight: 1.6,
-        }}>
-          {oneLiner}
-        </span>
-      </div>
-    </div>
-  );
-}
-
-// ── Main component ─────────────────────────────────────────────────────────
 export default function Features() {
-  const sectionRef  = useRef(null);
-  const trackRef    = useRef(null);   // horizontal scrolling track
-  const rightRef    = useRef(null);   // right fixed panel
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const section = sectionRef.current;
-      const track   = trackRef.current;
-
-      if (!section || !track) return;
-
-      // Amount the track needs to scroll left:
-      // total track width minus the LEFT panel width (44vw)
-      const leftPanelW = section.offsetWidth * 0.44;
-      const scrollDist = track.scrollWidth - leftPanelW;
-
-      if (scrollDist <= 0) return;
-
-      // Pin the section and scrub the track leftward
-      gsap.to(track, {
-        x: -scrollDist,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start:   "top top",
-          end:     () => `+=${scrollDist}`,
-          scrub:   1.2,
-          pin:     true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const ITEMS = GRID_FEATURES;
+  const gridFeatures = [
+    {
+      title: "Access Anywhere/ Any Device",
+      oneLiner: "Have 24x7 access to your workshop, from anywhere on any device.",
+      desc: "No need to always login to your workshop from PC and Desktop. Have 24x7 access to your workshop, from anywhere on any device.",
+      icon: <i className="bi bi-display"></i>
+    },
+    {
+      title: "One-Click Management",
+      oneLiner: "Find your destination file with just one click from your fingertips.",
+      desc: "Find your destination file with just one click from your fingertips. No worries about digging through hundreds of pages and options to reach your file.",
+      icon: <i className="bi bi-cursor"></i>
+    },
+    {
+      title: "No Installation Required",
+      oneLiner: "No unnecessary step of installation extra software to access your business.",
+      desc: "No unnecessary step of installation extra software just to access your business because we understand the value of your time.",
+      icon: <i className="bi bi-cloud-check"></i>
+    },
+    {
+      title: "Accounting",
+      oneLiner: "Business made easy to manage in real numbers that count every aspect.",
+      desc: "Business made easy to manage , not just in spreadsheet but in real numbers that count every aspect of the business.",
+      icon: <i className="bi bi-calculator"></i>
+    },
+    {
+      title: "History",
+      oneLiner: "Vehicle Service, parts, income and expenses; all in one place.",
+      desc: "Vehicle Service, parts, income and expenses; all in one place. Easy to track, easy to find and easy to manage.",
+      icon: <i className="bi bi-clock-history"></i>
+    },
+    {
+      title: "Graphical Reports",
+      oneLiner: "Easy to understand graphical Reports at periodic intervals.",
+      desc: "Easy to understand and summarise graphical Reports at periodic intervals to know your business better.",
+      icon: <i className="bi bi-bar-chart-line"></i>
+    },
+    {
+      title: "Employee Management",
+      oneLiner: "Manage all information about your employees easily side by side.",
+      desc: "From personal details to performance to experience, manage all the information about your employees easily side by side with live training and support for newcomers.",
+      icon: <i className="bi bi-people"></i>
+    },
+    {
+      title: "Automatic Software Update",
+      oneLiner: "It's all done automatically while you focus on growing your business.",
+      desc: "Worried about keeping track of regular software updates? No need, it’s all done automatically while you focus on growing your business.",
+      icon: <i className="bi bi-arrow-repeat"></i>
+    },
+    {
+      title: "Integrated Inventory",
+      oneLiner: "Track your stock levels, purchases and sales history effortlessly.",
+      desc: "Never lose track of your parts inventory again. Our system provides real-time updates on stock levels, automated low-stock alerts, and detailed purchase history to keep your workshop running smoothly.",
+      icon: <i className="bi bi-box-seam"></i>
+    }
+  ];
 
   return (
-    <section
-      ref={sectionRef}
-      id="features"
-      style={{
-        width:    "100%",
-        height:   "100vh",
-        background: "#F8F8F6",
-        display:  "flex",
-        flexDirection: "row",
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
-      {/* ══════════════════════════════════════════════════════════════════
-          LEFT 44% — horizontally scrolling carousel of feature cards
-          The track is wider than the panel; GSAP scrubs it left.
-      ══════════════════════════════════════════════════════════════════ */}
-      <div style={{
-        width:    "44%",
-        height:   "100%",
-        flexShrink: 0,
-        overflow: "hidden",
-        position: "relative",
-        borderRight: "1px solid #E8E8E8",
-        display:  "flex",
-        alignItems: "center",
-      }}>
-        {/* Edge fade left + right */}
-        <div style={{
-          position: "absolute", inset: 0, pointerEvents: "none", zIndex: 2,
-          background: "linear-gradient(to right, #F8F8F6 0%, transparent 12%, transparent 88%, #F8F8F6 100%)",
-        }} />
+    <div className="features-wrapper" id="features">
 
-        {/* Scrolling track — wider than the container */}
-        <div
-          ref={trackRef}
-          style={{
-            display:  "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: "18px",
-            paddingLeft:  "32px",
-            paddingRight: "32px",
-            willChange: "transform",
-            width: "max-content",
-          }}
-        >
-          {ITEMS.map((f, i) => (
-            <FeatureCard key={i} {...f} />
-          ))}
-        </div>
-      </div>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          RIGHT 56% — fixed: rectangular image + "Why Choose Us" content
-      ══════════════════════════════════════════════════════════════════ */}
-      <div
-        ref={rightRef}
-        style={{
-          width:    "56%",
-          height:   "100%",
-          display:  "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding:  "48px 5vw 48px 4vw",
-          gap: "0px",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        {/* ── Rectangular image box ── */}
-        <div style={{
-          width:  "100%",
-          height: "clamp(140px, 22vh, 220px)",
-          borderRadius: "14px",
-          overflow: "hidden",
-          marginBottom: "32px",
-          boxShadow: "0 8px 32px rgba(0,0,0,0.10)",
-          flexShrink: 0,
-        }}>
+      <section className="split-section container">
+        <div className="image-container">
           <img
             src="/india-garage-workshop-sadaramangala-bangalore.avif"
-            alt="Garage Workshop"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            alt="Working Mechanic"
           />
+          {/* <div className="image-overlay">
+            <span className="overlay-garage-name">Indian Motors</span>
+            <span className="overlay-location">Bangalore, India</span>
+          </div> */}
         </div>
+        <div className="content">
+          <h2 className="section-title left">Why Choose Us?</h2>
+          <div className="feature-item">
+            <h3>Constant Improvement</h3>
+            <p>Workshop Edge constantly improves itself and looks for the best and efficient way to manage your garage.</p>
+          </div>
+          <div className="feature-item">
+            <h3>Seamless Experience</h3>
+            <p>We strive to provide you a seamless and smooth experience so that you don't have to worry about managing.</p>
+          </div>
+          <div className="feature-item">
+            <h3>Integrated Management</h3>
+            <p>We bring different aspects of garage management into one single place.</p>
+          </div>
+          <div className="feature-item">
+            <h3>Simple-To-Use</h3>
+            <p>We skip the complex steps and processes to bring you the best experience with our Simple-To-Use features.</p>
+          </div>
+          <div className="feature-item">
+            <h3>Customised Packages</h3>
+            <p>We have customised packages with specific needs suited best for every type of workshop business.</p>
+          </div>
+        </div>
+      </section>
 
-        {/* ── Label ── */}
-        <p style={{
-          fontFamily: NEUE, fontWeight: 500,
-          fontSize: "clamp(10px, 0.72vw, 11.5px)",
-          letterSpacing: "0.14em", textTransform: "uppercase",
-          color: "#999", margin: "0 0 8px 0",
-        }}>
-          Simple-To-Use Features
-        </p>
 
-        {/* ── Headline ── */}
-        <h2 style={{
-          fontFamily: NEUE, fontWeight: 700,
-          fontSize: "clamp(26px, 3.2vw, 50px)",
-          letterSpacing: "-0.03em", color: "#111",
-          lineHeight: 1.0, margin: "0 0 28px 0",
-        }}>
-          Why Choose Us?
-        </h2>
+      <section className="everything-section container" id="everything-section">
+        <h2 className="section-title">Simple-To-Use Features</h2>
+        <p className="section-desc">Experience the best with our intuitive and powerful management tools.</p>
 
-        {/* ── Feature items ── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          {[
-            { h: "Constant Improvement",  p: "Workshop Edge constantly improves itself and looks for the best and efficient way to manage your garage." },
-            { h: "Seamless Experience",    p: "We strive to provide you a seamless and smooth experience so that you don't have to worry about managing." },
-            { h: "Integrated Management", p: "We bring different aspects of garage management into one single place." },
-            { h: "Simple-To-Use",         p: "We skip the complex steps and processes to bring you the best experience." },
-            { h: "Customised Packages",   p: "Packages with specific needs suited best for every type of workshop business." },
-          ].map((item, i) => (
-            <div key={i} style={{ borderLeft: "2px solid #111", paddingLeft: "14px" }}>
-              <h3 style={{
-                fontFamily: NEUE, fontWeight: 600,
-                fontSize: "clamp(13px, 1vw, 15.5px)",
-                color: "#111", margin: "0 0 2px 0", lineHeight: 1.3,
-              }}>
-                {item.h}
-              </h3>
-              <p style={{
-                fontFamily: NEUE, fontWeight: 400,
-                fontSize: "clamp(11px, 0.78vw, 12.5px)",
-                color: "#777", lineHeight: 1.55, margin: 0,
-              }}>
-                {item.p}
-              </p>
+        <div className="features-grid">
+          {gridFeatures.map((f, i) => (
+            <div key={i} className="feature-card">
+              <div className="feature-icon">{f.icon}</div>
+
+              <div className="feature-card-body">
+                <h4>{f.title}</h4>
+                <p className="one-liner">{f.oneLiner}</p>
+                <p className="detailed-desc">{f.desc}</p>
+                <a href="/contact">Explore &gt;</a>
+              </div>
             </div>
           ))}
         </div>
-
-        {/* ── Hint ── */}
-        <p style={{
-          fontFamily: NEUE, fontSize: "10.5px",
-          letterSpacing: "0.10em", textTransform: "uppercase",
-          color: "#ccc", margin: "20px 0 0 0",
-        }}>
-          Hover cards to learn more · Scroll to explore
-        </p>
-      </div>
-
-    </section>
+      </section>
+    </div>
   );
 }
