@@ -36,14 +36,15 @@ export default function Packages() {
   const activeIdx = useRef(0);
 
   useEffect(() => {
-    /* ── get the Y centre of a row's number, relative to the sticky panel ── */
     function dotYFor(index) {
       const row    = rowRefs.current[index];
       const sticky = stickyRef.current;
       if (!row || !sticky) return 0;
-      const rr = row.getBoundingClientRect();
+      const numEl  = row.querySelector(".pkg2-num");
+      const nr = numEl.getBoundingClientRect();
       const sr = sticky.getBoundingClientRect();
-      return rr.top - sr.top + 6; // 6px = align with centre of num text
+      // vertically center exactly on the number
+      return nr.top - sr.top + (nr.height / 2) - 4; // 4px is half the 8px indicator
     }
 
     /* ── apply active / inactive styles ── */
@@ -151,47 +152,74 @@ export default function Packages() {
         #pkg2-sticky {
           width: 100%;
           height: 100vh;
+          display: flex;
+          flex-direction: column;
+          background: #f4f4f4; /* light grey resembling screenshot */
+          overflow: hidden;
+          position: relative;
+        }
+
+        .pkg2-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          padding: 6vh 5vw 0 8vw;
+          width: 100%;
+        }
+
+        .pkg2-main-title {
+          font-family: 'Epilogue', sans-serif;
+          font-size: clamp(40px, 4.5vw, 64px);
+          font-weight: 500;
+          letter-spacing: -0.04em;
+          color: #0f0f0f;
+          margin: 0;
+          line-height: 1;
+        }
+
+        .pkg2-process-tag {
+          font-family: 'Epilogue', sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          color: #3C95E8;
+          text-transform: uppercase;
+          margin-top: 10px;
+        }
+
+        .pkg2-content-grid {
           display: grid;
           grid-template-columns: 50% 50%;
-          background: #f5f5f3;
-          overflow: hidden;
+          flex: 1;
+          height: auto;
           position: relative;
         }
 
         /* ─── LEFT ─── */
         #pkg2-left {
           position: relative;
-          height: 100vh;
+          height: 100%;
           display: flex;
           flex-direction: column;
           justify-content: center;
           padding: 0 5vw 0 8vw;
         }
 
-        .pkg2-eyebrow {
-          font-family: 'Epilogue', sans-serif;
-          font-size: 10px;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          color: #b0b0b0;
-          margin-bottom: 3.2rem;
-        }
-
         /* the blue square indicator */
         #pkg2-indicator {
           position: absolute;
-          left: calc(8vw - 20px);
+          left: calc(8vw - 22px);
           top: 0;
-          width: 9px;
-          height: 9px;
-          background: #3C95E8;
-          border-radius: 2px;
+          width: 8px;
+          height: 8px;
+          background: #3C95E8; /* standard theme color */
+          border-radius: 0;    /* sharp square like screenshot */
           pointer-events: none;
           z-index: 10;
         }
 
         .pkg2-row {
-          margin-bottom: 2.6rem;
+          margin-bottom: 2.5rem;
           position: relative;
         }
         .pkg2-row:last-child { margin-bottom: 0; }
@@ -199,37 +227,39 @@ export default function Packages() {
         .pkg2-row-head {
           display: flex;
           align-items: baseline;
-          gap: 1.1rem;
+          gap: 1.25rem;
         }
 
         .pkg2-num {
           font-family: 'Epilogue', sans-serif;
-          font-weight: 400;
-          font-size: 12px;
-          letter-spacing: 0.08em;
-          color: #c4c4c4;
+          font-weight: 500;
+          font-size: 13px;
+          letter-spacing: 0.05em;
+          color: #b0b0b0;
           flex-shrink: 0;
           line-height: 1;
         }
 
         .pkg2-title {
           font-family: 'Epilogue', sans-serif;
-          font-weight: 700;
-          font-size: clamp(24px, 2.5vw, 36px);
-          letter-spacing: -0.035em;
+          font-weight: 400; /* matching the lighter weight in screenshot */
+          font-size: clamp(28px, 2.5vw, 36px);
+          letter-spacing: -0.02em;
           color: #c4c4c4;
-          line-height: 1.06;
+          line-height: 1.1;
+          margin-bottom: 0;
         }
 
         .pkg2-body {
           font-family: 'Epilogue', sans-serif;
-          font-size: clamp(13px, 0.9vw, 14.5px);
-          line-height: 1.75;
-          color: #666;
-          max-width: 400px;
-          margin-top: 0.9rem;
-          /* indented to align with title (num width + gap) */
-          padding-left: calc(12px + 1.1rem);
+          font-size: clamp(14px, 1vw, 15px);
+          font-weight: 400;
+          line-height: 1.6;
+          color: #888;
+          max-width: 440px;
+          margin-top: 1rem;
+          /* indented to align exactly under the title text */
+          padding-left: calc(13px + 1.25rem);
           overflow: hidden;
           height: 0;
           display: none;
@@ -239,7 +269,7 @@ export default function Packages() {
         /* ─── RIGHT ─── */
         #pkg2-right {
           position: relative;
-          height: 100vh;
+          height: 100%;
           overflow: hidden;
           display: flex;
           align-items: center;
@@ -258,14 +288,26 @@ export default function Packages() {
 
         /* ─── mobile ─── */
         @media (max-width: 768px) {
-          #pkg2-sticky {
+          .pkg2-header {
+            padding: 4vh 5vw 0 5vw;
+          }
+          .pkg2-main-title {
+            font-size: 32px;
+          }
+          .pkg2-process-tag {
+            font-size: 11px;
+            margin-top: 6px;
+          }
+          .pkg2-content-grid {
             grid-template-columns: 1fr;
             grid-template-rows: auto 38vh;
+          }
+          #pkg2-sticky {
             height: 100svh;
           }
           #pkg2-left {
             height: auto;
-            padding: 5rem 1.5rem 1.5rem 3.8rem;
+            padding: 3rem 1.5rem 1.5rem 3.8rem;
             justify-content: center;
           }
           #pkg2-indicator { left: 1.2rem; }
@@ -276,38 +318,43 @@ export default function Packages() {
 
       <div ref={spacerRef} id="pkg2-spacer">
         <div ref={stickyRef} id="pkg2-sticky">
-
-          {/* ── LEFT ── */}
-          <div id="pkg2-left">
-            <p className="pkg2-eyebrow">Our Packages</p>
-
-            {/* animated indicator */}
-            <div id="pkg2-indicator" ref={dotRef} />
-
-            {STEPS.map((step, i) => (
-              <div
-                key={i}
-                className="pkg2-row"
-                ref={(el) => (rowRefs.current[i] = el)}
-              >
-                <div className="pkg2-row-head">
-                  <span className="pkg2-num">{step.num}</span>
-                  <span className="pkg2-title">{step.title}</span>
-                </div>
-                <p className="pkg2-body">{step.body}</p>
-              </div>
-            ))}
+          
+          <div className="pkg2-header">
+            <h2 className="pkg2-main-title">Our Packages</h2>
           </div>
 
-          {/* ── RIGHT ── */}
-          <div id="pkg2-right">
-            <div className="dashboard-preview-wrapper">
-              <div className="dashboard-preview" style={{ marginTop: 0, transform: 'scale(0.85)', transformOrigin: 'center' }}>
-                <div className="browser-mock">
-                  <img src="/website-preview.png" alt="WorkshopEdge Dashboard" className="preview-image" style={{ width: '100%', height: 'auto' }} />
+          <div className="pkg2-content-grid">
+            {/* ── LEFT ── */}
+            <div id="pkg2-left">
+
+              {/* animated indicator */}
+              <div id="pkg2-indicator" ref={dotRef} />
+
+              {STEPS.map((step, i) => (
+                <div
+                  key={i}
+                  className="pkg2-row"
+                  ref={(el) => (rowRefs.current[i] = el)}
+                >
+                  <div className="pkg2-row-head">
+                    <span className="pkg2-num">{step.num}</span>
+                    <span className="pkg2-title">{step.title}</span>
+                  </div>
+                  <p className="pkg2-body">{step.body}</p>
                 </div>
-                <div className="floating-phone-mock" style={{ position: 'absolute', right: '-8%', bottom: '-15%', width: '28%' }}>
-                  <img src="/mobile-preview.png" alt="WorkshopEdge Mobile App" className="mobile-preview-image" style={{ width: '100%', height: 'auto' }} />
+              ))}
+            </div>
+
+            {/* ── RIGHT ── */}
+            <div id="pkg2-right">
+              <div className="dashboard-preview-wrapper" style={{ height: '100%' }}>
+                <div className="dashboard-preview" style={{ marginTop: 0, transform: 'scale(0.85)', transformOrigin: 'center' }}>
+                  <div className="browser-mock">
+                    <img src="/website-preview.png" alt="WorkshopEdge Dashboard" className="preview-image" style={{ width: '100%', height: 'auto' }} />
+                  </div>
+                  <div className="floating-phone-mock" style={{ position: 'absolute', right: '-8%', bottom: '-15%', width: '28%' }}>
+                    <img src="/mobile-preview.png" alt="WorkshopEdge Mobile App" className="mobile-preview-image" style={{ width: '100%', height: 'auto' }} />
+                  </div>
                 </div>
               </div>
             </div>
