@@ -36,14 +36,21 @@ export default function LandingIntro() {
         const vh = window.innerHeight;
 
         const startW = vw * 0.40;
-        const startH = vw * 0.22;   // ~16:9 of startW
+        const startH = vw * 0.22;
+
+        // Always use left/top as pixel center coords so xPercent/yPercent work correctly
+        const centerX = vw / 2;
+        const centerY = vh / 2;
 
         gsap.set(wrapper, {
-          width:  startW,
-          height: startH,
+          width:    startW,
+          height:   startH,
+          left:     centerX,
+          top:      centerY,
           xPercent: -50,
           yPercent: -50,
           borderRadius: 0,
+          position: "absolute",
         });
 
         gsap.set(logoVid,  { opacity: 0.85, scale: 3 });
@@ -52,12 +59,11 @@ export default function LandingIntro() {
         gsap.set([about1, about2, about3], { opacity: 0, y: 32 });
 
         const midW  = vw * 0.70;
-        const midH  = vw * 0.44;    // ~16:9 of midW
+        const midH  = vw * 0.44;
 
-        const fullW = vw - 16;
-        const fullH = vh - 16;
-        const fullTop  = 8;
-        const fullLeft = 8;
+        // For fullscreen: center coords stay the same, size goes to full
+        const fullW = vw;
+        const fullH = vh;
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -74,6 +80,7 @@ export default function LandingIntro() {
           opacity: 0, duration: 0.09, ease: "power2.in",
         }, 0);
 
+        // Expand to mid size — keep centered via xPercent/yPercent
         tl.to(wrapper, {
           width:  midW,
           height: midH,
@@ -92,15 +99,11 @@ export default function LandingIntro() {
           opacity: 0, duration: 0.10, ease: "power2.in",
         }, 0.26);
 
-        // This is the key: animate top/left/width/height in px — no calc()
+        // Expand to fullscreen — still centered via xPercent/yPercent
+        // so we only change width/height; left/top/xPercent/yPercent stay put
         tl.to(wrapper, {
-          width:  fullW,
-          height: fullH,
-          top:    fullTop,
-          left:   fullLeft,
-          xPercent: 0,
-          yPercent: 0,
-          borderRadius: 0,
+          width:    fullW,
+          height:   fullH,
           duration: 0.32, ease: "power2.inOut",
         }, 0.24);
 
@@ -129,11 +132,13 @@ export default function LandingIntro() {
         }, 0.93);
 
         const onResize = () => {
+          const nw = window.innerWidth;
+          const nh = window.innerHeight;
           gsap.set(wrapper, {
-            width:  window.innerWidth * 0.40,
-            height: window.innerWidth * 0.22,
-            top:    "50%",
-            left:   "50%",
+            width:    nw * 0.40,
+            height:   nw * 0.22,
+            left:     nw / 2,
+            top:      nh / 2,
             xPercent: -50,
             yPercent: -50,
           });
@@ -150,7 +155,7 @@ export default function LandingIntro() {
     return () => clearTimeout(timer);
   }, []);
 
-  const NEUE        = `"Epilogue", "Outfit", "Google Sans", sans-serif`;
+  const EPILOGUE   = `"Epilogue", "Google Sans", "Outfit", sans-serif`;
   const GOOGLE_SANS = `"Google Sans", "Outfit", "Epilogue", sans-serif`;
 
   const bigWordStyle = {
@@ -167,31 +172,33 @@ export default function LandingIntro() {
     display: "block",
   };
 
+  // Redesigned subtext — matches the page's typographic language
   const subWordStyle = {
-    fontFamily: `"Poppins", sans-serif`,
+    fontFamily: EPILOGUE,
     fontStyle: "normal",
     fontWeight: 400,
-    fontSize: "clamp(12px, 1.25vw, 18px)",
-    lineHeight: 1.5,
-    letterSpacing: "0.01em",
-    color: "#555",
+    fontSize: "clamp(11px, 0.9vw, 14px)",
+    lineHeight: 1.7,
+    letterSpacing: "0.015em",
+    color: "#6B7280",
     userSelect: "none",
     pointerEvents: "none",
     display: "block",
     textAlign: "right",
-    maxWidth: "550px",
+    maxWidth: "420px",
   };
 
+  // Redesigned side tags — clean uppercase label style matching the site
   const sideTagStyle = {
-    fontFamily: NEUE,
+    fontFamily: EPILOGUE,
     fontStyle: "normal",
     fontWeight: 400,
-    fontSize: "clamp(10px, 0.82vw, 13px)",
-    letterSpacing: "0.06em",
+    fontSize: "clamp(9px, 0.7vw, 11px)",
+    letterSpacing: "0.14em",
     textTransform: "uppercase",
-    color: "#111",
-    lineHeight: 1.6,
-    maxWidth: "170px",
+    color: "#374151",
+    lineHeight: 1.75,
+    maxWidth: "160px",
   };
 
   const aboutLayerStyle = {
@@ -206,7 +213,7 @@ export default function LandingIntro() {
   };
 
   const aboutTextBase = {
-    fontFamily: NEUE,
+    fontFamily: EPILOGUE,
     fontStyle: "normal",
     color: "#ffffff",
     textAlign: "center",
@@ -226,6 +233,7 @@ export default function LandingIntro() {
       }}
     >
 
+      {/* Top-left headline */}
       <div
         ref={topWordRef}
         style={{
@@ -243,6 +251,7 @@ export default function LandingIntro() {
         <span style={bigWordStyle}>WorkshopEdge</span>
       </div>
 
+      {/* Bottom-right subtext */}
       <div
         ref={botWordRef}
         style={{
@@ -259,11 +268,11 @@ export default function LandingIntro() {
       >
         <span style={subWordStyle}>
           Empowering modern garages with cutting-edge software solutions to
-          <br />
           streamline operations and maximize efficiency.
         </span>
       </div>
 
+      {/* Left side tag */}
       <div
         ref={leftTagRef}
         style={{
@@ -277,11 +286,12 @@ export default function LandingIntro() {
         }}
       >
         cuts through the noise of<br />
-        <strong style={{ fontWeight: 700 }}>GARAGE OPERATIONS.</strong><br />
+        <strong style={{ fontWeight: 700, letterSpacing: "0.1em" }}>GARAGE OPERATIONS.</strong><br />
         built for those who know that<br />
         time wasted on paperwork
       </div>
 
+      {/* Right side tag */}
       <div
         ref={rightTagRef}
         style={{
@@ -296,19 +306,19 @@ export default function LandingIntro() {
         }}
       >
         is money lost on<br />
-        <strong style={{ fontWeight: 700 }}>THE FLOOR.</strong>
+        <strong style={{ fontWeight: 700, letterSpacing: "0.1em" }}>THE FLOOR.</strong>
       </div>
 
+      {/* Video wrapper — centered via left/top + xPercent/yPercent */}
       <div
         ref={wrapperRef}
         style={{
+          marginTop: "33px",  
           position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
           overflow: "hidden",
           zIndex: 4,
           borderRadius: 0,
+          // initial values set by gsap.set in useEffect
         }}
       >
         <video
@@ -326,6 +336,7 @@ export default function LandingIntro() {
           <source src="/garagevideo.mp4" type="video/mp4" />
         </video>
 
+        {/* Gradient overlay */}
         <div style={{
           position: "absolute",
           inset: 0,
@@ -334,6 +345,7 @@ export default function LandingIntro() {
           pointerEvents: "none",
         }} />
 
+        {/* Logo centred on video */}
         <div
           ref={logoOnVideoRef}
           style={{
@@ -359,6 +371,7 @@ export default function LandingIntro() {
           />
         </div>
 
+        {/* About overlays */}
         <div ref={about1Ref} style={aboutLayerStyle}>
           <p style={{
             ...aboutTextBase,
