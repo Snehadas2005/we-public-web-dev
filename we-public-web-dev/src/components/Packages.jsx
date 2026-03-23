@@ -163,7 +163,8 @@ export default function Packages() {
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
-          padding: 6vh 5vw 0 8vw;
+          /* more top padding for header, standard sides */
+          padding: 8vh 5vw 0 8vw;
           width: 100%;
         }
 
@@ -201,7 +202,7 @@ export default function Packages() {
           height: 100%;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: center; /* Center to beautifully align exactly with the right side image */
           padding: 0 5vw 0 8vw;
         }
 
