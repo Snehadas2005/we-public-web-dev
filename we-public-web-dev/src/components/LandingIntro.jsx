@@ -41,9 +41,9 @@ export default function LandingIntro() {
         gsap.set(wrapper, {
           width:  startW,
           height: startH,
-          top:    (vh - startH) / 2,
-          left:   (vw - startW) / 2,
-          borderRadius: 7,
+          xPercent: -50,
+          yPercent: -50,
+          borderRadius: 0,
         });
 
         gsap.set(logoVid,  { opacity: 0.85, scale: 3 });
@@ -53,8 +53,6 @@ export default function LandingIntro() {
 
         const midW  = vw * 0.70;
         const midH  = vw * 0.44;    // ~16:9 of midW
-        const midTop  = (vh - midH) / 2;
-        const midLeft = (vw - midW) / 2;
 
         const fullW = vw - 16;
         const fullH = vh - 16;
@@ -79,9 +77,6 @@ export default function LandingIntro() {
         tl.to(wrapper, {
           width:  midW,
           height: midH,
-          top:    midTop,
-          left:   midLeft,
-          borderRadius: 14,
           duration: 0.22, ease: "power2.inOut",
         }, 0);
 
@@ -103,7 +98,9 @@ export default function LandingIntro() {
           height: fullH,
           top:    fullTop,
           left:   fullLeft,
-          borderRadius: 10,
+          xPercent: 0,
+          yPercent: 0,
+          borderRadius: 0,
           duration: 0.32, ease: "power2.inOut",
         }, 0.24);
 
@@ -132,15 +129,13 @@ export default function LandingIntro() {
         }, 0.93);
 
         const onResize = () => {
-          const nvw = window.innerWidth;
-          const nvh = window.innerHeight;
-          const nStartW = nvw * 0.40;
-          const nStartH = nvw * 0.22;
           gsap.set(wrapper, {
-            width:  nStartW,
-            height: nStartH,
-            top:    (nvh - nStartH) / 2,
-            left:   (nvw - nStartW) / 2,
+            width:  window.innerWidth * 0.40,
+            height: window.innerWidth * 0.22,
+            top:    "50%",
+            left:   "50%",
+            xPercent: -50,
+            yPercent: -50,
           });
           ScrollTrigger.refresh();
         };
@@ -162,14 +157,29 @@ export default function LandingIntro() {
     fontFamily: GOOGLE_SANS,
     fontStyle: "normal",
     fontWeight: 600,
-    fontSize: "clamp(72px, 12.5vw, 196px)",
-    lineHeight: 0.88,
+    fontSize: "clamp(32px, 9vw, 140px)",
+    lineHeight: 1.1,
     letterSpacing: "-0.03em",
     color: "#111",
     userSelect: "none",
     pointerEvents: "none",
     whiteSpace: "nowrap",
     display: "block",
+  };
+
+  const subWordStyle = {
+    fontFamily: `"Poppins", sans-serif`,
+    fontStyle: "normal",
+    fontWeight: 400,
+    fontSize: "clamp(12px, 1.25vw, 18px)",
+    lineHeight: 1.5,
+    letterSpacing: "0.01em",
+    color: "#555",
+    userSelect: "none",
+    pointerEvents: "none",
+    display: "block",
+    textAlign: "right",
+    maxWidth: "550px",
   };
 
   const sideTagStyle = {
@@ -220,34 +230,38 @@ export default function LandingIntro() {
         ref={topWordRef}
         style={{
           position: "absolute",
-          top: "2vw",
+          top: "4vw",
           left: 0,
           right: 0,
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "flex-start",
+          padding: "0 4vw",
           zIndex: 2,
           pointerEvents: "none",
-          overflow: "hidden",
         }}
       >
-        <span style={bigWordStyle}>WORKSHOP</span>
+        <span style={bigWordStyle}>WorkshopEdge</span>
       </div>
 
       <div
         ref={botWordRef}
         style={{
           position: "absolute",
-          bottom: "0.5vw",
+          bottom: "3vw",
           left: 0,
           right: 0,
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "flex-end",
+          padding: "0 4vw",
           zIndex: 2,
           pointerEvents: "none",
-          overflow: "hidden",
         }}
       >
-        <span style={bigWordStyle}>EDGE</span>
+        <span style={subWordStyle}>
+          Empowering modern garages with cutting-edge software solutions to
+          <br />
+          streamline operations and maximize efficiency.
+        </span>
       </div>
 
       <div
@@ -288,10 +302,13 @@ export default function LandingIntro() {
       <div
         ref={wrapperRef}
         style={{
-          position: "absolute",   // ← KEY: absolute so GSAP top/left/width/height work in px
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
           overflow: "hidden",
           zIndex: 4,
-          boxShadow: "0 22px 64px rgba(0,0,0,0.28)",
+          borderRadius: 0,
         }}
       >
         <video

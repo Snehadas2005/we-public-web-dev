@@ -57,11 +57,6 @@ function Home() {
   return (
     <>
       <Navbar />
-      {/*
-        LandingIntro pins itself for 4800px via GSAP ScrollTrigger.
-        After that pin spacer ends, Features sits immediately below —
-        no wrapper, no clipPath, no translateY. Zero gap.
-      */}
       <LandingIntro />
       <Features />
       <Packages />
