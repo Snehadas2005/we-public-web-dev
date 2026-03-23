@@ -4,14 +4,15 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 
-import Navbar    from "./components/Navbar";
+import Navbar      from "./components/Navbar";
 import LandingIntro from "./components/LandingIntro";
-import Features  from "./components/Features";
-import Packages  from "./components/Packages";
+import Features    from "./components/Features";
+import Numbers     from "./components/Numbers";
+import Packages    from "./components/Packages";
 import Testimonial from "./components/Testimonial";
-import Footer    from "./components/Footer";
-import Pricing   from "./pages/Pricing";
-import Contact   from "./pages/Contact";
+import Footer      from "./components/Footer";
+import Pricing     from "./pages/Pricing";
+import Contact     from "./pages/Contact";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -59,6 +60,7 @@ function Home() {
       <Navbar />
       <LandingIntro />
       <Features />
+      <Numbers />
       <Packages />
       <Testimonial />
       <Footer />

@@ -117,15 +117,6 @@ export default function Testimonial() {
         <div className="cta-buttons">
           <a href="/contact"><button className="btn-primary">Get Started</button></a>
         </div>
-
-        <div className="dashboard-preview">
-          <div className="browser-mock">
-            <img src="/website-preview.png" alt="WorkshopEdge Dashboard" className="preview-image" />
-          </div>
-          <div className="floating-phone-mock">
-            <img src="/mobile-preview.png" alt="WorkshopEdge Mobile App" className="mobile-preview-image" />
-          </div>
-        </div>
       </section>
     </div>
   );
