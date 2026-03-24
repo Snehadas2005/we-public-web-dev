@@ -180,14 +180,14 @@ export default function LandingIntro() {
             display: "flex",
             flexDirection: "column",
             gap: "clamp(5px,0.8vh,11px)",
-            maxWidth: "min(500px,90vw)",
+            maxWidth: "min(500px,94vw)", /* Wider on mobile */
           }}>
             <p
               className="hero-line"
               style={{
                 fontFamily: EP,
                 fontWeight: 600,
-                fontSize: "clamp(12px,1.1vw,17px)",
+                fontSize: "clamp(13px,1.2vw,17px)", /* Bumped mobile min */
                 color: "#ffffff",
                 margin: 0,
                 lineHeight: 1.35,
@@ -202,7 +202,7 @@ export default function LandingIntro() {
               style={{
                 fontFamily: EP,
                 fontWeight: 400,
-                fontSize: "clamp(11px,0.9vw,14px)",
+                fontSize: "clamp(12px,1.0vw,14px)", /* Bumped mobile min */
                 color: "rgba(255,255,255,0.6)",
                 margin: 0,
                 lineHeight: 1.7,
@@ -218,11 +218,11 @@ export default function LandingIntro() {
               style={{
                 fontFamily: EP,
                 fontWeight: 500,
-                fontSize: "clamp(8px,0.7vw,10px)",
+                fontSize: "clamp(9px,0.7vw,10px)",
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.28)",
-                margin: "clamp(4px,0.6vh,8px) 0 0",
+                color: "rgba(255,255,255,0.4)", /* Brightened for better mobile contrast */
+                margin: "clamp(8px,1vh,12px) 0 0",
                 opacity: 0,
               }}
             >

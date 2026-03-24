@@ -53,9 +53,9 @@ export default function Testimonial() {
   return (
     <div className="testimonial-wrapper" id="contact">
 
-      <section className="testimonial-section">
+      <section className="testimonial-section" style={{ borderTop: 'none', boxShadow: 'none' }}>
         <div className="container">
-          <div className="testimonial-header">
+          <div className="testimonial-header" style={{ borderTop: 'none', margin: '0 0 3rem 0', paddingTop: '0' }}>
             <span className="section-tag">HEAR IT FROM OUR CLIENTS</span>
             <h2 className="section-title">Known for the best</h2>
           </div>
@@ -110,14 +110,74 @@ export default function Testimonial() {
       </section>
 
 
-      <section className="cta-section container">
-        <h2 className="section-title">Stop losing time to<br />paperwork</h2>
-        <p className="section-desc">Join thousands of workshop owners who run their business on WorkshopEdge.</p>
+      <style>{`
+        .workshop-cta-section {
+          background: #E5F1FF;
+          width: 100%;
+          padding: 120px 6vw;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+        .workshop-cta-card {
+           /* No longer a card, but a container for the full-width section */
+          max-width: 1280px;
+          margin: 0 auto;
+        }
+        .workshop-cta-headline {
+          font-family: 'Epilogue', sans-serif;
+          font-size: clamp(36px, 6vw, 72px);
+          font-weight: 700;
+          color: #222222ff;
+          line-height: 1.1;
+          letter-spacing: -0.02em;
+          margin-bottom: 24px;
+        }
+        .workshop-cta-subheadline {
+          font-family: 'Epilogue', sans-serif;
+          font-size: clamp(16px, 1.2vw, 19px);
+          color: rgba(33, 33, 33, 0.85);
+          max-width: 650px;
+          margin: 0 auto 48px;
+          line-height: 1.6;
+        }
+        .workshop-cta-btn {
+          background: #ffffff;
+          color: #000000;
+          border: none;
+          font-family: 'Epilogue', sans-serif;
+          font-weight: 700;
+          font-size: 16px;
+          padding: 18px 50px;
+          border-radius: 100px; /* Pill shape for premium feel */
+          cursor: pointer;
+          transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+        .workshop-cta-btn:hover {
+          transform: translateY(-2px);
+          background: #f8f8f8;
+          box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+          .workshop-cta-section {
+            padding: 80px 6vw;
+          }
+        }
+      `}</style>
 
-        <div className="cta-buttons">
-          <a href="/contact"><button className="btn-primary">Get Started</button></a>
-        </div>
-      </section>
+      <div className="workshop-cta-section">
+        <section className="workshop-cta-card">
+          <h2 className="workshop-cta-headline">
+            Turn your workshop <br /> into a success story
+          </h2>
+          <p className="workshop-cta-subheadline">
+            WorkshopEdge makes it effortless to manage operations, track performance, and grow your garage with confidence.
+          </p>
+          <a href="/contact">
+            <button className="workshop-cta-btn">Get Started</button>
+          </a>
+        </section>
+      </div>
     </div>
   );
 }

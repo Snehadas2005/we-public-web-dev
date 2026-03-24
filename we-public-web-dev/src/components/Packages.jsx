@@ -37,14 +37,14 @@ export default function Packages() {
 
   useEffect(() => {
     function dotYFor(index) {
-      const row    = rowRefs.current[index];
-      const sticky = stickyRef.current;
-      if (!row || !sticky) return 0;
-      const numEl  = row.querySelector(".pkg2-num");
+      const row = rowRefs.current[index];
+      if (!row) return 0;
+      const numEl = row.querySelector(".pkg2-num");
+      const leftEl = row.parentElement; // #pkg2-left is the offset parent
       const nr = numEl.getBoundingClientRect();
-      const sr = sticky.getBoundingClientRect();
+      const lr = leftEl.getBoundingClientRect();
       // vertically center exactly on the number
-      return nr.top - sr.top + (nr.height / 2) - 4; // 4px is half the 8px indicator
+      return nr.top - lr.top + (nr.height / 2) - 4; // 4px is half the 8px indicator
     }
 
     /* ── apply active / inactive styles ── */
@@ -280,9 +280,19 @@ export default function Packages() {
 
         .dashboard-preview-wrapper {
           width: 100%;
+          height: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
+        }
+
+        .dashboard-preview {
+          width: 75%; /* Reduced size */
+          height: 75%; /* Reduced size */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
         }
 
 
@@ -348,12 +358,12 @@ export default function Packages() {
 
             {/* ── RIGHT ── */}
             <div id="pkg2-right">
-              <div className="dashboard-preview-wrapper" style={{ height: '100%' }}>
-                <div className="dashboard-preview" style={{ marginTop: 0, transform: 'scale(0.85)', transformOrigin: 'center' }}>
-                  <div className="browser-mock">
-                    <img src="/website-preview.png" alt="WorkshopEdge Dashboard" className="preview-image" style={{ width: '100%', height: 'auto' }} />
+              <div className="dashboard-preview-wrapper">
+                <div className="dashboard-preview">
+                  <div className="browser-mock" style={{ width: '100%', height: '100%', background: 'transparent', boxShadow: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/website-preview.png" alt="WorkshopEdge Dashboard" className="preview-image" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '12px' }} />
                   </div>
-                  <div className="floating-phone-mock" style={{ position: 'absolute', right: '-8%', bottom: '-15%', width: '28%' }}>
+                  <div className="floating-phone-mock" style={{ position: 'absolute', right: '-5%', bottom: '-5%', width: '25%', zIndex: 10 }}>
                     <img src="/mobile-preview.png" alt="WorkshopEdge Mobile App" className="mobile-preview-image" style={{ width: '100%', height: 'auto' }} />
                   </div>
                 </div>

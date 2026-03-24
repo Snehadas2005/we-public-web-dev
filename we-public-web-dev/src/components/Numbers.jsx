@@ -182,15 +182,45 @@ export default function Numbers() {
           .num-grid {
             grid-template-columns: repeat(2, 1fr);
           }
+          .num-header {
+            margin-bottom: 40px;
+          }
+          .num-title {
+            font-size: 32px;
+          }
         }
 
         @media (max-width: 540px) {
+          #numbers-section {
+            padding: 60px 0 70px;
+          }
+          .num-inner {
+            padding: 0 20px;
+          }
+          .num-header {
+            width: 100%;
+            text-align: center;
+          }
+          .num-line {
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+          }
           .num-grid {
             grid-template-columns: 1fr 1fr;
             gap: 1px;
+            border-radius: 12px;
           }
           .num-card {
-            padding: 32px 20px 28px;
+            padding: 32px 16px;
+            align-items: center;
+            text-align: center;
+          }
+          .num-value {
+            font-size: 40px;
+          }
+          .num-label {
+            font-size: 11px;
           }
         }
       `}</style>
