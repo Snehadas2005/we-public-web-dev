@@ -4,323 +4,104 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/**
+ * LandingIntro
+ *
+ * Hero is position:fixed — sits behind all scrolling sections.
+ * A 100vh spacer div gives the "first screen" scroll real estate.
+ * As #features slides into view the hero content blurs + fades smoothly.
+ * Wordmark never moves (no parallax).
+ * Navbar colour is handled in Navbar.jsx — no overrides needed here.
+ */
 export default function LandingIntro() {
-  const pinRef         = useRef(null);
-  const wrapperRef     = useRef(null);
-  const logoOnVideoRef = useRef(null);
-
-  const topWordRef  = useRef(null);
-  const botWordRef  = useRef(null);
-  const leftTagRef  = useRef(null);
-  const rightTagRef = useRef(null);
-
-  const about1Ref = useRef(null);
-  const about2Ref = useRef(null);
-  const about3Ref = useRef(null);
+  const contentRef = useRef(null);
+  const arrowRef   = useRef(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const ctx = gsap.context(() => {
-        const pin      = pinRef.current;
-        const wrapper  = wrapperRef.current;
-        const logoVid  = logoOnVideoRef.current;
-        const topWord  = topWordRef.current;
-        const botWord  = botWordRef.current;
-        const leftTag  = leftTagRef.current;
-        const rightTag = rightTagRef.current;
-        const about1   = about1Ref.current;
-        const about2   = about2Ref.current;
-        const about3   = about3Ref.current;
+    // ── Entry animation ──────────────────────────────────────
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
+    tl.fromTo(
+      ".hero-wordmark",
+      { yPercent: 22, opacity: 0 },
+      { yPercent: 0,  opacity: 1, duration: 1.4 }
+    )
+      .fromTo(
+        ".hero-line",
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0,  duration: 0.85, stagger: 0.18 },
+        "-=0.6"
+      )
+      .fromTo(
+        [".hero-eyebrow", ".hero-stat"],
+        { opacity: 0 },
+        { opacity: 1,    duration: 0.6,  stagger: 0.1 },
+        "-=0.45"
+      )
+      .fromTo(
+        arrowRef.current,
+        { opacity: 0 },
+        { opacity: 1,    duration: 0.5 },
+        "-=0.2"
+      );
 
-        const startW = vw * 0.40;
-        const startH = vw * 0.22;
+    // Arrow idle bounce
+    gsap.to(arrowRef.current, {
+      y: 7, repeat: -1, yoyo: true,
+      duration: 1.15, ease: "sine.inOut", delay: 2.4,
+    });
 
-        // Always use left/top as pixel center coords so xPercent/yPercent work correctly
-        const centerX = vw / 2;
-        const centerY = vh / 2;
-
-        gsap.set(wrapper, {
-          width:    startW,
-          height:   startH,
-          left:     centerX,
-          top:      centerY,
-          xPercent: -50,
-          yPercent: -50,
-          borderRadius: 0,
-          position: "absolute",
+    // ── Smooth blur-out as Features slides over the hero ────
+    //
+    // scrub: 1.8  →  the animation "catches up" with a 1.8 s lag
+    //               which makes it feel buttery-smooth, not instant.
+    //
+    // start: "top 95%"  →  blur starts just before the next section
+    //                       fully enters the viewport (very gentle onset).
+    // end:   "top 15%"  →  by the time Features is 85% on screen the
+    //                       hero is completely blurred out.
+    //
+    const blurTrigger = ScrollTrigger.create({
+      trigger: "#features",
+      start: "top 95%",
+      end:   "top 15%",
+      scrub: 1.8,          // <── lag creates the smoothness
+      onUpdate(self) {
+        const p = self.progress; // 0 → 1
+        // Ease the progress curve so the blur accelerates gently
+        const eased = p * p * (3 - 2 * p); // smoothstep
+        gsap.set(contentRef.current, {
+          filter:          `blur(${eased * 18}px)`,
+          opacity:          1 - eased * 0.9,
+          scale:            1 - eased * 0.04,
+          transformOrigin: "center center",
         });
+      },
+    });
 
-        gsap.set(logoVid,  { opacity: 0.85, scale: 3 });
-        gsap.set(leftTag,  { opacity: 0, x: -18 });
-        gsap.set(rightTag, { opacity: 0, x:  18 });
-        gsap.set([about1, about2, about3], { opacity: 0, y: 32 });
-
-        const midW  = vw * 0.70;
-        const midH  = vw * 0.44;
-
-        // For fullscreen: center coords stay the same, size goes to full
-        const fullW = vw;
-        const fullH = vh;
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: pin,
-            start:   "top top",
-            end:     "+=4800",
-            scrub:   1.1,
-            pin:     true,
-            anticipatePin: 1,
-          },
-        });
-
-        tl.to(logoVid, {
-          opacity: 0, duration: 0.09, ease: "power2.in",
-        }, 0);
-
-        // Expand to mid size — keep centered via xPercent/yPercent
-        tl.to(wrapper, {
-          width:  midW,
-          height: midH,
-          duration: 0.22, ease: "power2.inOut",
-        }, 0);
-
-        tl.to(leftTag,  { opacity: 1, x: 0, duration: 0.12, ease: "power3.out" }, 0.06);
-        tl.to(rightTag, { opacity: 1, x: 0, duration: 0.12, ease: "power3.out" }, 0.06);
-
-        tl.to([topWord, botWord], {
-          opacity: 0, scale: 0.94,
-          duration: 0.14, ease: "power2.in",
-        }, 0.22);
-
-        tl.to([leftTag, rightTag], {
-          opacity: 0, duration: 0.10, ease: "power2.in",
-        }, 0.26);
-
-        // Expand to fullscreen — still centered via xPercent/yPercent
-        // so we only change width/height; left/top/xPercent/yPercent stay put
-        tl.to(wrapper, {
-          width:    fullW,
-          height:   fullH,
-          duration: 0.32, ease: "power2.inOut",
-        }, 0.24);
-
-        tl.to(about1, {
-          opacity: 1, y: 0, duration: 0.08, ease: "power3.out",
-        }, 0.56);
-
-        tl.to(about1, {
-          opacity: 0, y: -20, duration: 0.06, ease: "power2.in",
-        }, 0.66);
-
-        tl.to(about2, {
-          opacity: 1, y: 0, duration: 0.08, ease: "power3.out",
-        }, 0.70);
-
-        tl.to(about2, {
-          opacity: 0, y: -20, duration: 0.06, ease: "power2.in",
-        }, 0.79);
-
-        tl.to(about3, {
-          opacity: 1, y: 0, duration: 0.08, ease: "power3.out",
-        }, 0.83);
-
-        tl.to(about3, {
-          opacity: 0, y: -20, duration: 0.06, ease: "power2.in",
-        }, 0.93);
-
-        const onResize = () => {
-          const nw = window.innerWidth;
-          const nh = window.innerHeight;
-          gsap.set(wrapper, {
-            width:    nw * 0.40,
-            height:   nw * 0.22,
-            left:     nw / 2,
-            top:      nh / 2,
-            xPercent: -50,
-            yPercent: -50,
-          });
-          ScrollTrigger.refresh();
-        };
-        window.addEventListener("resize", onResize);
-        return () => window.removeEventListener("resize", onResize);
-
-      }, pinRef);
-
-      return () => ctx.revert();
-    }, 50);
-
-    return () => clearTimeout(timer);
+    return () => {
+      tl.kill();
+      blurTrigger.kill();
+    };
   }, []);
 
-  const EPILOGUE   = `"Epilogue", "Google Sans", "Outfit", sans-serif`;
-  const GOOGLE_SANS = `"Google Sans", "Outfit", "Epilogue", sans-serif`;
-
-  const bigWordStyle = {
-    fontFamily: GOOGLE_SANS,
-    fontStyle: "normal",
-    fontWeight: 600,
-    fontSize: "clamp(32px, 9vw, 140px)",
-    lineHeight: 1.1,
-    letterSpacing: "-0.03em",
-    color: "#111",
-    userSelect: "none",
-    pointerEvents: "none",
-    whiteSpace: "nowrap",
-    display: "block",
-  };
-
-  // Redesigned subtext — matches the page's typographic language
-  const subWordStyle = {
-    fontFamily: EPILOGUE,
-    fontStyle: "normal",
-    fontWeight: 400,
-    fontSize: "clamp(11px, 0.9vw, 14px)",
-    lineHeight: 1.7,
-    letterSpacing: "0.015em",
-    color: "#6B7280",
-    userSelect: "none",
-    pointerEvents: "none",
-    display: "block",
-    textAlign: "right",
-    maxWidth: "420px",
-  };
-
-  // Redesigned side tags — clean uppercase label style matching the site
-  const sideTagStyle = {
-    fontFamily: EPILOGUE,
-    fontStyle: "normal",
-    fontWeight: 400,
-    fontSize: "clamp(9px, 0.7vw, 11px)",
-    letterSpacing: "0.14em",
-    textTransform: "uppercase",
-    color: "#374151",
-    lineHeight: 1.75,
-    maxWidth: "160px",
-  };
-
-  const aboutLayerStyle = {
-    position: "absolute",
-    inset: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 10,
-    padding: "0 5vw",
-    pointerEvents: "none",
-  };
-
-  const aboutTextBase = {
-    fontFamily: EPILOGUE,
-    fontStyle: "normal",
-    color: "#ffffff",
-    textAlign: "center",
-    margin: 0,
-  };
+  const EP = `"Epilogue","Google Sans",sans-serif`;
 
   return (
-    <section
-      ref={pinRef}
-      id="hero"
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100vh",
-        background: "#ffffffff",
-        overflow: "hidden",
-      }}
-    >
-
-      {/* Top-left headline */}
-      <div
-        ref={topWordRef}
+    <>
+      {/* ── Fixed hero — permanently behind scrolling sections ── */}
+      <section
+        id="hero"
         style={{
-          position: "absolute",
-          top: "4vw",
-          left: 0,
-          right: 0,
-          display: "flex",
-          justifyContent: "flex-start",
-          padding: "0 4vw",
-          zIndex: 2,
-          pointerEvents: "none",
-        }}
-      >
-        <span style={bigWordStyle}>WorkshopEdge</span>
-      </div>
-
-      {/* Bottom-right subtext */}
-      <div
-        ref={botWordRef}
-        style={{
-          position: "absolute",
-          bottom: "3vw",
-          left: 0,
-          right: 0,
-          display: "flex",
-          justifyContent: "flex-end",
-          padding: "0 4vw",
-          zIndex: 2,
-          pointerEvents: "none",
-        }}
-      >
-        <span style={subWordStyle}>
-          Empowering modern garages with cutting-edge software solutions to
-          streamline operations and maximize efficiency.
-        </span>
-      </div>
-
-      {/* Left side tag */}
-      <div
-        ref={leftTagRef}
-        style={{
-          position: "absolute",
-          left: "2.8vw",
-          top: "50%",
-          transform: "translateY(-50%)",
-          zIndex: 3,
-          pointerEvents: "none",
-          ...sideTagStyle,
-        }}
-      >
-        cuts through the noise of<br />
-        <strong style={{ fontWeight: 700, letterSpacing: "0.1em" }}>GARAGE OPERATIONS.</strong><br />
-        built for those who know that<br />
-        time wasted on paperwork
-      </div>
-
-      {/* Right side tag */}
-      <div
-        ref={rightTagRef}
-        style={{
-          position: "absolute",
-          right: "2.8vw",
-          top: "50%",
-          transform: "translateY(-50%)",
-          zIndex: 3,
-          textAlign: "right",
-          pointerEvents: "none",
-          ...sideTagStyle,
-        }}
-      >
-        is money lost on<br />
-        <strong style={{ fontWeight: 700, letterSpacing: "0.1em" }}>THE FLOOR.</strong>
-      </div>
-
-      {/* Video wrapper — centered via left/top + xPercent/yPercent */}
-      <div
-        ref={wrapperRef}
-        style={{
-          marginTop: "33px",  
-          position: "absolute",
+          position: "fixed",
+          inset: 0,
+          width: "100%",
+          height: "100vh",
+          zIndex: 0,
           overflow: "hidden",
-          zIndex: 4,
-          borderRadius: 0,
-          // initial values set by gsap.set in useEffect
         }}
       >
+        {/* Background video */}
         <video
           autoPlay loop muted playsInline
           style={{
@@ -329,8 +110,7 @@ export default function LandingIntro() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            zIndex: 1,
-            display: "block",
+            zIndex: 0,
           }}
         >
           <source src="/garagevideo.mp4" type="video/mp4" />
@@ -340,92 +120,176 @@ export default function LandingIntro() {
         <div style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(160deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.65) 100%)",
-          zIndex: 2,
-          pointerEvents: "none",
+          background:
+            "linear-gradient(165deg,rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.42) 52%,rgba(0,0,0,0.80) 100%)",
+          zIndex: 1,
         }} />
 
-        {/* Logo centred on video */}
+        {/* Content — blurs & fades on scroll */}
         <div
-          ref={logoOnVideoRef}
+          ref={contentRef}
           style={{
             position: "absolute",
             inset: 0,
+            zIndex: 2,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+            padding: "0 5vw clamp(28px,5vh,60px)",
+            willChange: "filter,opacity,transform",
+          }}
+        >
+          {/* Eyebrow */}
+          <p
+            className="hero-eyebrow"
+            style={{
+              fontFamily: EP,
+              fontSize: "clamp(8px,0.6vw,10px)",
+              fontWeight: 600,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.4)",
+              margin: "0 0 clamp(10px,1.5vh,22px)",
+              opacity: 0,
+            }}
+          >
+            Workshop Management Software
+          </p>
+
+          {/* Wordmark — single word, never moves */}
+          <div
+            className="hero-wordmark"
+            style={{ marginBottom: "clamp(14px,2.5vh,32px)", opacity: 0 }}
+          >
+            <h1 style={{
+              fontFamily: EP,
+              fontWeight: 800,
+              fontSize: "clamp(38px,6.2vw,92px)",
+              letterSpacing: "-0.04em",
+              lineHeight: 0.92,
+              color: "#ffffff",
+              margin: 0,
+              textShadow: "0 3px 36px rgba(0,0,0,0.4)",
+            }}>
+              WorkshopEdge
+            </h1>
+          </div>
+
+          {/* About-us lines */}
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "clamp(5px,0.8vh,11px)",
+            maxWidth: "min(500px,90vw)",
+          }}>
+            <p
+              className="hero-line"
+              style={{
+                fontFamily: EP,
+                fontWeight: 600,
+                fontSize: "clamp(12px,1.1vw,17px)",
+                color: "#ffffff",
+                margin: 0,
+                lineHeight: 1.35,
+                opacity: 0,
+              }}
+            >
+              Built by people who've run garages.
+            </p>
+
+            <p
+              className="hero-line"
+              style={{
+                fontFamily: EP,
+                fontWeight: 400,
+                fontSize: "clamp(11px,0.9vw,14px)",
+                color: "rgba(255,255,255,0.6)",
+                margin: 0,
+                lineHeight: 1.7,
+                opacity: 0,
+              }}
+            >
+              One platform for jobs, billing, inventory and your team —
+              so you focus on what's under the hood.
+            </p>
+
+            <p
+              className="hero-stat"
+              style={{
+                fontFamily: EP,
+                fontWeight: 500,
+                fontSize: "clamp(8px,0.7vw,10px)",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.28)",
+                margin: "clamp(4px,0.6vh,8px) 0 0",
+                opacity: 0,
+              }}
+            >
+              500+ workshops across India
+            </p>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div
+          ref={arrowRef}
+          style={{
+            position: "absolute",
+            bottom: "clamp(18px,3vh,32px)",
+            right: "5vw",
+            zIndex: 3,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
-            zIndex: 10,
-            gap: "8px",
-            pointerEvents: "none",
+            gap: 4,
+            opacity: 0,
           }}
         >
-          <img
-            src="/we.png"
-            alt="WorkshopEdge"
-            style={{
-              height: "40px",
-              objectFit: "contain",
-              filter: "brightness(0) invert(1)",
-            }}
-          />
-        </div>
-
-        {/* About overlays */}
-        <div ref={about1Ref} style={aboutLayerStyle}>
-          <p style={{
-            ...aboutTextBase,
-            fontSize: "clamp(20px, 3vw, 50px)",
-            fontWeight: 700,
-            letterSpacing: "-0.022em",
-            lineHeight: 1.12,
-            textShadow: "0 2px 16px rgba(0,0,0,0.45)",
-            maxWidth: "820px",
+          <span style={{
+            fontFamily: EP,
+            fontSize: 8,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.28)",
           }}>
-            Built by people who work in garages.
-            <br />
-            <span style={{
-              fontWeight: 400,
-              fontSize: "0.68em",
-              letterSpacing: "-0.01em",
-              opacity: 0.82,
-            }}>
-              WorkshopEdge was built from the field.
-            </span>
-          </p>
+            Scroll
+          </span>
+          <svg width="13" height="20" viewBox="0 0 13 20" fill="none">
+            <path d="M6.5 0v16M1 10.5l5.5 6.5 5.5-6.5"
+              stroke="rgba(255,255,255,0.28)"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
+      </section>
 
-        <div ref={about2Ref} style={aboutLayerStyle}>
-          <p style={{
-            ...aboutTextBase,
-            fontSize: "clamp(14px, 1.8vw, 26px)",
-            fontWeight: 400,
-            letterSpacing: "0.005em",
-            lineHeight: 1.58,
-            textShadow: "0 1px 10px rgba(0,0,0,0.38)",
-            maxWidth: "680px",
-            color: "rgba(255,255,255,0.91)",
-          }}>
-            The founders spent close to five years running service stations
-            across the country and felt the need to create better tools.
-          </p>
-        </div>
+      <div id="hero-spacer" style={{ height: "100vh", position: "relative", zIndex: 1 }} />
 
-        <div ref={about3Ref} style={aboutLayerStyle}>
-          <p style={{
-            ...aboutTextBase,
-            fontSize: "clamp(26px, 4.2vw, 68px)",
-            fontWeight: 800,
-            letterSpacing: "-0.028em",
-            lineHeight: 1.06,
-            textShadow: "0 3px 20px rgba(0,0,0,0.48)",
-          }}>
-            They built this software.
-          </p>
-        </div>
+      <style>{`
+        /* All post-hero sections must stack on top of the fixed hero */
+        #features,
+        #fs-sticky,
+        #numbers-section,
+        #pkg2-spacer,
+        #pkg2-sticky,
+        .testimonial-wrapper,
+        footer.footer {
+          position: relative;
+          z-index: 10;
+        }
 
-      </div>{/* end wrapperRef */}
-
-    </section>
+        /* Tablet */
+        @media (max-width: 768px) {
+          .hero-wordmark h1 { font-size: clamp(32px,9vw,58px) !important; }
+        }
+        /* Mobile */
+        @media (max-width: 480px) {
+          .hero-wordmark h1 { font-size: clamp(28px,11vw,42px) !important; }
+        }
+      `}</style>
+    </>
   );
 }

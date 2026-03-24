@@ -18,64 +18,71 @@ export default function Numbers() {
   const hasRun     = useRef(false);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      /* ── animated underline ──────────────────────────────── */
-      gsap.set(lineRef.current, { scaleX: 0, transformOrigin: "left center" });
+    let ctx;
+    // Delay GSAP initialization to ensure 'Features' scroll padding above it has loaded completely
+    const timer = setTimeout(() => {
+      ctx = gsap.context(() => {
+        /* ── animated underline ──────────────────────────────── */
+        gsap.set(lineRef.current, { scaleX: 0, transformOrigin: "left center" });
 
-      /* ── counter animation (runs ONCE) ──────────────────── */
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 75%",
-          once: true,
-          onEnter: () => { hasRun.current = true; },
-        },
-      });
-
-      /* line draws in */
-      tl.to(lineRef.current, {
-        scaleX: 1,
-        duration: 0.9,
-        ease: "power3.inOut",
-      }, 0);
-
-      /* each card fades + slides up */
-      tl.fromTo(
-        ".num-card",
-        { opacity: 0, y: 48 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.12,
-          ease: "power3.out",
-        },
-        0.1
-      );
-
-      /* counters tick up */
-      numRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const stat = STATS[i];
-        tl.to(
-          { val: 0 },
-          {
-            val: stat.value,
-            duration: 1.8,
-            ease: "power2.out",
-            onUpdate() {
-              el.textContent = Math.round(this.targets()[0].val) + stat.suffix;
-            },
-            onComplete() {
-              el.textContent = stat.value + stat.suffix;
-            },
+        /* ── counter animation (runs ONCE) ──────────────────── */
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            once: true,
+            onEnter: () => { hasRun.current = true; },
           },
-          0.25 + i * 0.12
-        );
-      });
-    }, sectionRef);
+        });
 
-    return () => ctx.revert();
+        /* line draws in */
+        tl.to(lineRef.current, {
+          scaleX: 1,
+          duration: 0.9,
+          ease: "power3.inOut",
+        }, 0);
+
+        /* each card fades + slides up */
+        tl.fromTo(
+          ".num-card",
+          { opacity: 0, y: 48 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power3.out",
+          },
+          0.1
+        );
+
+        /* counters tick up */
+        numRefs.current.forEach((el, i) => {
+          if (!el) return;
+          const stat = STATS[i];
+          tl.to(
+            { val: 0 },
+            {
+              val: stat.value,
+              duration: 1.8,
+              ease: "power2.out",
+              onUpdate() {
+                el.textContent = Math.round(this.targets()[0].val) + stat.suffix;
+              },
+              onComplete() {
+                el.textContent = stat.value + stat.suffix;
+              },
+            },
+            0.25 + i * 0.12
+          );
+        });
+      }, sectionRef);
+    }, 250);
+
+    return () => {
+      clearTimeout(timer);
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   return (

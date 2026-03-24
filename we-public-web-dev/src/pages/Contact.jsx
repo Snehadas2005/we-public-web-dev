@@ -24,14 +24,6 @@ const FAQItem = ({ question, answer }) => {
 };
 
 export default function Contact() {
-  const scrollToForm = () => {
-    const element = document.getElementById("contact-form");
-    if (element) {
-      const offset = element.offsetTop - 80;
-      window.scrollTo({ top: offset, behavior: "smooth" });
-    }
-  };
-
   const faqs = [
     {
       question: "What is WorkshopEdge?",
