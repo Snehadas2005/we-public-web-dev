@@ -475,15 +475,29 @@ export default function Features() {
         @media (max-width: 768px) {
           #fs-sticky {
             grid-template-columns: 1fr;
-            grid-template-rows: 1fr auto;
+            grid-template-rows: 1fr;
             height: 100svh;
           }
-          #fs-left  { height: auto; }
-          #fs-right { height: 38vh; padding: 0 1rem 1rem; }
-          .fs-img-wrap { height: 100%; border-radius: 12px; }
-          .fs-slide  { padding: 4.5rem 1.4rem 1rem; }
-          .fs-title  { font-size: clamp(36px, 10vw, 54px); }
+          #fs-left  { 
+            height: 100%; 
+            display: flex;
+            align-items: center;
+          }
+          #fs-right { display: none !important; }
+          .fs-slide  { 
+            padding: 5rem 1.4rem 1rem; 
+            height: 100%;
+            justify-content: center;
+          }
+          .fs-title  { font-size: clamp(32px, 9.5vw, 42px); }
           #fs-dots   { display: none; }
+          #fs-wm {
+            font-size: 130px;
+            left: 1rem;
+            bottom: unset;
+            top: 2rem;
+            opacity: 0.03;
+          }
         }
       `}</style>
 

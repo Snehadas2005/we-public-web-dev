@@ -40,14 +40,12 @@ export default function Packages() {
       const row = rowRefs.current[index];
       if (!row) return 0;
       const numEl = row.querySelector(".pkg2-num");
-      const leftEl = row.parentElement; // #pkg2-left is the offset parent
+      const leftEl = row.parentElement; 
       const nr = numEl.getBoundingClientRect();
       const lr = leftEl.getBoundingClientRect();
-      // vertically center exactly on the number
-      return nr.top - lr.top + (nr.height / 2) - 4; // 4px is half the 8px indicator
+      return nr.top - lr.top + (nr.height / 2) - 4; 
     }
 
-    /* ── apply active / inactive styles ── */
     function applyActive(index, animate) {
       const dur = animate ? 0.55 : 0;
 
@@ -287,8 +285,8 @@ export default function Packages() {
         }
 
         .dashboard-preview {
-          width: 75%; /* Reduced size */
-          height: 75%; /* Reduced size */
+          width: 88%; /* Increased size */
+          height: 88%; /* Increased size */
           display: flex;
           justify-content: center;
           align-items: center;
@@ -362,9 +360,6 @@ export default function Packages() {
                 <div className="dashboard-preview">
                   <div className="browser-mock" style={{ width: '100%', height: '100%', background: 'transparent', boxShadow: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <img src="/website-preview.png" alt="WorkshopEdge Dashboard" className="preview-image" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '12px' }} />
-                  </div>
-                  <div className="floating-phone-mock" style={{ position: 'absolute', right: '-5%', bottom: '-5%', width: '25%', zIndex: 10 }}>
-                    <img src="/mobile-preview.png" alt="WorkshopEdge Mobile App" className="mobile-preview-image" style={{ width: '100%', height: 'auto' }} />
                   </div>
                 </div>
               </div>
