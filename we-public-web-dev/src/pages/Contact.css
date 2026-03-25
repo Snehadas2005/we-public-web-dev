@@ -252,7 +252,6 @@
 
 .faq-icon-wrapper {
     font-size: 18px;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -260,21 +259,8 @@
     height: 32px;
 }
 
-.faq-item.active .faq-icon-wrapper {
-    transform: rotate(135deg);
-    color: var(--primary-color);
-}
-
 .faq-answer {
-    max-height: 0;
     overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-}
-
-.faq-item.active .faq-answer {
-    max-height: 500px;
-    opacity: 1;
 }
 
 .faq-answer-content {
@@ -282,12 +268,6 @@
     font-size: 15px;
     line-height: 1.6;
     color: #4B5563;
-    transform: translateY(-10px);
-    transition: transform 0.4s ease;
-}
-
-.faq-item.active .faq-answer-content {
-    transform: translateY(0);
 }
 
 /* Need More Help Section */

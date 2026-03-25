@@ -15,7 +15,7 @@ const FEATURES = [
       "Real-time sync",          "Zero installation required",
       "Offline-resilient",       "Cross-platform access",
     ],
-    img: "/india-garage-workshop-sadaramangala-bangalore.avif",
+    img: "/feature1.png",
   },
   {
     title: "One-Click\nManagement",
@@ -26,7 +26,7 @@ const FEATURES = [
       "Quick filters",           "Pinned shortcuts",
       "Recent history",          "One-click invoicing",
     ],
-    img: "/india-garage-working-person.jpg",
+    img: "/feature2.png",
   },
   {
     title: "Accounting\n& Billing",
@@ -37,7 +37,7 @@ const FEATURES = [
       "Expense tracking",        "Profit & loss reports",
       "Counter sales",           "PDF export",
     ],
-    img: "/india-garage-workshop-sadaramangala-bangalore.avif",
+    img: "/feature3.png",
   },
   {
     title: "Inventory &\nReporting",
@@ -48,7 +48,7 @@ const FEATURES = [
       "Graphical reports",       "Excel & CSV export",
       "Low-stock alerts",        "Sales analytics",
     ],
-    img: "/india-garage-working-person.jpg",
+    img: "/feature4.png",
   },
   {
     title: "Team &\nCustomers",
@@ -59,7 +59,7 @@ const FEATURES = [
       "Customer mobile app",     "Live job status",
       "Appointment booking",     "Service history",
     ],
-    img: "/india-garage-workshop-sadaramangala-bangalore.avif",
+    img: "/feature5.png",
   },
 ];
 

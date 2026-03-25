@@ -100,13 +100,29 @@ export default function Packages() {
           }
         });
 
-        // smooth entry for dashboard preview
-        gsap.from(".dashboard-preview", {
+        // smooth entry for both previews
+        gsap.from(".website-preview", {
           opacity: 0,
-          scale: 0.95,
-          y: 30,
-          duration: 1.2,
+          x: 40,
+          y: 40,
+          rotation: 2,
+          scale: 0.9,
+          duration: 1.4,
           ease: "power3.out",
+          scrollTrigger: {
+            trigger: spacerRef.current,
+            start: "top 75%",
+          }
+        });
+
+        gsap.from(".mobile-preview", {
+          opacity: 0,
+          x: 20,
+          y: 60,
+          scale: 0.8,
+          duration: 1.6,
+          delay: 0.2,
+          ease: "power4.out",
           scrollTrigger: {
             trigger: spacerRef.current,
             start: "top 75%",
@@ -265,15 +281,15 @@ export default function Packages() {
           opacity: 0;
         }
 
-        /* ─── RIGHT ─── */
+  /* ─── RIGHT ─── */
         #pkg2-right {
           position: relative;
           height: 100%;
-          overflow: hidden;
+          overflow: visible; 
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 2rem;
+          padding: 3rem; 
         }
 
         .dashboard-preview-wrapper {
@@ -285,15 +301,35 @@ export default function Packages() {
         }
 
         .dashboard-preview {
-          width: 88%; /* Increased size */
-          height: 88%; /* Increased size */
+          width: 68%; 
+          height: auto; 
           display: flex;
           justify-content: center;
           align-items: center;
           position: relative;
         }
 
+        .website-preview {
+          width: 100%;
+          height: auto;
+          border-radius: 16px;
+          filter: drop-shadow(0 20px 50px rgba(0,0,0,0.12));
+          object-fit: contain;
+        }
 
+        .mobile-preview {
+          position: absolute;
+          bottom: -8%;
+          right: -4%;
+          width: 34%;
+          height: auto;
+          border-radius: 24px;
+          border: 5px solid #111;
+          background: #111;
+          filter: drop-shadow(0 25px 50px rgba(0,0,0,0.3));
+          object-fit: cover;
+          z-index: 5;
+        }
 
         /* ─── mobile ─── */
         @media (max-width: 768px) {
@@ -309,19 +345,26 @@ export default function Packages() {
           }
           .pkg2-content-grid {
             grid-template-columns: 1fr;
-            grid-template-rows: auto 38vh;
+            grid-template-rows: auto 40vh;
           }
           #pkg2-sticky {
             height: 100svh;
           }
           #pkg2-left {
             height: auto;
-            padding: 3rem 1.5rem 1.5rem 3.8rem;
+            padding: 2rem 1.5rem 1rem 3.5rem;
             justify-content: center;
           }
           #pkg2-indicator { left: 1.2rem; }
-          #pkg2-right { height: 38vh; }
+          #pkg2-right { height: 40vh; padding: 2rem; overflow: visible; }
           .pkg2-body { padding-left: 0; }
+          .dashboard-preview { width: 75%; }
+          .mobile-preview {
+            width: 30%;
+            bottom: -5%;
+            right: -2%;
+            border-width: 3px;
+          }
         }
       `}</style>
 
@@ -329,7 +372,9 @@ export default function Packages() {
         <div ref={stickyRef} id="pkg2-sticky">
           
           <div className="pkg2-header">
-            <h2 className="pkg2-main-title">Our Packages</h2>
+            <div>
+              <h2 className="pkg2-main-title">Our Packages</h2>
+            </div>
           </div>
 
           <div className="pkg2-content-grid">
@@ -358,9 +403,8 @@ export default function Packages() {
             <div id="pkg2-right">
               <div className="dashboard-preview-wrapper">
                 <div className="dashboard-preview">
-                  <div className="browser-mock" style={{ width: '100%', height: '100%', background: 'transparent', boxShadow: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/website-preview.png" alt="WorkshopEdge Dashboard" className="preview-image" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '12px' }} />
-                  </div>
+                  <img src="/website-preview.png" alt="Website Preview" className="website-preview" />
+                  <img src="/mobile-preview.png" alt="Mobile Preview" className="mobile-preview" />
                 </div>
               </div>
             </div>
