@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "../home.css";
 
 const testimonials = [
@@ -126,20 +127,37 @@ export default function Testimonial() {
         }
         .workshop-cta-headline {
           font-family: 'Epilogue', sans-serif;
-          font-size: clamp(36px, 6vw, 72px);
+          font-size: clamp(24px, 4vw, 60px);
           font-weight: 700;
           color: #222222ff;
           line-height: 1.1;
           letter-spacing: -0.02em;
-          margin-bottom: 24px;
+          margin-bottom: 16px;
         }
         .workshop-cta-subheadline {
           font-family: 'Epilogue', sans-serif;
-          font-size: clamp(16px, 1.2vw, 19px);
+          font-size: clamp(15px, 1.1vw, 18px);
           color: rgba(33, 33, 33, 0.85);
           max-width: 650px;
-          margin: 0 auto 48px;
+          margin: 0 auto 32px;
           line-height: 1.6;
+        }
+        .workshop-cta-video-container {
+          width: 100%;
+          max-width: 800px;
+          margin: 0 auto 40px;
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+          background: #222;
+          cursor: pointer;
+          position: relative;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .workshop-cta-video {
+          width: 100%;
+          display: block;
+          pointer-events: none;
         }
         .workshop-cta-btn {
           background: #ffffff;
@@ -168,11 +186,23 @@ export default function Testimonial() {
       <div className="workshop-cta-section">
         <section className="workshop-cta-card">
           <h2 className="workshop-cta-headline">
-            Turn your workshop <br /> into a success story
+            Move toward a more <br /> connected, modern garage
           </h2>
           <p className="workshop-cta-subheadline">
-            WorkshopEdge makes it effortless to manage operations, track performance, and grow your garage with confidence.
+            WorkshopEdge connects operations, customers, data, and your digital presence into one structured system.
           </p>
+          
+          <Link to="/videos" className="workshop-cta-video-container" style={{ display: 'block' }}>
+            <video 
+              className="workshop-cta-video" 
+              src="/garagevideo.mp4" 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+            />
+          </Link>
+
           <a href="/contact">
             <button className="workshop-cta-btn">Get Started</button>
           </a>

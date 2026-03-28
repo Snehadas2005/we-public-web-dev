@@ -13,6 +13,7 @@ import Testimonial from "./components/Testimonial";
 import Footer      from "./components/Footer";
 import Pricing     from "./pages/Pricing";
 import Contact     from "./pages/Contact";
+import Videos      from "./pages/Videos";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -80,6 +81,12 @@ function ContactPage() {
   return <Contact />;
 }
 
+// ── Videos ───────────────────────────────────────────────────────────────
+function VideosPage() {
+  useEffect(() => { initLenis(); return () => {}; }, []);
+  return <Videos />;
+}
+
 export default function App() {
   return (
     <>
@@ -88,6 +95,7 @@ export default function App() {
         <Route path="/"        element={<Home />}        />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/videos"  element={<VideosPage />}  />
       </Routes>
     </>
   );

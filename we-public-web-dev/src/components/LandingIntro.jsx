@@ -194,7 +194,7 @@ export default function LandingIntro() {
                 opacity: 0,
               }}
             >
-              Built by people who've run garages.
+              A modern, all-in-one digital platform.
             </p>
 
             <p
@@ -209,8 +209,8 @@ export default function LandingIntro() {
                 opacity: 0,
               }}
             >
-              One platform for jobs, billing, inventory and your team —
-              so you focus on what's under the hood.
+              Replace manual processes with a single structured system that simplifies
+              daily operations, organizes data, and improves business management.
             </p>
 
             <p

@@ -65,8 +65,8 @@ export default function Footer() {
 
         .footer-v3-grid {
           display: grid;
-          grid-template-columns: 2fr 1fr 1fr 1fr;
-          gap: 4rem;
+          grid-template-columns: 2.2fr 1fr 1.2fr 1.2fr;
+          gap: 3rem;
           margin-bottom: 60px;
         }
 
@@ -115,7 +115,7 @@ export default function Footer() {
         }
 
         .footer-subscribe-btn {
-          background: #000;
+          background: #3C95E8;
           color: #fff;
           border: none;
           padding: 10px 16px;
@@ -210,7 +210,7 @@ export default function Footer() {
         }
 
         .footer-v3-bg-text {
-          font-family: 'Epilogue', sans-serif;
+          font-family: 'Brunson', sans-serif;
           font-weight: 800;
           font-size: clamp(60px, 15vw, 220px);
           letter-spacing: -0.05em;
@@ -261,11 +261,14 @@ export default function Footer() {
             <div className="footer-brand-col">
               <img src="/we.png" alt="WorkshopEdge Logo" className="footer-logo-img" />
               <p className="footer-brand-desc">
-                Get WorkshopEdge updates delivered to your inbox.
+                WorkshopEdge is India's most powerful workshop management platform, built to modernize auto repair businesses of all sizes.
               </p>
-              <div className="footer-newsletter-wrap">
-                <input type="email" placeholder="your@email.com" className="footer-input" />
-                <button className="footer-subscribe-btn">Subscribe</button>
+              <div style={{ marginTop: '0.5rem' }}>
+                <p style={{ fontSize: '12px', fontWeight: 600, color: '#000', marginBottom: '8px' }}>Stay Updated</p>
+                <div className="footer-newsletter-wrap">
+                  <input type="email" placeholder="your@email.com" className="footer-input" />
+                  <button className="footer-subscribe-btn">Subscribe</button>
+                </div>
               </div>
             </div>
 
@@ -273,18 +276,9 @@ export default function Footer() {
               <h4>Product</h4>
               <ul>
                 <li><Link to="/pricing">Pricing & Plans</Link></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><Link to="/contact">Contact</Link></li>
+                <li><Link to="/videos">Videos</Link></li>
                 <li><Link to="/">Home</Link></li>
-                <li><a href="#">Company</a></li>
-              </ul>
-            </div>
-
-            <div className="footer-nav-col">
-              <h4>About</h4>
-              <ul>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Follow us</a></li>
-                <li><a href="#">Facebook</a></li>
               </ul>
             </div>
 
@@ -295,6 +289,15 @@ export default function Footer() {
                 <li><a href="#"><i className="bi bi-instagram footer-social-icon"></i>Instagram</a></li>
                 <li><a href="#"><i className="bi bi-linkedin footer-social-icon"></i>LinkedIn</a></li>
                 <li><a href="#"><i className="bi bi-youtube footer-social-icon"></i>YouTube</a></li>
+              </ul>
+            </div>
+            
+            <div className="footer-nav-col">
+              <h4>Contact</h4>
+              <ul>
+                <li><a href="tel:+916361832517"><i className="bi bi-telephone footer-social-icon"></i>+91 6361832517</a></li>
+                <li><a href="mailto:contact@dev.workshopedge.com"><i className="bi bi-envelope footer-social-icon"></i>contact@dev.workshopedge.com</a></li>
+                <li><span style={{ fontSize: '13px', color: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}><i className="bi bi-geo-alt footer-social-icon"></i>Bangalore, India</span></li>
               </ul>
             </div>
           </div>

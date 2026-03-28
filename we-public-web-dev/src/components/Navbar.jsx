@@ -11,15 +11,13 @@ export default function Navbar() {
 
   // On non-home pages the hero doesn't exist → always dark
   const isHome = location.pathname === "/";
-  const pastHero = !isHome || isScrolled;
+  const pastHero = isScrolled;
 
   useEffect(() => {
-    if (!isHome) {
-      return;
-    }
     const onScroll = () => {
-      // Switch to dark mode once user scrolls past 80% of viewport height
-      setIsScrolled(window.scrollY > window.innerHeight * 0.8);
+      // Switch to solid mode once user scrolls a bit
+      const threshold = isHome ? window.innerHeight * 0.8 : 50;
+      setIsScrolled(window.scrollY > threshold);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll(); // run once on mount
@@ -46,13 +44,12 @@ export default function Navbar() {
   };
 
   // ── Colour tokens based on scroll state ──────────────────────────────
-  const textColor  = pastHero ? "#111111" : "#ffffff";
-  const logoFilter = pastHero ? "none"    : "brightness(0) invert(1)";
-  const navBg      = pastHero
-    ? "rgba(248,248,246,0.94)"
-    : "transparent";
-  const navBlur    = pastHero ? "blur(14px)" : "none";
-  const navBorder  = pastHero ? "1px solid rgba(0,0,0,0.07)" : "none";
+  const isDarkInitial = isHome; // Home has dark hero, others are light
+  const textColor = pastHero ? "#111111" : (isDarkInitial ? "#ffffff" : "#111111");
+  const logoFilter = pastHero ? "none" : (isDarkInitial ? "brightness(0) invert(1)" : "none");
+  const navBg      = "transparent";
+  const navBlur    = pastHero ? "blur(18px)" : "none";
+  const navBorder  = "none";
 
   const linkBase = {
     fontFamily: EP,
@@ -141,6 +138,14 @@ export default function Navbar() {
           className="nav-center-links"
         >
           <a onClick={() => scrollTo("hero")} style={linkBase}>Home</a>
+          <div className="nav-dropdown" style={{ cursor: "pointer", paddingBottom: "20px", marginBottom: "-20px" }}>
+            <span style={linkBase}>Resource <i className="bi bi-chevron-down" style={{ fontSize: "10px", marginLeft: "2px" }}></i></span>
+            <div className="nav-dropdown-content">
+              <a style={{ ...linkBase, color: "#111" }}>App</a>
+              <a style={{ ...linkBase, color: "#111" }}>Website</a>
+              <Link to="/videos"  style={{ ...linkBase, color: "#111" }}>Videos</Link>
+            </div>
+          </div>
           <Link to="/pricing"  style={linkBase}>Pricing &amp; Plans</Link>
           <Link to="/contact"  style={linkBase}>Contact us</Link>
         </div>
@@ -218,6 +223,13 @@ export default function Navbar() {
           <a onClick={() => scrollTo("hero")} style={mobileLinkBase}>HOME</a>
           <Link to="/pricing" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>PRICING &amp; PLANS</Link>
           <Link to="/contact" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>CONTACT US</Link>
+          
+          <div style={{ padding: "10px 0", display: "flex", flexDirection: "column", gap: "8px" }}>
+            <span style={{ ...mobileLinkBase, padding: 0, color: "rgba(0,0,0,0.5)" }}>RESOURCE</span>
+            <Link to="/app" onClick={() => setMobileOpen(false)} style={{ ...mobileLinkBase, fontSize: "16px", padding: "0 12px" }}>APP</Link>
+            <Link to="/website" onClick={() => setMobileOpen(false)} style={{ ...mobileLinkBase, fontSize: "16px", padding: "0 12px" }}>WEBSITE</Link>
+            <Link to="/videos" onClick={() => setMobileOpen(false)} style={{ ...mobileLinkBase, fontSize: "16px", padding: "0 12px" }}>VIDEOS</Link>
+          </div>
           <div style={{ marginTop: "24px" }}>
             <Link
               to="/contact"
@@ -240,6 +252,42 @@ export default function Navbar() {
           .nav-center-links  { display: none !important; }
           .nav-start-trial   { display: none !important; }
           .nav-mobile-toggle { display: flex !important; }
+        }
+
+        .nav-dropdown {
+          position: relative;
+        }
+        .nav-dropdown-content {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #ffffff;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+          border-radius: 8px;
+          display: flex;
+          flex-direction: column;
+          min-width: 140px;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+          transform: translateX(-50%) translateY(10px);
+          padding: 8px 0;
+        }
+        .nav-dropdown:hover .nav-dropdown-content {
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(-50%) translateY(0);
+        }
+        .nav-dropdown-content a {
+          padding: 10px 16px;
+          text-decoration: none;
+          color: #111111 !important;
+          transition: background 0.2s ease, color 0.2s ease;
+        }
+        .nav-dropdown-content a:hover {
+          background: #f5f5f5;
+          color: #3C95E8 !important;
         }
       `}</style>
     </>
