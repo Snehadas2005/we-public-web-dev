@@ -192,7 +192,7 @@ export default function Testimonial() {
             WorkshopEdge connects operations, customers, data, and your digital presence into one structured system.
           </p>
           
-          <Link to="/videos" className="workshop-cta-video-container" style={{ display: 'block' }}>
+          <Link to="/media" className="workshop-cta-video-container" style={{ display: 'block' }}>
             <video 
               className="workshop-cta-video" 
               src="/garagevideo.mp4" 

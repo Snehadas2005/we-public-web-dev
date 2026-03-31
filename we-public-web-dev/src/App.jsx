@@ -13,7 +13,10 @@ import Testimonial from "./components/Testimonial";
 import Footer      from "./components/Footer";
 import Pricing     from "./pages/Pricing";
 import Contact     from "./pages/Contact";
-import Videos      from "./pages/Videos";
+import Media       from "./pages/Media";
+import Cloud       from "./pages/Cloud";
+import Portal      from "./pages/Portal";
+import AppDetails  from "./pages/AppDetails";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -81,10 +84,28 @@ function ContactPage() {
   return <Contact />;
 }
 
-// ── Videos ───────────────────────────────────────────────────────────────
-function VideosPage() {
+// ── media ───────────────────────────────────────────────────────────────
+function mediaPage() {
   useEffect(() => { initLenis(); return () => {}; }, []);
-  return <Videos />;
+  return <media />;
+}
+
+// ── Cloud ────────────────────────────────────────────────────────────────
+function CloudPage() {
+  useEffect(() => { initLenis(); return () => {}; }, []);
+  return <Cloud />;
+}
+
+// ── Portal ───────────────────────────────────────────────────────────────
+function PortalPage() {
+  useEffect(() => { initLenis(); return () => {}; }, []);
+  return <Portal />;
+}
+
+// ── App Details ──────────────────────────────────────────────────────────
+function AppDetailsPage() {
+  useEffect(() => { initLenis(); return () => {}; }, []);
+  return <AppDetails />;
 }
 
 export default function App() {
@@ -92,10 +113,13 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/"        element={<Home />}        />
-        <Route path="/pricing" element={<PricingPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/videos"  element={<VideosPage />}  />
+        <Route path="/"          element={<Home />}        />
+        <Route path="/pricing"   element={<PricingPage />} />
+        <Route path="/contact"   element={<ContactPage />} />
+        <Route path="/media"    element={<Media />}  />
+        <Route path="/cloud"     element={<CloudPage />}   />
+        <Route path="/portal"    element={<PortalPage />} />
+        <Route path="/app"       element={<AppDetailsPage />} />
       </Routes>
     </>
   );

@@ -65,8 +65,8 @@ export default function Footer() {
 
         .footer-v3-grid {
           display: grid;
-          grid-template-columns: 2.2fr 1fr 1.2fr 1.2fr;
-          gap: 3rem;
+          grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+          gap: 2.5rem;
           margin-bottom: 60px;
         }
 
@@ -277,8 +277,17 @@ export default function Footer() {
               <ul>
                 <li><Link to="/pricing">Pricing & Plans</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
-                <li><Link to="/videos">Videos</Link></li>
                 <li><Link to="/">Home</Link></li>
+              </ul>
+            </div>
+
+            <div className="footer-nav-col">
+              <h4>Resources</h4>
+              <ul>
+                <li><Link to="/media">Media</Link></li>
+                <li><Link to="/app">App</Link></li>
+                <li><Link to="/cloud">Cloud</Link></li>
+                <li><Link to="/portal">Portal</Link></li>
               </ul>
             </div>
 

@@ -390,7 +390,7 @@ const Pricing = () => {
         >
           {[
             { val: 500, suffix: '+', label: 'Workshops' },
-            { val: 98,  suffix: '%', label: 'Satisfaction' },
+            { val: 100,  suffix: '%', label: 'Satisfaction' },
             { val: 3,   suffix: ' Plans', label: 'Simple Pricing' },
           ].map((s) => (
             <motion.div
@@ -540,12 +540,12 @@ const Pricing = () => {
           </RevealSection>
           <div className="benefits-grid">
             {[
-              { icon: 'bi-diagram-3',         text: 'Centralized job and vehicle history tracking' },
-              { icon: 'bi-person-lines-fill',  text: 'Easy customer and service record management' },
-              { icon: 'bi-cloud-check',        text: 'Cloud-based system accessible from anywhere' },
-              { icon: 'bi-graph-up-arrow',     text: 'Automated reporting and analytics' },
-              { icon: 'bi-shield-lock',        text: 'Secure data storage and regular system updates' },
-              { icon: 'bi-window',             text: 'Simple interface designed specifically for garage owners' },
+              { icon: 'bi-diagram-3',         text: 'Dynamic inventory scaling with automated part deduction' },
+              { icon: 'bi-person-lines-fill',  text: 'Self-updating customer service records and history' },
+              { icon: 'bi-truck',              text: 'Full supplier tracking including GST and contact details' },
+              { icon: 'bi-graph-up-arrow',     text: 'Advanced financial reports with custom date filters' },
+              { icon: 'bi-cash-coin',          text: 'Comprehensive expense tracking for utility and bills' },
+              { icon: 'bi-calendar-heart',     text: 'Integrated mobile and web appointment system' },
             ].map((b) => (
               <motion.div
                 key={b.icon}
@@ -575,19 +575,19 @@ const Pricing = () => {
             {
               name: 'Lite', featured: false,
               subtitle: 'Ideal for workshops looking for essential tools to enhance daily operations.',
-              features: ['Job Management & Vehicle History', 'Purchase & Sale Management', 'Powerful Searching', 'Excel Export Data', 'Registration Number Tracking', 'Customer, Supplier & Employee', 'Quarterly Software Updates'],
+              features: ['Job Management & Service History', 'Basic Sales & Purchase Tracking', 'Supplier & Staff Records', 'Excel Data Export', 'Registration Number Tracking', 'Integrated Help Ticket System', 'Quarterly Software Updates'],
               btnClass: 'btn-plan-outline', btnText: 'Free Trial',
             },
             {
               name: 'Prime', featured: true,
               subtitle: 'Designed for workshops that require comprehensive tools.',
-              features: ['Lite +', 'Inventory Management', 'GST/Tax Invoice', 'Customize Reports', 'Excel & PDF Export', 'Monthly Updates'],
+              features: ['Lite +', 'Dynamic Inventory Scaling', 'GST/Tax Compliant Invoices', 'Detailed Reporting & Filters', 'Miscellaneous Expense Tracking', 'Excel & PDF Export', 'Monthly Updates'],
               btnClass: 'btn-plan-solid', btnText: 'Free Trial',
             },
             {
               name: 'Enterprise', featured: false,
               subtitle: 'Perfect for businesses involved in vehicle trade.',
-              features: ['Prime +', 'Weekly Software Updates', 'Export Data on Mail', 'Manage Images/Documents', 'Track Workshop Cost', 'Client Vehicle Preview'],
+              features: ['Prime +', 'Cloud Garage Locker (Files/Folders)', 'Two-Way Appointment System', 'Custom Financial Breakthroughs', 'Track Total Workshop Costs', 'Weekly Software Updates'],
               btnClass: 'btn-plan-dark', btnText: 'Contact Sales',
             },
           ].map((card, i) => (
@@ -654,9 +654,12 @@ const Pricing = () => {
           </RevealSection>
           <div className="why-we-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px', maxWidth: '1100px', margin: '40px auto 0' }}>
             {[
-              { icon: 'bi-headset',     title: 'Built-in Support Ticket System', desc: 'Training videos and guidance ensure you have quick assistance for smooth usage.' },
-              { icon: 'bi-cloud-check', title: 'Digital Garage Locker',          desc: 'A dedicated personal cloud storage system for safely storing all your documents and bills.' },
-              { icon: 'bi-phone',       title: 'Customer Experience System',     desc: 'A branded mobile application to keep customers connected directly to your garage.' },
+              { icon: 'bi-boxes',       title: 'Dynamic Inventory scaling', desc: 'Automatic inventory deduction as you scale parts. Complete customer records with history and quantity saved instantly.' },
+              { icon: 'bi-cart-check',  title: 'End-to-End Sales & Purchase', desc: 'Track spare parts sales and client purchases. Inventory syncs automatically for new items or existing stock.' },
+              { icon: 'bi-people',      title: 'Supplier & Staff Directory', desc: 'Maintain records for suppliers (GST, address) and staff (joining, leaving, salary, roles) in one central system.' },
+              { icon: 'bi-receipt',     title: 'Smart Expense Tracking', desc: 'Keep track of electricity bills, utility costs, and other non-inventory expenses to monitor your total overhead.' },
+              { icon: 'bi-calendar-event', title: 'Two-Way Appointments', desc: 'Unified scheduling from both ends—the customer mobile app and your garage owner dashboard.' },
+              { icon: 'bi-bar-chart-line', title: 'Advanced Financial Analysis', desc: 'Detailed financial breakdowns: Revenue, Profit, Expenses, and Salary. Filter by month, year, or specific dates across all payment modes (CASH, UPI, CARD, BANK).' },
             ].map((card, i) => (
               <motion.div
                 key={i}

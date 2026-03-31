@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const STATS = [
   { value: 500, suffix: "+", label: "Workshops Onboarded" },
-  { value: 98,  suffix: "%", label: "Customer Satisfaction" },
+  { value: 100,  suffix: "%", label: "Customer Satisfaction" },
   { value: 12,  suffix: "K+", label: "Job Cards Created Daily" },
   { value: 5,   suffix: "x", label: "Faster Than Paperwork" },
 ];

@@ -9,19 +9,19 @@ const STEPS = [
   {
     num: "01",
     title: "Lite Package",
-    body: "Perfect for small garages and independent mechanics. Manage job cards, customers, expenses, and counter sales — all from one dashboard, without the complexity.",
+    body: "Perfect for small garages and independent mechanics. Manage job cards, customers, and expenses—with dynamic inventory scaling and a complete service history saved automatically.",
     img: "/india-garage-workshop-sadaramangala-bangalore.avif",
   },
   {
     num: "02",
     title: "Prime Package",
-    body: "Designed for growing workshops. Add GST invoicing, full inventory tracking, profit reports, and staff logins on top of everything in Lite.",
+    body: "Designed for growing workshops. Add GST invoicing, detailed monthly/yearly financial reports, end-to-end spare parts sales, and complete staff role management.",
     img: "/india-garage-working-person.jpg",
   },
   {
     num: "03",
     title: "Enterprise Package",
-    body: "Full-scale management for large operations. Automate notifications, get a dedicated website, and export every data point your business needs.",
+    body: "Full-scale management for large operations. Includes a secure cloud garage locker for document storage, a two-way appointment system, and customizable financial breakthroughs.",
     img: "/india-garage-workshop-sadaramangala-bangalore.avif",
   },
 ];
@@ -173,22 +173,14 @@ export default function Packages() {
           position: relative;
         }
 
-        .pkg2-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          /* more top padding for header, standard sides */
-          padding: 8vh 5vw 0 8vw;
-          width: 100%;
-        }
-
         .pkg2-main-title {
           font-family: 'Epilogue', sans-serif;
-          font-size: clamp(40px, 4.5vw, 64px);
+          font-size: clamp(36px, 4.5vw, 64px);
+          padding-bottom : 50px;
           font-weight: 500;
           letter-spacing: -0.04em;
           color: #0f0f0f;
-          margin: 0;
+          margin-bottom: 50px;
           line-height: 1;
         }
 
@@ -216,7 +208,7 @@ export default function Packages() {
           height: 100%;
           display: flex;
           flex-direction: column;
-          justify-content: center; /* Center to beautifully align exactly with the right side image */
+          justify-content: center; 
           padding: 0 5vw 0 8vw;
         }
 
@@ -232,6 +224,7 @@ export default function Packages() {
           pointer-events: none;
           z-index: 10;
         }
+
 
         .pkg2-row {
           margin-bottom: 2.5rem;
@@ -333,15 +326,10 @@ export default function Packages() {
 
         /* ─── mobile ─── */
         @media (max-width: 768px) {
-          .pkg2-header {
-            padding: 4vh 5vw 0 5vw;
-          }
           .pkg2-main-title {
             font-size: 32px;
-          }
-          .pkg2-process-tag {
-            font-size: 11px;
-            margin-top: 6px;
+            text-align: center;
+            margin-bottom: 30px;
           }
           .pkg2-content-grid {
             grid-template-columns: 1fr;
@@ -352,10 +340,10 @@ export default function Packages() {
           }
           #pkg2-left {
             height: auto;
-            padding: 2rem 1.5rem 1rem 3.5rem;
-            justify-content: center;
+            padding: 40px 1.5rem 1rem;
+            justify-content: flex-start;
           }
-          #pkg2-indicator { left: 1.2rem; }
+          #pkg2-indicator { display: none; }
           #pkg2-right { height: 40vh; padding: 2rem; overflow: visible; }
           .pkg2-body { padding-left: 0; }
           .dashboard-preview { width: 75%; }
@@ -371,15 +359,10 @@ export default function Packages() {
       <div ref={spacerRef} id="pkg2-spacer">
         <div ref={stickyRef} id="pkg2-sticky">
           
-          <div className="pkg2-header">
-            <div>
-              <h2 className="pkg2-main-title">Our Packages</h2>
-            </div>
-          </div>
-
           <div className="pkg2-content-grid">
             {/* ── LEFT ── */}
             <div id="pkg2-left">
+              <h2 className="pkg2-main-title">Our Packages</h2>
 
               {/* animated indicator */}
               <div id="pkg2-indicator" ref={dotRef} />

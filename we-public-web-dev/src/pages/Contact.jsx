@@ -101,7 +101,7 @@ const FAQItem = ({ question, answer, isOpen, toggle, index }) => (
           style={{ overflow: "hidden" }}
         >
           <div className="faq-answer-content">
-            <p>{answer}</p>
+            <p dangerouslySetInnerHTML={{ __html: answer }} />
           </div>
         </motion.div>
       )}
@@ -139,12 +139,42 @@ export default function Contact() {
   const lineRef   = useRef(null);
 
   const faqs = [
-    { question: "What is WorkshopEdge?", answer: "WorkshopEdge is a modern, all-in-one digital platform built specifically for automobile workshops. It replaces manual processes with a central, structured system that simplifies operations and improves visibility." },
-    { question: "What kind of support do you offer?", answer: "We offer a built-in support ticket system along with training videos and step-by-step guidance to ensure quick assistance and smooth daily usage for your team." },
-    { question: "Is there a way for customers to track their vehicles?", answer: "Yes, we provide a dedicated Customer Experience System. Your customers get a mobile application to view job cards, track service progress, and chat directly with your garage." },
-    { question: "What is the Cloud Storage System?", answer: "WorkshopEdge brings a digital garage locker directly to you. It's an organized system to store all garage-related files, bills, and images easily, completely removing the hassle of scattered records." },
-    { question: "Can customers book appointments online?", answer: "Yes. Customers can schedule service appointments anytime with our built-in appointment scheduling tools, creating a stronger connected experience." },
-    { question: "How does WorkshopEdge help reduce manual work?", answer: "It connects operations, data, inventory, and your digital presence into one structured system. Fast auto-fill features and smart navigation save hours of repeated manual entry daily." },
+    { 
+      question: "What is WorkshopEdge and how is it different?", 
+      answer: "WorkshopEdge is a comprehensive digital command center engineered specifically for modern automobile workshops. Unlike simple invoicing tools, it provides a full digital ecosystem connecting your operations, inventory, customers, and staff into one unified platform. By replacing manual paper trails with a professional database, it offers 360-degree visibility into your business. You get a management dashboard, a professional website for new customers, and mobile apps for both staff and clients, ensuring your garage operates like a high-performance digital powerhouse from day one." 
+    },
+    { 
+      question: "What kind of professional support do you offer?", 
+      answer: "We believe software should be a partner, not a hurdle. We offer an extensive support ecosystem including a built-in ticket system that connects you directly to our technical experts. Additionally, users gain access to a library of training media and step-by-step documentation designed to help your team master the platform within days. Whether you are setting up your first job card or generating a complex year-end financial report, our dedicated support team is always available to ensure your daily garage operations remain smooth, efficient, and completely uninterrupted." 
+    },
+    { 
+      question: "How does the Customer Tracking system work?", 
+      answer: "Transparency is key to loyalty, and WorkshopEdge makes it easy. Your customers receive a dedicated mobile application where they can view live status updates for their vehicles in real-time. From entry to final quality checks, clients stay informed through automated progress bars and digital status updates. They can view their entire service history, download past invoices, and even chat directly with your service advisors. This digital-first approach eliminates repetitive phone calls and builds a level of professional trust that keeps customers coming back to your workshop long-term." 
+    },
+    { 
+      question: "What is the Cloud Storage and Archive System?", 
+      answer: "The Digital Archive Locker is a secure cloud storage system designed to digitize your entire record-keeping process. Instead of hoarding physical folders that get damaged, you can upload digital job cards, vendor bills, and vehicle inspection images directly within the app. Organized by categories, these records are archived and can be accessed within seconds using our advanced search features. This means your garage becomes completely paperless and highly organized, while your critical business data is protected by industry-standard encryption and accessible from any device, anywhere." 
+    },
+    { 
+      question: "Can customers book appointments online?", 
+      answer: "Yes,<br /><br />WorkshopEdge features a powerful two-way appointment system that bridges the gap between your garage and your clients. Customers can book service slots directly through your professional website or their mobile app. These bookings appear instantly on your admin dashboard, allowing you to manage workshop capacity effectively. You can accept, reschedule, or cancel appointments with automated notifications sent back to the customer instantly. This streamlined process ensures a steady flow of vehicles and provides a modern, convenient experience that today's vehicle owners expect from a premium service provider." 
+    },
+    { 
+      question: "How does WorkshopEdge reduce manual work?", 
+      answer: "WorkshopEdge eliminates operational friction by automating the connection between data points. When a job card is created, the system pulls customer history and vehicle details using fast auto-fill technology. When a part is used, the dynamic inventory system automatically deducts the stock and updates your financial records internally. Smart navigation and one-click reporting save your staff hours of repeated data entry and manual calculation every day. By centralizing operations into one structured system, you can focus on technical quality while our software handles the tedious administrative heavy lifting." 
+    },
+    { 
+      question: "How does the dynamic inventory system work?", 
+      answer: "Our dynamic inventory system provides a real-time window into your spare parts. Whenever a part is used on a job card, the inventory is automatically scaled and deducted, providing an instant update on stock levels. The system also maintains detailed records of every supplier, including GST numbers and transaction history. When you restock, simply enter the purchase details, and the system intelligently updates existing levels or creates new items. This end-to-end tracking prevents stockouts, reduces wastage, and ensures your spare parts selling is always profitable and perfectly recorded." 
+    },
+    { 
+      question: "Can I manage multiple garages from one account?", 
+      answer: "Absolutely.<br /><br />WorkshopEdge is built for scale, featuring a specialized Admin Command Center for multi-garage owners. From a single powerful login, you can oversee the performance of every branch, monitor individual revenue, and manage staff roles across all locations. This centralized oversight allows you to compare performance metrics and ensure corporate compliance without visiting each site physically. Whether you own two garages or twenty, WorkshopEdge provides the high-level control and granular detail needed to manage a large-scale automotive service empire effectively with total operational confidence." 
+    },
+    { 
+      question: "Is my data safe and what reports can I get?", 
+      answer: "Data security is our top priority. We utilize advanced encryption and secure cloud protocols to ensure your business records are safe and backed up at all times. Regarding analytics, WorkshopEdge provides a Suite of Advanced Financial Reports. You can generate detailed breakthroughs for total revenue, net profits, miscellaneous expenses, and staff salaries. These reports can be filtered by specific dates, months, or years and across multiple payment modes including CASH, UPI, and CARD. Having this level of data-driven insight allows you to make informed decisions to grow your workshop’s profitability." 
+    },
   ];
 
   useLayoutEffect(() => {
@@ -304,7 +334,7 @@ export default function Contact() {
                 {[
                   { href: "mailto:contact@dev.workshopedge.com", icon: "bi-envelope", label: "contact@dev.workshopedge.com" },
                   { href: "tel:+916361832517",                   icon: "bi-telephone", label: "+91 6361832517" },
-                  { href: "https://wa.me/916361832517",           icon: "bi-whatsapp",  label: "+91 6361832517", external: true },
+                  { href: "https://wa.me/918792482156",           icon: "bi-whatsapp",  label: "+91 8792482156", external: true },
                 ].map((item, i) => (
                   <motion.a
                     key={i}
@@ -397,44 +427,115 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ── WHY WORKSHOPEDGE ─────────────────────────────────────────── */}
-      <section className="why-we-section">
+      {/* ── THE WORKSHOPEDGE ECOSYSTEM ─────────────────────────────────── */}
+      <section className="ecosystem-section">
         <div className="container">
           <Reveal>
-            <div className="section-header">
-              <div className="contact-section-title-wrap">
-                <h2 className="contact-section-title" data-raw="Why WorkshopEdge?">Why WorkshopEdge?</h2>
-              </div>
-              <p className="section-desc">Experience the industry-leading standards that set us apart.</p>
+            <div className="section-header-centered">
+              <span className="eyebrow" style={{ color: 'var(--primary-color)', letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '11px', fontWeight: 700, marginBottom: '12px', display: 'block' }}>Complete Ecosystem</span>
+              <h2 className="contact-section-title" data-raw="Why WorkshopEdge?">Why WorkshopEdge?</h2>
+              <p className="section-desc">A unified platform designed to scale your workshop into a digital powerhouse.</p>
             </div>
           </Reveal>
 
-          <div className="why-we-grid">
-            {[
-              { icon: "bi-headset",     title: "Built-in Support Ticket System", desc: "Training videos and guidance ensure you have quick assistance for smooth usage." },
-              { icon: "bi-cloud-check", title: "Digital Garage Locker",          desc: "A dedicated personal cloud storage system for safely storing all your documents and bills." },
-              { icon: "bi-phone",       title: "Customer Experience System",     desc: "A branded mobile application to keep customers connected directly to your garage." },
-            ].map((card, i) => (
-              <motion.div
-                key={i}
-                className="why-we-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, delay: i * 0.1, ease: "easeOut" }}
-                whileHover={{ y: -10 }}
-              >
+          <div className="ecosystem-grid">
+            {/* Main Pillars */}
+            <div className="ecosystem-main-row">
+              {[
+                { 
+                  icon: "bi-phone-vibrate", 
+                  title: "Mobile App Ecosystem", 
+                  desc: "Dedicated apps for both customers and staff. Customers track live service status, while staff manage jobs and updates seamlessly from the floor.",
+                  color: "#3C95E8"
+                },
+                { 
+                  icon: "bi-globe", 
+                  title: "Professional Website", 
+                  desc: "Get a high-conversion website for your garage. Integrated booking engine directly feeds into your dashboard, turning visitors into loyal customers.",
+                  color: "#5AC8FA"
+                },
+              ].map((card, i) => (
                 <motion.div
-                  className="card-icon-wrapper"
-                  whileHover={{ rotate: -10, scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 320 }}
+                  key={i}
+                  className="ecosystem-card main-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: i * 0.15 }}
+                  whileHover={{ y: -10 }}
                 >
-                  <i className={`bi ${card.icon}`}></i>
+                  <div className="card-icon-blob" style={{ backgroundColor: `${card.color}15` }}>
+                    <i className={`bi ${card.icon}`} style={{ color: card.color }}></i>
+                  </div>
+                  <h3>{card.title}</h3>
+                  <p>{card.desc}</p>
                 </motion.div>
-                <h4>{card.title}</h4>
-                <p>{card.desc}</p>
-              </motion.div>
-            ))}
+              ))}
+            </div>
+
+            {/* Admin Command Center - Featured full width */}
+            <motion.div 
+              className="ecosystem-card featured-card"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9 }}
+            >
+              <div className="featured-content">
+                <div className="featured-text">
+                  <div className="tag">POWERFUL CORE</div>
+                  <h3>Separate Admin Command Center</h3>
+                  <p>A high-performance system for multi-garage owners. Oversee every branch, manage staff permissions, and centralize your operations from a single powerful login. No more jumping between tabs or spreadsheets.</p>
+                  <ul className="featured-list">
+                    <li><i className="bi bi-check-circle-fill"></i> Multi-Garage oversight</li>
+                    <li><i className="bi bi-check-circle-fill"></i> User Roles & Permissions</li>
+                    <li><i className="bi bi-check-circle-fill"></i> Centralized Billing & Compliance</li>
+                  </ul>
+                </div>
+                <div className="featured-visual">
+                  <i className="bi bi-shield-lock-fill"></i>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Supporting Features */}
+            <div className="ecosystem-secondary-grid">
+              {[
+                { 
+                  icon: "bi-database-check", 
+                  title: "Granular Garage Records", 
+                  desc: "Every single job card, purchase, and staff update is recorded with surgical precision. Access detailed history for any garage or customer with one click." 
+                },
+                { 
+                  icon: "bi-pie-chart", 
+                  title: "Advanced Reporting Suite", 
+                  desc: "Comprehensive financial breakthroughs—Revenue, Profit, Expenses, and Salaries. Filter by month, year, or specific dates with multiple payment modes." 
+                },
+                { 
+                  icon: "bi-cloud-plus", 
+                  title: "Digital Archive Locker", 
+                  desc: "A secure cloud storage system to store every document, old record, and image for years. Your data is protected, organized, and always accessible." 
+                },
+              ].map((card, i) => (
+                <motion.div
+                  key={i}
+                  className="ecosystem-card secondary-card"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: i * 0.12 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="mini-icon">
+                    <i className={`bi ${card.icon}`}></i>
+                  </div>
+                  <div>
+                    <h4>{card.title}</h4>
+                    <p>{card.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
