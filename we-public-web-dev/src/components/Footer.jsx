@@ -212,11 +212,11 @@ export default function Footer() {
         .footer-v3-bg-text {
           font-family: 'Brunson', sans-serif;
           font-weight: 800;
-          font-size: clamp(60px, 15vw, 220px);
+          font-size: clamp(55px, 13vw, 218px);
           letter-spacing: -0.05em;
           line-height: 0.75;
           text-align: center;
-          color: rgba(0, 0, 0, 0.03);
+          color: rgba(0, 0, 0, 0.1);
           background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0) 90%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
