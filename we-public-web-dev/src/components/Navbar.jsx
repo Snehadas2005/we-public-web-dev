@@ -150,6 +150,7 @@ export default function Navbar() {
           <Link to="/contact"  style={linkBase}>Contact us</Link>
           <Link to="/cloud"  style={linkBase}>Cloud</Link>
           <Link to="/portal"  style={linkBase}>Portal</Link>
+          <Link to="/website" style={linkBase}>Website</Link>
         </div>
 
         {/* CTA */}

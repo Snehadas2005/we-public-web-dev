@@ -17,6 +17,7 @@ import Media       from "./pages/Media";
 import Cloud       from "./pages/Cloud";
 import Portal      from "./pages/Portal";
 import AppDetails  from "./pages/AppDetails";
+import Website     from "./pages/Website";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -84,10 +85,17 @@ function ContactPage() {
   return <Contact />;
 }
 
-// ── media ───────────────────────────────────────────────────────────────
-function mediaPage() {
+// ── Media ───────────────────────────────────────────────────────────────
+function MediaPage() {
   useEffect(() => { initLenis(); return () => {}; }, []);
-  return <media />;
+  return <Media />;
+}
+
+// ── Website ───────────────────────────────────────────────────────────────
+
+function WebsitePage() {
+  useEffect(() => { initLenis(); return () => {}; }, []);
+  return <Website />;
 }
 
 // ── Cloud ────────────────────────────────────────────────────────────────
@@ -116,10 +124,11 @@ export default function App() {
         <Route path="/"          element={<Home />}        />
         <Route path="/pricing"   element={<PricingPage />} />
         <Route path="/contact"   element={<ContactPage />} />
-        <Route path="/media"    element={<Media />}  />
+        <Route path="/media"     element={<MediaPage />}  />
         <Route path="/cloud"     element={<CloudPage />}   />
         <Route path="/portal"    element={<PortalPage />} />
         <Route path="/app"       element={<AppDetailsPage />} />
+        <Route path="/website"   element={<WebsitePage/>} />
       </Routes>
     </>
   );

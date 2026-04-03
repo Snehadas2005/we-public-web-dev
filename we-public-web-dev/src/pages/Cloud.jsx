@@ -26,7 +26,6 @@ function CloudCanvas() {
     const camera = new THREE.PerspectiveCamera(60, W / H, 0.1, 100);
     camera.position.z = 4.5;
 
-    // Floating particles
     const geo = new THREE.BufferGeometry();
     const count = 320;
     const pos = new Float32Array(count * 3);
@@ -50,7 +49,6 @@ function CloudCanvas() {
     const particles = new THREE.Points(geo, mat);
     scene.add(particles);
 
-    // Wireframe sphere
     const sphGeo = new THREE.SphereGeometry(1.6, 18, 18);
     const sphMat = new THREE.MeshBasicMaterial({
       color: 0x3C95E8,
@@ -61,7 +59,6 @@ function CloudCanvas() {
     const sphere = new THREE.Mesh(sphGeo, sphMat);
     scene.add(sphere);
 
-    // Torus ring
     const torGeo = new THREE.TorusGeometry(2.2, 0.008, 8, 120);
     const torMat = new THREE.MeshBasicMaterial({
       color: 0x3C95E8, transparent: true, opacity: 0.12,
@@ -172,7 +169,6 @@ export default function Cloud() {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    /* Hero animations */
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
     tl.fromTo(heroBadgeRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 })
       .fromTo(heroH1Ref.current,    { opacity: 0, y: 60, filter: 'blur(12px)' },
@@ -180,7 +176,6 @@ export default function Cloud() {
       .fromTo(heroSubRef.current,   { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9 }, '-=0.6')
       .fromTo(heroBtnRef.current,   { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.5');
 
-    /* Stats counter logic */
     document.querySelectorAll('[data-count]').forEach(el => {
       const target = parseInt(el.dataset.count);
       ScrollTrigger.create({
@@ -193,7 +188,6 @@ export default function Cloud() {
       });
     });
 
-    /* General section reveal effects */
     gsap.utils.toArray('.cloud-reveal').forEach((el, i) => {
       gsap.fromTo(el,
         { opacity: 0, y: 56 },
@@ -218,7 +212,6 @@ export default function Cloud() {
       );
     });
 
-    /* Feature cards stagger reveal */
     gsap.fromTo('.feat-card-cloud',
       { opacity: 0, y: 40, scale: 0.95 },
       { opacity: 1, y: 0, scale: 1, duration: 0.75, stagger: 0.1,
@@ -226,14 +219,12 @@ export default function Cloud() {
         scrollTrigger: { trigger: '.feat-cards-grid', start: 'top 82%', once: true } }
     );
 
-    /* Floating file icons reveal */
     gsap.fromTo('.file-float-item',
       { opacity: 0, scale: 0.5, y: 30 },
       { opacity: 1, scale: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'back.out(2)',
         scrollTrigger: { trigger: '.file-float-grid', start: 'top 82%', once: true } }
     );
 
-    /* Ticker animation loop */
     gsap.to('.ticker-inner', { xPercent: -50, duration: 22, ease: 'none', repeat: -1 });
 
     return () => ScrollTrigger.getAll().forEach(t => t.kill());
@@ -368,22 +359,115 @@ export default function Cloud() {
           position: relative; overflow: hidden;
         }
 
-        @media (max-width: 992px) {
-          .use-case-content-grid { flex-direction: column !important; }
-          .use-case-content-grid > div { width: 100% !important; }
-        }
-
         .file-hover-effect:hover {
           background: #EBF5FF !important;
           transform: translateY(-4px);
           box-shadow: 0 8px 20px rgba(60,149,232,0.12);
         }
 
+        /* ══════════════════════════════════════════════════════════
+           TABLET RESPONSIVE (768px – 992px)
+        ══════════════════════════════════════════════════════════ */
+        @media (max-width: 992px) {
+          /* Hero */
+          .hero-flex { flex-direction: column !important; text-align: center; align-items: center !important; gap: 2rem !important; }
+          .hero-canvas-wrap { width: 100% !important; height: 380px !important; margin-top: 0 !important; }
+          .cloud-hero-btn { padding: 14px 28px !important; font-size: 14px !important; }
+
+          /* Use case content */
+          .use-case-content-grid { flex-direction: column !important; }
+          .use-case-content-grid > div { width: 100% !important; }
+
+          /* Bento grid: 2 cols on tablet */
+          .bento-features-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .feat-card-bento { grid-column: span 1 !important; min-height: 280px !important; }
+
+          /* Stats grid */
+          .cloud-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+          /* How it works */
+          .how-it-works-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .how-it-works-grid > div:last-child { border-right: none !important; }
+
+          /* Security section */
+          .security-grid { grid-template-columns: 1fr !important; }
+
+          /* Use case sidebar */
+          .use-case-sidebar { width: 100% !important; }
+          .use-case-main { width: 100% !important; }
+          .use-case-mockup { height: 480px !important; }
+        }
+
+        /* ══════════════════════════════════════════════════════════
+           MOBILE RESPONSIVE (≤ 768px)
+        ══════════════════════════════════════════════════════════ */
         @media (max-width: 768px) {
-          .hero-flex { flex-direction: column !important; text-align: center; align-items: center !important; }
-          .hero-canvas-wrap { width: 100% !important; height: 300px !important; }
-          .use-tabs-wrap { flex-wrap: wrap; }
-          .plans-grid { grid-template-columns: 1fr !important; }
+          /* Hero */
+          .hero-flex { flex-direction: column !important; text-align: center; align-items: center !important; gap: 1.5rem !important; padding: 40px 16px 20px !important; }
+          .hero-canvas-wrap { width: 100% !important; height: 280px !important; }
+          .hero-badge-wrap { justify-content: center !important; }
+          .cloud-hero-btn-wrap { justify-content: center !important; flex-wrap: wrap; gap: 10px !important; }
+          .cloud-hero-btn { padding: 13px 22px !important; font-size: 13px !important; }
+          .hero-trust-badges { justify-content: center !important; flex-wrap: wrap; gap: 12px !important; }
+
+          /* File explorer mock inside hero */
+          .hero-file-mock { display: none !important; }
+
+          /* Ticker */
+          .ticker-item { padding: 0 20px !important; font-size: 11px !important; }
+
+          /* Stats */
+          .cloud-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1px !important; }
+          .cloud-stat-item { padding: 28px 16px !important; }
+
+          /* Features bento — single column */
+          .bento-features-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+          .feat-card-bento { grid-column: span 1 !important; min-height: auto !important; padding: 28px !important; }
+          .cloud-features-section { padding: 60px 16px !important; }
+
+          /* Use cases section */
+          .cloud-use-cases-section { padding: 60px 16px !important; }
+          .use-case-content-grid { flex-direction: column !important; gap: 24px !important; }
+          .use-case-sidebar { width: 100% !important; }
+          .use-case-sidebar-inner { flex-direction: column !important; gap: 12px !important; }
+          .use-case-sidebar-item { padding: 16px 20px !important; }
+          .use-case-main-workspace { height: auto !important; min-height: 360px !important; }
+          .use-case-mockup-content { flex-direction: column !important; }
+          .use-case-mockup-sidebar { display: none !important; }
+          .use-case-main { width: 100% !important; }
+          /* Tabs on mobile */
+          .use-case-tabs-scroll { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 6px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+          .use-case-tabs-scroll::-webkit-scrollbar { display: none; }
+          .use-case-tab { padding: 10px 18px !important; font-size: 12px !important; flex-shrink: 0; }
+
+          /* How it works */
+          .how-it-works-section { padding: 60px 16px !important; }
+          .how-it-works-grid { grid-template-columns: 1fr !important; }
+          .how-it-works-step { border-right: none !important; border-bottom: 1px solid rgba(0,0,0,0.06) !important; padding: 28px 20px !important; }
+          .how-it-works-step:last-child { border-bottom: none !important; }
+
+          /* Security section */
+          .security-section { padding: 60px 16px !important; }
+          .security-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+          /* CTA section */
+          .cloud-cta-section { padding: 60px 16px !important; }
+          .cloud-cta-btn-wrap { flex-direction: column !important; align-items: center !important; }
+          .cloud-cta-btn-wrap .cloud-hero-btn { width: 100%; max-width: 280px; justify-content: center; }
+
+          /* Section headers */
+          .cloud-section-header { margin-bottom: 40px !important; }
+          .cloud-section-header h2 { font-size: clamp(26px, 7vw, 36px) !important; }
+
+          /* Stats text */
+          .cloud-stat-value { font-size: clamp(28px, 8vw, 42px) !important; }
+        }
+
+        /* Very small screens */
+        @media (max-width: 400px) {
+          .cloud-stats-grid { grid-template-columns: 1fr 1fr !important; }
+          .hero-canvas-wrap { height: 220px !important; }
+          .hero-file-mock { padding: 16px !important; }
         }
       `}</style>
 
@@ -397,19 +481,21 @@ export default function Cloud() {
           display: 'flex', alignItems: 'center',
         }}
       >
-        {/* Background grid */}
         <div style={{
           position: 'absolute', inset: 0, zIndex: 0,
           backgroundImage: 'radial-gradient(circle, rgba(60,149,232,0.07) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
         }} />
+        {/* Decorative Glowing Orbs */}
+        <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '60vw', height: '60vw', background: '#3C95E8', filter: 'blur(100px)', opacity: 0.2, borderRadius: '50%', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '50vw', height: '50vw', background: '#8B5CF6', filter: 'blur(100px)', opacity: 0.1, borderRadius: '50%', zIndex: 0 }} />
 
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '60px 24px', position: 'relative', zIndex: 1, width: '100%' }}>
           <div className="hero-flex" style={{ display: 'flex', alignItems: 'center', gap: '4rem' }}>
 
             {/* LEFT */}
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div ref={heroBadgeRef} style={{ opacity: 0, display: 'inline-flex', alignItems: 'center', gap: 8, background: '#E8F4FF', border: '1px solid rgba(60,149,232,0.25)', borderRadius: 100, padding: '7px 18px', marginBottom: 28 }}>
+              <div ref={heroBadgeRef} className="hero-badge-wrap" style={{ opacity: 0, display: 'inline-flex', alignItems: 'center', gap: 8, background: '#E8F4FF', border: '1px solid rgba(60,149,232,0.25)', borderRadius: 100, padding: '7px 18px', marginBottom: 28 }}>
                 <i className="bi bi-cloud-fill" style={{ color: '#3C95E8', fontSize: 13 }} />
                 <span style={{ fontSize: 12, fontWeight: 700, color: '#3C95E8', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: "'Epilogue',sans-serif" }}>Digital Archive Locker</span>
               </div>
@@ -418,19 +504,19 @@ export default function Cloud() {
                 ref={heroH1Ref}
                 style={{
                   opacity: 0, fontFamily: "'Epilogue',sans-serif", fontWeight: 900,
-                  fontSize: 'clamp(42px, 5.5vw, 80px)', lineHeight: 0.97,
+                  fontSize: 'clamp(36px, 5.5vw, 80px)', lineHeight: 0.97,
                   letterSpacing: '-0.04em', color: '#0a0f1e', margin: '0 0 28px',
                 }}
               >
                 Your garage,<br />
-                <span style={{ color: '#3C95E8' }}>archived</span><br />
+                <span style={{ background: 'linear-gradient(135deg, #3C95E8 0%, #60A5FA 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', paddingBottom: '0.1em' }}>archived</span><br />
                 <span style={{ fontWeight: 400, color: '#6B7280', fontSize: '0.75em' }}>in the cloud.</span>
               </h1>
 
               <p
                 ref={heroSubRef}
                 style={{
-                  opacity: 0, fontSize: 'clamp(15px, 1.2vw, 18px)', color: '#4B5563',
+                  opacity: 0, fontSize: 'clamp(14px, 1.2vw, 18px)', color: '#4B5563',
                   lineHeight: 1.75, maxWidth: 460, marginBottom: 40,
                   fontFamily: "'Epilogue',sans-serif",
                 }}
@@ -438,7 +524,7 @@ export default function Cloud() {
                 WorkshopEdge Cloud gives your garage a secure, organized digital space to store every file, folder, expense records, photos and documents — accessible anytime.
               </p>
 
-              <div ref={heroBtnRef} style={{ opacity: 0, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+              <div ref={heroBtnRef} className="cloud-hero-btn-wrap" style={{ opacity: 0, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                 <Link to="/contact" className="cloud-hero-btn primary">
                   <i className="bi bi-cloud-upload-fill" /> Get Cloud Storage
                 </Link>
@@ -447,16 +533,15 @@ export default function Cloud() {
                 </Link>
               </div>
 
-              {/* Trust badges */}
-              <div style={{ display: 'flex', gap: 24, marginTop: 48, flexWrap: 'wrap' }}>
+              <div className="hero-trust-badges" style={{ display: 'flex', gap: 10, marginTop: 40, flexWrap: 'wrap' }}>
                 {[
                   { icon: 'bi-shield-check', label: 'AES-256 Encrypted' },
-                  { icon: 'bi-hdd-fill', label: '99.9% Uptime SLA' },
+                  { icon: 'bi-hdd-fill', label: '99.9% Uptime' },
                   { icon: 'bi-phone', label: 'Mobile Ready' },
                 ].map(({ icon, label }) => (
-                  <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                    <i className={`bi ${icon}`} style={{ color: '#3C95E8', fontSize: 14 }} />
-                    <span style={{ fontSize: 12.5, color: '#6B7280', fontWeight: 600, fontFamily: "'Epilogue',sans-serif" }}>{label}</span>
+                  <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(10px)', borderRadius: 100, border: '1px solid rgba(60,149,232,0.15)', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <i className={`bi ${icon}`} style={{ color: '#3C95E8', fontSize: 13 }} />
+                    <span style={{ fontSize: 11.5, color: '#374151', fontWeight: 700, letterSpacing: '0.02em', fontFamily: "'Epilogue',sans-serif" }}>{label}</span>
                   </div>
                 ))}
               </div>
@@ -470,17 +555,18 @@ export default function Cloud() {
               <CloudCanvas />
 
               {/* Floating file explorer mock */}
-              <div style={{
-                position: 'absolute', top: '50%', left: '50%',
-                transform: 'translate(-50%, -50%)',
-                background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(20px)',
-                borderRadius: 24, padding: '28px 28px 22px',
-                boxShadow: '0 32px 80px rgba(0,0,0,0.16)',
-                width: 'min(400px, 90%)', border: '1px solid rgba(255,255,255,0.8)',
-                zIndex: 2,
-                animation: 'floatY 10s ease-in-out infinite',
-              }}>
-                {/* Window chrome */}
+              <div
+                className="hero-file-mock"
+                style={{
+                  position: 'absolute', top: '50%', left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(20px)',
+                  borderRadius: 24, padding: '28px 28px 22px',
+                  boxShadow: '0 32px 80px rgba(0,0,0,0.16)',
+                  width: 'min(400px, 90%)', border: '1px solid rgba(255,255,255,0.8)',
+                  zIndex: 2,
+                  animation: 'floatY 10s ease-in-out infinite',
+                }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 18 }}>
                   {['#FF5F57','#FEBC2E','#28C840'].map(c => (
                     <div key={c} style={{ width: 11, height: 11, borderRadius: '50%', background: c }} />
@@ -490,7 +576,6 @@ export default function Cloud() {
                   </div>
                 </div>
 
-                {/* Header */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
                   <span style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 700, fontSize: 15, color: '#111' }}>My Garage Archive</span>
                   <div style={{ display: 'flex', gap: 6 }}>
@@ -503,7 +588,6 @@ export default function Cloud() {
                   </div>
                 </div>
 
-                {/* File rows */}
                 {[
                   { name: 'Vendor_Bill_March.pdf',      size: '245 KB', type: 'pdf',  time: '2m ago' },
                   { name: 'Expense_Record_2026.pdf',    size: '156 KB', type: 'pdf',  time: '15m ago' },
@@ -526,7 +610,6 @@ export default function Cloud() {
                   </div>
                 ))}
 
-                {/* Storage bar */}
                 <div style={{ marginTop: 16, padding: '12px 0 0', borderTop: '1px solid #F3F4F6' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
                     <span style={{ fontSize: 11, color: '#9CA3AF', fontFamily: "'Epilogue',sans-serif" }}>Storage used</span>
@@ -560,16 +643,16 @@ export default function Cloud() {
       {/* Stats Section */}
       <section style={{ padding: '80px 24px', background: '#fff' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2px', background: 'rgba(0,0,0,0.06)', borderRadius: 20, overflow: 'hidden' }}>
+          <div className="cloud-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2px', background: 'rgba(0,0,0,0.06)', borderRadius: 20, overflow: 'hidden' }}>
             {[
               { val: 500, suffix: '+', label: 'Garages Archiving', icon: 'bi-buildings' },
               { val: 99,  suffix: '.9%', label: 'Uptime Guarantee', icon: 'bi-lightning' },
               { val: 5,  suffix: 'GB',  label: 'Storage Per Garage', icon: 'bi-hdd-stack' },
               { val: 256, suffix: '-bit', label: 'AES Encryption', icon: 'bi-shield-lock' },
             ].map(({ val, suffix, label, icon }, i) => (
-              <div key={i} className="cloud-reveal" style={{ background: '#fff', padding: '40px 32px', textAlign: 'center' }}>
+              <div key={i} className="cloud-reveal cloud-stat-item" style={{ background: '#fff', padding: '40px 32px', textAlign: 'center' }}>
                 <i className={`bi ${icon}`} style={{ fontSize: 26, color: '#3C95E8', marginBottom: 14, display: 'block' }} />
-                <div style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 900, fontSize: 'clamp(36px,4vw,52px)', letterSpacing: '-0.04em', color: '#0a0f1e', lineHeight: 1 }}>
+                <div className="cloud-stat-value" style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 900, fontSize: 'clamp(36px,4vw,52px)', letterSpacing: '-0.04em', color: '#0a0f1e', lineHeight: 1 }}>
                   <span data-count={val} data-suffix={suffix}>0{suffix}</span>
                 </div>
                 <div style={{ fontSize: 13, color: '#9CA3AF', fontFamily: "'Epilogue',sans-serif", fontWeight: 600, marginTop: 6, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{label}</div>
@@ -580,14 +663,14 @@ export default function Cloud() {
       </section>
 
       {/* Core Features Bento Hub */}
-      <section style={{ padding: '120px 24px', background: '#f0f6fcff' }}>
+      <section className="cloud-features-section" style={{ padding: '120px 24px', background: '#f0f6fcff' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div className="cloud-reveal" style={{ textAlign: 'center', marginBottom: 72 }}>
+          <div className="cloud-reveal cloud-section-header" style={{ textAlign: 'center', marginBottom: 72 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#fff', border: '1px solid rgba(60,149,232,0.15)', borderRadius: 100, padding: '8px 20px', marginBottom: 20, boxShadow: '0 4px 12px rgba(60,149,232,0.08)' }}>
               <i className="bi bi-gear-fill" style={{ color: '#3C95E8', fontSize: 13 }} />
               <span style={{ fontSize: 11, fontWeight: 800, color: '#3C95E8', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: "'Epilogue',sans-serif" }}>Built for Workshop Operations</span>
             </div>
-            <h2 style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 900, fontSize: 'clamp(32px, 5vw, 56px)', letterSpacing: '-0.04em', color: '#0a0f1e', margin: '0 0 20px', lineHeight: 1.1 }}>
+            <h2 style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 900, fontSize: 'clamp(26px, 5vw, 56px)', letterSpacing: '-0.04em', color: '#0a0f1e', margin: '0 0 20px', lineHeight: 1.1 }}>
               Everything your garage needs,<br />
               <span style={{ color: '#3C95E8' }}>securely harmonized.</span>
             </h2>
@@ -619,14 +702,13 @@ export default function Cloud() {
                     minHeight: isLarge ? '340px' : '320px'
                   }}
                 >
-                  {/* Subtle Background Icon */}
-                  <i 
-                    className={`bi ${f.icon}`} 
-                    style={{ 
-                      position: 'absolute', right: -20, bottom: -20, 
+                  <i
+                    className={`bi ${f.icon}`}
+                    style={{
+                      position: 'absolute', right: -20, bottom: -20,
                       fontSize: 160, color: f.color, opacity: 0.04,
                       transform: 'rotate(-15deg)', pointerEvents: 'none'
-                    }} 
+                    }}
                   />
 
                   <div style={{ position: 'relative', zIndex: 1 }}>
@@ -644,7 +726,6 @@ export default function Cloud() {
                     </p>
                   </div>
 
-                  {/* Decorative element for large cards */}
                   {isLarge && (
                     <div style={{ position: 'relative', zIndex: 1, marginTop: 24, display: 'flex', gap: 8 }}>
                        {[1, 2, 3].map(j => (
@@ -652,7 +733,7 @@ export default function Cloud() {
                        ))}
                     </div>
                   )}
-                  
+
                   {!isLarge && (
                      <div style={{ position: 'relative', zIndex: 1, marginTop: 24 }}>
                         <div style={{ width: 40, height: 2, background: `${f.color}40`, borderRadius: 2 }} />
@@ -669,40 +750,44 @@ export default function Cloud() {
               box-shadow: 0 30px 60px rgba(0,0,0,0.08);
               border-color: rgba(60,149,232,0.2);
             }
-            @media (max-width: 992px) {
-              .bento-features-grid { grid-template-columns: repeat(2, 1fr) !important; }
-              .feat-card-bento { grid-column: span 1 !important; min-height: 280px !important; }
-            }
-            @media (max-width: 640px) {
-              .bento-features-grid { grid-template-columns: 1fr !important; }
-              .feat-card-bento { padding: 28px !important; }
-            }
           `}</style>
         </div>
       </section>
 
-      {/* Use Cases Workspace Redesign */}
-      <section style={{ padding: '120px 24px', background: '#F8FAFC', position: 'relative', overflow: 'hidden' }}>
-        {/* Background abstract shapes */}
+      {/* Use Cases Workspace */}
+      <section className="cloud-use-cases-section" style={{ padding: '120px 24px', background: '#F8FAFC', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(60,149,232,0.05) 0%, transparent 70%)', filter: 'blur(60px)', zIndex: 0 }} />
-        <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(16,185,129,0.03) 0%, transparent 70%)', filter: 'blur(60px)', zIndex: 0 }} />
 
         <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          <div className="cloud-reveal" style={{ marginBottom: 64 }}>
+          <div className="cloud-reveal cloud-section-header" style={{ marginBottom: 64 }}>
             <span style={{ display: 'block', fontSize: 13, fontWeight: 700, color: '#3C95E8', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 12, fontFamily: "'Epilogue',sans-serif" }}>Interactive Workspace</span>
-            <h2 style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 900, fontSize: 'clamp(32px, 4vw, 56px)', letterSpacing: '-0.04em', color: '#0a0f1e', margin: 0, lineHeight: 1.1 }}>
+            <h2 style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 900, fontSize: 'clamp(26px, 4vw, 56px)', letterSpacing: '-0.04em', color: '#0a0f1e', margin: 0, lineHeight: 1.1 }}>
               Tailored for <span style={{ color: '#3C95E8' }}>Automotive workflow.</span>
             </h2>
           </div>
 
-          <div style={{ display: 'flex', gap: 40, alignItems: 'flex-start' }} className="use-case-content-grid">
-            
-            {/* LEFT: Sidebar Navigation */}
-            <div style={{ width: '380px', flexShrink: 0 }} className="cloud-reveal-left">
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* Mobile tab strip */}
+          <div className="use-case-tabs-scroll" style={{ display: 'none', marginBottom: 20 }}>
+            {useCases.map((u, i) => (
+              <div
+                key={i}
+                className={`use-case-tab ${activeTab === i ? 'active' : ''}`}
+                onClick={() => setActiveTab(i)}
+              >
+                {u.title}
+              </div>
+            ))}
+          </div>
+
+          <div className="use-case-content-grid" style={{ display: 'flex', gap: 40, alignItems: 'flex-start' }}>
+
+            {/* LEFT: Sidebar */}
+            <div className="use-case-sidebar cloud-reveal-left" style={{ width: '380px', flexShrink: 0 }}>
+              <div className="use-case-sidebar-inner" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {useCases.map((u, i) => (
                   <div
                     key={i}
+                    className="use-case-sidebar-item"
                     onClick={() => setActiveTab(i)}
                     style={{
                       padding: '24px 28px',
@@ -717,7 +802,6 @@ export default function Cloud() {
                       overflow: 'hidden'
                     }}
                   >
-                    {/* Active indicator bar */}
                     {activeTab === i && (
                       <div style={{ position: 'absolute', left: 0, top: '20%', bottom: '20%', width: 4, background: '#3C95E8', borderRadius: '0 4px 4px 0' }} />
                     )}
@@ -745,7 +829,6 @@ export default function Cloud() {
                 ))}
               </div>
 
-              {/* Secure badge */}
               <div style={{ marginTop: 40, padding: '24px', borderRadius: 24, background: 'rgba(60,149,232,0.04)', border: '1px dashed rgba(60,149,232,0.2)', display: 'flex', alignItems: 'center', gap: 16 }}>
                 <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <i className="bi bi-shield-fill-check" style={{ color: '#3C95E8', fontSize: 18 }} />
@@ -757,69 +840,69 @@ export default function Cloud() {
               </div>
             </div>
 
-            {/* RIGHT: Main Workspace View */}
-            <div style={{ flex: 1, minWidth: 0 }} className="cloud-reveal-right">
-              <div style={{
-                background: '#fff',
-                borderRadius: 32,
-                boxShadow: '0 40px 100px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.02)',
-                height: '620px',
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'hidden',
-                position: 'relative'
-              }}>
-                {/* Mock Browser Header */}
-                <div style={{ 
-                  height: 64, borderBottom: '1px solid #F1F5F9', display: 'flex', 
+            {/* RIGHT: Main Workspace */}
+            <div className="use-case-main cloud-reveal-right" style={{ flex: 1, minWidth: 0 }}>
+              <div
+                className="use-case-main-workspace"
+                style={{
+                  background: '#fff',
+                  borderRadius: 32,
+                  boxShadow: '0 40px 100px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.02)',
+                  height: '620px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflow: 'hidden',
+                  position: 'relative'
+                }}>
+                {/* Browser Header */}
+                <div style={{
+                  height: 64, borderBottom: '1px solid #F1F5F9', display: 'flex',
                   alignItems: 'center', justifyContent: 'space-between', padding: '0 28px',
-                  background: '#FCFDFF'
+                  background: '#FCFDFF', flexShrink: 0
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
                      <div style={{ display: 'flex', gap: 8 }}>
                        {[1, 2, 3].map(j => <div key={j} style={{ width: 10, height: 10, borderRadius: '50%', background: '#E2E8F0' }} />)}
                      </div>
-                     <div style={{ height: 32, width: 240, background: '#F1F5F9', borderRadius: 8, display: 'flex', alignItems: 'center', padding: '0 12px', gap: 8 }}>
+                     <div style={{ height: 32, width: 'min(240px, 35vw)', background: '#F1F5F9', borderRadius: 8, display: 'flex', alignItems: 'center', padding: '0 12px', gap: 8 }}>
                        <i className="bi bi-search" style={{ fontSize: 11, color: '#94A3B8' }} />
-                       <div style={{ fontSize: 10, color: '#94A3B8', fontFamily: 'monospace' }}>archive/CloudStorage/ ...</div>
+                       <div style={{ fontSize: 10, color: '#94A3B8', fontFamily: 'monospace', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>archive/CloudStorage/</div>
                      </div>
                   </div>
-                  <div style={{ display: 'flex', gap: 12 }}>
+                  <div style={{ display: 'flex', gap: 8 }}>
                     <div style={{ width: 34, height: 34, borderRadius: 8, background: '#E0F2FE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <i className="bi bi-cloud-upload" style={{ color: '#3C95E8', fontSize: 14 }} />
                     </div>
-                    <div style={{ height: 34, padding: '0 14px', borderRadius: 8, background: '#3C95E8', color: '#fff', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6, fontFamily: "'Epilogue',sans-serif" }}>
+                    <div style={{ height: 34, padding: '0 14px', borderRadius: 8, background: '#3C95E8', color: '#fff', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6, fontFamily: "'Epilogue',sans-serif", whiteSpace: 'nowrap' }}>
                       New Folder
                     </div>
                   </div>
                 </div>
 
                 {/* Content Area */}
-                <div style={{ flex: 1, display: 'flex' }}>
+                <div className="use-case-mockup-content" style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
                    {/* Main list */}
-                   <div style={{ flex: 1, padding: 32, borderRight: '1px solid #F1F5F9' }}>
+                   <div style={{ flex: 1, padding: 'clamp(16px, 3vw, 32px)', borderRight: '1px solid #F1F5F9', overflowY: 'auto' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24 }}>
                         <h5 style={{ margin: 0, fontFamily: "'Epilogue',sans-serif", fontWeight: 800, fontSize: 18 }}>{useCases[activeTab].title}</h5>
-                        <span style={{ fontSize: 12, color: '#94A3B8', fontWeight: 600 }}>12 Files Found</span>
+                        <span style={{ fontSize: 12, color: '#94A3B8', fontWeight: 600 }}>12 Files</span>
                       </div>
 
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: 24 }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: 20 }}>
                         {useCases[activeTab].files.map((file, idx) => (
-                          <div key={idx} style={{ 
-                            textAlign: 'center', 
+                          <div key={idx} style={{
+                            textAlign: 'center',
                             animation: `floatY ${8 + (idx * 2)}s ease-in-out infinite`
                           }}>
-                            <div style={{ padding: 16, borderRadius: 20, background: '#F8FAFC', marginBottom: 12, transition: 'all 0.3s', cursor: 'pointer' }} 
+                            <div style={{ padding: 16, borderRadius: 20, background: '#F8FAFC', marginBottom: 12, transition: 'all 0.3s', cursor: 'pointer' }}
                                  className="file-hover-effect">
                               <FileIcon type={file} delay={idx * 0.15} />
                             </div>
                             <div style={{ fontSize: 11, fontWeight: 700, color: '#1E293B', fontFamily: "'Epilogue',sans-serif" }}>
                               {file === 'folder' ? 'Project_Data' : `Record_0${idx+1}.${file}`}
                             </div>
-                            <div style={{ fontSize: 10, color: '#94A3B8' }}>{Math.floor(Math.random()*800)} KB</div>
                           </div>
                         ))}
-                        {/* Placeholder files for visual density */}
                         {[1, 2, 3].map(p => (
                           <div key={p} style={{ opacity: 0.3, textAlign: 'center' }}>
                             <div style={{ padding: 16, borderRadius: 20, background: '#F8FAFC', marginBottom: 12 }}>
@@ -832,24 +915,18 @@ export default function Cloud() {
                    </div>
 
                    {/* Sidebar inside mockup */}
-                   <div style={{ width: 220, background: '#FCFDFF', padding: 24 }}>
+                   <div className="use-case-mockup-sidebar" style={{ width: 220, background: '#FCFDFF', padding: 24, flexShrink: 0 }}>
                       <div style={{ marginBottom: 32 }}>
                         <div style={{ fontSize: 11, fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 16 }}>Preview</div>
                         <div style={{ width: '100%', aspectRatio: '4/3', borderRadius: 12, background: '#F1F5F9', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <i className={`bi ${useCases[activeTab].icon}`} style={{ fontSize: 32, color: '#CBD5E1' }} />
                         </div>
                       </div>
-
                       <div style={{ marginBottom: 32 }}>
                         <div style={{ fontSize: 11, fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 16 }}>Storage Stats</div>
                         <StorageBar label="Current Category" pct={68} color="#3C95E8" />
-                        <div style={{ fontSize: 10, color: '#6B7280', marginTop: 8, fontFamily: "'Epilogue',sans-serif" }}>Highly utilized in your region.</div>
                       </div>
-
-                      <div style={{ 
-                        padding: 16, borderRadius: 16, background: '#0a0f1e', color: '#fff',
-                        boxShadow: '0 10px 20px rgba(0,0,0,0.15)'
-                      }}>
+                      <div style={{ padding: 16, borderRadius: 16, background: '#0a0f1e', color: '#fff', boxShadow: '0 10px 20px rgba(0,0,0,0.15)' }}>
                         <div style={{ fontSize: 10, fontWeight: 700, opacity: 0.6, marginBottom: 4 }}>SECURITY TOKEN</div>
                         <div style={{ fontSize: 11, fontFamily: 'monospace', letterSpacing: '0.1em' }}>WSX-RE-8821</div>
                         <div style={{ width: '100%', height: 2, background: 'rgba(255,255,255,0.1)', margin: '12px 0' }} />
@@ -868,23 +945,23 @@ export default function Cloud() {
       </section>
 
       {/* How It Works Section */}
-      <section style={{ padding: '100px 24px', background: '#F8FAFC' }}>
+      <section className="how-it-works-section" style={{ padding: '100px 24px', background: '#F8FAFC' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div className="cloud-reveal" style={{ textAlign: 'center', marginBottom: 64 }}>
+          <div className="cloud-reveal cloud-section-header" style={{ textAlign: 'center', marginBottom: 64 }}>
             <span style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#3C95E8', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 14, fontFamily: "'Epilogue',sans-serif" }}>Simple to Get Started</span>
-            <h2 style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 800, fontSize: 'clamp(28px,3.5vw,48px)', letterSpacing: '-0.03em', color: '#0a0f1e', margin: 0 }}>
+            <h2 style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 800, fontSize: 'clamp(24px,3.5vw,48px)', letterSpacing: '-0.03em', color: '#0a0f1e', margin: 0 }}>
               Up and running in minutes.
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 0, position: 'relative' }}>
+          <div className="how-it-works-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 0, position: 'relative' }}>
             {[
               { num: '01', icon: 'bi-person-check-fill', title: 'Subscribe to a Plan', desc: 'Choose any WorkshopEdge plan — Cloud is included with Prime and Enterprise.' },
               { num: '02', icon: 'bi-archive-fill', title: 'Create Your Archive', desc: 'Set up folders for expenses, photos, records, and documents in seconds.' },
               { num: '03', icon: 'bi-upload', title: 'Upload Your Files', desc: 'Drag & drop from desktop or capture directly from your mobile camera.' },
               { num: '04', icon: 'bi-phone-vibrate-fill', title: 'Access Anywhere', desc: 'View, download, and share files from any device — on the floor or off-site.' },
             ].map((step, i) => (
-              <div key={i} className="cloud-reveal" style={{
+              <div key={i} className="cloud-reveal how-it-works-step" style={{
                 padding: '40px 32px', position: 'relative',
                 borderRight: i < 3 ? '1px solid rgba(0,0,0,0.06)' : 'none',
               }}>
@@ -903,12 +980,12 @@ export default function Cloud() {
       </section>
 
       {/* Security Details Section */}
-      <section style={{ padding: '100px 24px', background: '#E5F1FF' }}>
+      <section className="security-section" style={{ padding: '100px 24px', background: '#E5F1FF' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
+          <div className="security-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
             <div className="cloud-reveal-left">
               <span style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#3C95E8', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 14, fontFamily: "'Epilogue',sans-serif" }}>Enterprise-Grade Security</span>
-              <h2 style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 800, fontSize: 'clamp(28px,3vw,44px)', letterSpacing: '-0.03em', color: '#0a0f1e', margin: '0 0 20px', lineHeight: 1.1 }}>
+              <h2 style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 800, fontSize: 'clamp(24px,3vw,44px)', letterSpacing: '-0.03em', color: '#0a0f1e', margin: '0 0 20px', lineHeight: 1.1 }}>
                 Your data is safe.<br />
                 <span style={{ color: '#3C95E8' }}>Always.</span>
               </h2>
@@ -933,10 +1010,8 @@ export default function Cloud() {
             </div>
 
             <div className="cloud-reveal-right">
-              <div className="storage-card" style={{ padding: 40, background: '#fff', border: '1px solid rgba(60,149,232,0.12)', boxShadow: '0 20px 50px rgba(60,149,232,0.08)' }}>
-                {/* Glowing orb */}
+              <div style={{ padding: 40, background: '#fff', borderRadius: 32, border: '1px solid rgba(60,149,232,0.12)', boxShadow: '0 20px 50px rgba(60,149,232,0.08)', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)', width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(60,149,232,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
-
                 <div style={{ position: 'relative', zIndex: 1 }}>
                   <div style={{ textAlign: 'center', marginBottom: 32 }}>
                     <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(60,149,232,0.1)', border: '2px solid rgba(60,149,232,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
@@ -945,7 +1020,6 @@ export default function Cloud() {
                     <div style={{ fontFamily: "'Epilogue',sans-serif", fontWeight: 800, fontSize: 18, color: '#0a0f1e' }}>Security Status</div>
                     <div style={{ fontSize: 12, color: '#9CA3AF', fontFamily: "'Epilogue',sans-serif", marginTop: 4 }}>All systems operational</div>
                   </div>
-
                   {[
                     { label: 'Encryption', status: 'Active', ok: true },
                     { label: 'Backup', status: 'Last: 2h ago', ok: true },
@@ -970,30 +1044,30 @@ export default function Cloud() {
         </div>
       </section>
 
-      {/* Ready To Start CTA Section */}
-      <section style={{ padding: '100px 24px', background: '#E5F1FF', borderTop: '1px solid rgba(0,0,0,0.03)' }}>
+      {/* CTA Section */}
+      <section className="cloud-cta-section" style={{ padding: '100px 24px', background: '#E5F1FF', borderTop: '1px solid rgba(0,0,0,0.03)' }}>
         <div className="cloud-reveal" style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ 
-            fontFamily: "'Epilogue', sans-serif", 
-            fontWeight: 800, 
-            fontSize: 'clamp(28px, 4vw, 44px)', 
-            letterSpacing: '-0.02em', 
-            color: '#0a0f1e', 
-            marginBottom: '16px' 
+          <h2 style={{
+            fontFamily: "'Epilogue', sans-serif",
+            fontWeight: 800,
+            fontSize: 'clamp(24px, 4vw, 44px)',
+            letterSpacing: '-0.02em',
+            color: '#0a0f1e',
+            marginBottom: '16px'
           }}>
             Ready to digitize your workshop?
           </h2>
-          <p style={{ 
-            fontSize: 'clamp(15px, 1.2vw, 18px)', 
-            color: '#6B7280', 
-            maxWidth: '560px', 
-            margin: '0 auto 40px', 
-            lineHeight: 1.6, 
-            fontFamily: "'Epilogue', sans-serif" 
+          <p style={{
+            fontSize: 'clamp(14px, 1.2vw, 18px)',
+            color: '#6B7280',
+            maxWidth: '560px',
+            margin: '0 auto 40px',
+            lineHeight: 1.6,
+            fontFamily: "'Epilogue', sans-serif"
           }}>
             Join 500+ garages leveraging WorkshopEdge Cloud for a safer, faster, and paperless business.
           </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
+          <div className="cloud-cta-btn-wrap" style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
             <Link to="/contact" className="cloud-hero-btn primary">
               Start Today <i className="bi bi-arrow-right" style={{ marginLeft: '8px' }} />
             </Link>
@@ -1002,6 +1076,17 @@ export default function Cloud() {
       </section>
 
       <Footer />
+
+      {/* Mobile-specific overrides for use-case tabs visibility */}
+      <style>{`
+        @media (max-width: 768px) {
+          .use-case-tabs-scroll { display: flex !important; }
+          .use-case-sidebar { display: none !important; }
+        }
+        @media (min-width: 769px) {
+          .use-case-tabs-scroll { display: none !important; }
+        }
+      `}</style>
     </div>
   );
 }

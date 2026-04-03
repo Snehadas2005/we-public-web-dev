@@ -288,6 +288,7 @@ export default function Footer() {
                 <li><Link to="/app">App</Link></li>
                 <li><Link to="/cloud">Cloud</Link></li>
                 <li><Link to="/portal">Portal</Link></li>
+                <li><Link to="/website">Website</Link></li>
               </ul>
             </div>
 
