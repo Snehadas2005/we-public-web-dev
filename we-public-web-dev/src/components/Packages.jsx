@@ -124,7 +124,7 @@ export default function Packages() {
           }
         });
 
-        gsap.from(".website-preview", {
+        gsap.from(".domain-preview", {
           opacity: 0,
           x: 40,
           y: 40,
@@ -323,7 +323,7 @@ export default function Packages() {
           position: relative;
         }
 
-        .website-preview {
+        .domain-preview {
           width: 100%;
           height: auto;
           border-radius: 16px;
@@ -440,7 +440,7 @@ export default function Packages() {
           overflow: hidden;
         }
 
-        .pkg-mobile-website-img {
+        .pkg-mobile-domain-img {
           position: absolute;
           top: 0;
           left: 0;
@@ -562,7 +562,7 @@ export default function Packages() {
             <div id="pkg2-right">
               <div className="dashboard-preview-wrapper">
                 <div className="dashboard-preview">
-                  <img src="/website-preview.png" alt="Website Preview" className="website-preview" />
+                  <img src="/domain-preview.png" alt="Domain Preview" className="domain-preview" />
                   <img src="/mobile-preview.png" alt="Mobile Preview" className="mobile-preview" />
                 </div>
               </div>
@@ -596,9 +596,9 @@ export default function Packages() {
                     />
                     <div className="pkg-mobile-card-previews">
                       <img
-                        src="/website-preview.png"
+                        src="/domain-preview.png"
                         alt="Dashboard Preview"
-                        className="pkg-mobile-website-img"
+                        className="pkg-mobile-domain-img"
                       />
                       <img
                         src="/mobile-preview.png"
@@ -610,7 +610,7 @@ export default function Packages() {
                 ) : (
                   <div
                     className="pkg-mobile-card-bg"
-                    style={{ backgroundImage: `url('${i === 0 ? "/website-preview.png" : "/mobile-preview.png"}')` }}
+                    style={{ backgroundImage: `url('${i === 0 ? "/domain-preview.png" : "/mobile-preview.png"}')` }}
                   />
                 )}
 

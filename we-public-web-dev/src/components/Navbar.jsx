@@ -142,15 +142,14 @@ export default function Navbar() {
             <span style={linkBase}>Resource <i className="bi bi-chevron-down" style={{ fontSize: "10px", marginLeft: "2px" }}></i></span>
             <div className="nav-dropdown-content">
               <Link to="/app" style={{ ...linkBase, color: "#111" }}>App</Link>
-              <a style={{ ...linkBase, color: "#111" }}>Website</a>
               <Link to="/media"  style={{ ...linkBase, color: "#111" }}>Media</Link>
             </div>
           </div>
           <Link to="/pricing"  style={linkBase}>Pricing &amp; Plans</Link>
           <Link to="/contact"  style={linkBase}>Contact us</Link>
           <Link to="/cloud"  style={linkBase}>Cloud</Link>
-          <Link to="/portal"  style={linkBase}>Portal</Link>
-          <Link to="/website" style={linkBase}>Website</Link>
+          <Link to="/branch"  style={linkBase}>Branch</Link>
+          <Link to="/domain" style={linkBase}>Domain</Link>
         </div>
 
         {/* CTA */}
@@ -225,14 +224,14 @@ export default function Navbar() {
         >
           <a onClick={() => scrollTo("hero")} style={mobileLinkBase}>HOME</a>
           <Link to="/cloud" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>CLOUD</Link>
-          <Link to="/portal" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>PORTAL</Link>
+          <Link to="/branch" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>PORTAL</Link>
           <Link to="/pricing" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>PRICING &amp; PLANS</Link>
           <Link to="/contact" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>CONTACT US</Link>
           
           <div style={{ padding: "10px 0", display: "flex", flexDirection: "column", gap: "8px" }}>
             <span style={{ ...mobileLinkBase, padding: 0, color: "rgba(0,0,0,0.5)" }}>RESOURCE</span>
             <Link to="/app" onClick={() => setMobileOpen(false)} style={{ ...mobileLinkBase, fontSize: "16px", padding: "0 12px" }}>APP</Link>
-            <Link to="/website" onClick={() => setMobileOpen(false)} style={{ ...mobileLinkBase, fontSize: "16px", padding: "0 12px" }}>WEBSITE</Link>
+            <Link to="/domain" onClick={() => setMobileOpen(false)} style={{ ...mobileLinkBase, fontSize: "16px", padding: "0 12px" }}>WEBSITE</Link>
             <Link to="/media" onClick={() => setMobileOpen(false)} style={{ ...mobileLinkBase, fontSize: "16px", padding: "0 12px" }}>media</Link>
           </div>
           <div style={{ marginTop: "24px" }}>

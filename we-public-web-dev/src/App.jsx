@@ -15,9 +15,9 @@ import Pricing     from "./pages/Pricing";
 import Contact     from "./pages/Contact";
 import Media       from "./pages/Media";
 import Cloud       from "./pages/Cloud";
-import Portal      from "./pages/Portal";
+import Branch      from "./pages/Branch";
 import AppDetails  from "./pages/AppDetails";
-import Website     from "./pages/Website";
+import Domain     from "./pages/Domain";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -91,11 +91,11 @@ function MediaPage() {
   return <Media />;
 }
 
-// ── Website ───────────────────────────────────────────────────────────────
+// ── Domain ───────────────────────────────────────────────────────────────
 
-function WebsitePage() {
+function DomainPage() {
   useEffect(() => { initLenis(); return () => {}; }, []);
-  return <Website />;
+  return <Domain />;
 }
 
 // ── Cloud ────────────────────────────────────────────────────────────────
@@ -104,10 +104,10 @@ function CloudPage() {
   return <Cloud />;
 }
 
-// ── Portal ───────────────────────────────────────────────────────────────
-function PortalPage() {
+// ── Branch ───────────────────────────────────────────────────────────────
+function BranchPage() {
   useEffect(() => { initLenis(); return () => {}; }, []);
-  return <Portal />;
+  return <Branch />;
 }
 
 // ── App Details ──────────────────────────────────────────────────────────
@@ -126,9 +126,9 @@ export default function App() {
         <Route path="/contact"   element={<ContactPage />} />
         <Route path="/media"     element={<MediaPage />}  />
         <Route path="/cloud"     element={<CloudPage />}   />
-        <Route path="/portal"    element={<PortalPage />} />
+        <Route path="/branch"    element={<BranchPage />} />
         <Route path="/app"       element={<AppDetailsPage />} />
-        <Route path="/website"   element={<WebsitePage/>} />
+        <Route path="/domain"   element={<DomainPage/>} />
       </Routes>
     </>
   );

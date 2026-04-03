@@ -141,7 +141,7 @@ export default function Contact() {
   const faqs = [
     { 
       question: "What is WorkshopEdge and how is it different?", 
-      answer: "WorkshopEdge is a comprehensive digital command center engineered specifically for modern automobile workshops. Unlike simple invoicing tools, it provides a full digital ecosystem connecting your operations, inventory, customers, and staff into one unified platform. By replacing manual paper trails with a professional database, it offers 360-degree visibility into your business. You get a management dashboard, a professional website for new customers, and mobile apps for both staff and clients, ensuring your garage operates like a high-performance digital powerhouse from day one." 
+      answer: "WorkshopEdge is a comprehensive digital command center engineered specifically for modern automobile workshops. Unlike simple invoicing tools, it provides a full digital ecosystem connecting your operations, inventory, customers, and staff into one unified platform. By replacing manual paper trails with a professional database, it offers 360-degree visibility into your business. You get a management dashboard, a professional domain for new customers, and mobile apps for both staff and clients, ensuring your garage operates like a high-performance digital powerhouse from day one." 
     },
     { 
       question: "What kind of professional support do you offer?", 
@@ -157,7 +157,7 @@ export default function Contact() {
     },
     { 
       question: "Can customers book appointments online?", 
-      answer: "Yes,<br /><br />WorkshopEdge features a powerful two-way appointment system that bridges the gap between your garage and your clients. Customers can book service slots directly through your professional website or their mobile app. These bookings appear instantly on your admin dashboard, allowing you to manage workshop capacity effectively. You can accept, reschedule, or cancel appointments with automated notifications sent back to the customer instantly. This streamlined process ensures a steady flow of vehicles and provides a modern, convenient experience that today's vehicle owners expect from a premium service provider." 
+      answer: "Yes,<br /><br />WorkshopEdge features a powerful two-way appointment system that bridges the gap between your garage and your clients. Customers can book service slots directly through your professional domain or their mobile app. These bookings appear instantly on your admin dashboard, allowing you to manage workshop capacity effectively. You can accept, reschedule, or cancel appointments with automated notifications sent back to the customer instantly. This streamlined process ensures a steady flow of vehicles and provides a modern, convenient experience that today's vehicle owners expect from a premium service provider." 
     },
     { 
       question: "How does WorkshopEdge reduce manual work?", 
@@ -450,8 +450,8 @@ export default function Contact() {
                 },
                 { 
                   icon: "bi-globe", 
-                  title: "Professional Website", 
-                  desc: "Get a high-conversion website for your garage. Integrated booking engine directly feeds into your dashboard, turning visitors into loyal customers.",
+                  title: "Professional Domain", 
+                  desc: "Get a high-conversion domain for your garage. Integrated booking engine directly feeds into your dashboard, turning visitors into loyal customers.",
                   color: "#5AC8FA"
                 },
               ].map((card, i) => (

@@ -51,11 +51,11 @@ const FEATURES = [
     img: "/feature4.png",
   },
   {
-    title: "Website &\nDigital Cloud",
+    title: "Domain &\nDigital Cloud",
     tagline: "Build your brand and securely store your documents.",
     body: "A customizable digital presence for your garage, complete with a structured cloud system to store records, images, and bills securely.",
     bullets: [
-      "Custom garage website",   "Digital file explorer",
+      "Custom garage domain",   "Digital file explorer",
       "Social media integration", "Customer inquiries",
       "Secure document storage", "Always accessible data",
     ],

@@ -512,7 +512,7 @@ const Pricing = () => {
                 ['Appointment booking (Customers)', true, true, true],
                 ['Appointment booking (Public)', false, false, true],
                 ['Email notifications', false, false, true],
-                ['Website (.in domain)', false, false, true],
+                ['Domain (.in domain)', false, false, true],
                 ['Data export as Excel', true, true, true],
                 ['Data export as CSV', false, false, true],
                 ['Data export as PDF', false, false, true],
