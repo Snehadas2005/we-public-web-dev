@@ -13,16 +13,11 @@ export default function Customer() {
       
       <div style={{ flex: 1, paddingTop: '120px', paddingBottom: '80px', textAlign: 'center' }}>
         <h1 style={{ fontFamily: 'Epilogue, sans-serif', fontWeight: 800, fontSize: 'clamp(36px, 5vw, 64px)' }}>
-          WorkshopEdge media
+          Customers
         </h1>
         <p style={{ marginTop: '20px', fontSize: '18px', color: '#666' }}>
-          Explore our tutorials, guides, and feature highlights.
+          This is the customer page coming soon 
         </p>
-        
-        <div style={{ marginTop: '60px', color: '#888' }}>
-          <i className="bi bi-play-circle" style={{ fontSize: '48px', color: '#3C95E8' }}></i>
-          <p style={{ marginTop: '16px' }}>Video content coming soon.</p>
-        </div>
       </div>
 
       <Footer />

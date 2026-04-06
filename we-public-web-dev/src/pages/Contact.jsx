@@ -131,8 +131,8 @@ export default function Contact() {
 
   const faqs = [
     { 
-      question: "What is WorkshopEdge and how is it different?", 
-      answer: "WorkshopEdge is a comprehensive digital command center engineered specifically for modern automobile workshops. Unlike simple invoicing tools, it provides a full digital ecosystem connecting your operations, inventory, customers, and staff into one unified platform. By replacing manual paper trails with a professional database, it offers 360-degree visibility into your business. You get a management dashboard, a professional domain for new customers, and mobile apps for both staff and clients, ensuring your garage operates like a high-performance digital powerhouse from day one." 
+      question: "What is Workshop Edge and how is it different?", 
+      answer: "Workshop Edge is a comprehensive digital command center engineered specifically for modern automobile workshops. Unlike simple invoicing tools, it provides a full digital ecosystem connecting your operations, inventory, customers, and staff into one unified platform. By replacing manual paper trails with a professional database, it offers 360-degree visibility into your business. You get a management dashboard, a professional domain for new customers, and mobile apps for both staff and clients, ensuring your garage operates like a high-performance digital powerhouse from day one." 
     },
     { 
       question: "What kind of professional support do you offer?", 
@@ -140,7 +140,7 @@ export default function Contact() {
     },
     { 
       question: "How does the Customer Tracking system work?", 
-      answer: "Transparency is key to loyalty, and WorkshopEdge makes it easy. Your customers receive a dedicated mobile application where they can view live status updates for their vehicles in real-time. From entry to final quality checks, clients stay informed through automated progress bars and digital status updates. They can view their entire service history, download past invoices, and even chat directly with your service advisors. This digital-first approach eliminates repetitive phone calls and builds a level of professional trust that keeps customers coming back to your workshop long-term." 
+      answer: "Transparency is key to loyalty, and Workshop Edge makes it easy. Your customers receive a dedicated mobile application where they can view live status updates for their vehicles in real-time. From entry to final quality checks, clients stay informed through automated progress bars and digital status updates. They can view their entire service history, download past invoices, and even chat directly with your service advisors. This digital-first approach eliminates repetitive phone calls and builds a level of professional trust that keeps customers coming back to your workshop long-term." 
     },
     { 
       question: "What is the Cloud Storage and Archive System?", 
@@ -148,11 +148,11 @@ export default function Contact() {
     },
     { 
       question: "Can customers book appointments online?", 
-      answer: "Yes,<br /><br />WorkshopEdge features a powerful two-way appointment system that bridges the gap between your garage and your clients. Customers can book service slots directly through your professional domain or their mobile app. These bookings appear instantly on your admin dashboard, allowing you to manage workshop capacity effectively. You can accept, reschedule, or cancel appointments with automated notifications sent back to the customer instantly. This streamlined process ensures a steady flow of vehicles and provides a modern, convenient experience that today's vehicle owners expect from a premium service provider." 
+      answer: "Yes,<br /><br />Workshop Edge features a powerful two-way appointment system that bridges the gap between your garage and your clients. Customers can book service slots directly through your professional domain or their mobile app. These bookings appear instantly on your admin dashboard, allowing you to manage workshop capacity effectively. You can accept, reschedule, or cancel appointments with automated notifications sent back to the customer instantly. This streamlined process ensures a steady flow of vehicles and provides a modern, convenient experience that today's vehicle owners expect from a premium service provider." 
     },
     { 
-      question: "How does WorkshopEdge reduce manual work?", 
-      answer: "WorkshopEdge eliminates operational friction by automating the connection between data points. When a job card is created, the system pulls customer history and vehicle details using fast auto-fill technology. When a part is used, the dynamic inventory system automatically deducts the stock and updates your financial records internally. Smart navigation and one-click reporting save your staff hours of repeated data entry and manual calculation every day. By centralizing operations into one structured system, you can focus on technical quality while our software handles the tedious administrative heavy lifting." 
+      question: "How does Workshop Edge reduce manual work?", 
+      answer: "Workshop Edge eliminates operational friction by automating the connection between data points. When a job card is created, the system pulls customer history and vehicle details using fast auto-fill technology. When a part is used, the dynamic inventory system automatically deducts the stock and updates your financial records internally. Smart navigation and one-click reporting save your staff hours of repeated data entry and manual calculation every day. By centralizing operations into one structured system, you can focus on technical quality while our software handles the tedious administrative heavy lifting." 
     },
     { 
       question: "How does the dynamic inventory system work?", 
@@ -160,11 +160,11 @@ export default function Contact() {
     },
     { 
       question: "Can I manage multiple garages from one account?", 
-      answer: "Absolutely.<br /><br />WorkshopEdge is built for scale, featuring a specialized Admin Command Center for multi-garage owners. From a single powerful login, you can oversee the performance of every branch, monitor individual revenue, and manage staff roles across all locations. This centralized oversight allows you to compare performance metrics and ensure corporate compliance without visiting each site physically. Whether you own two garages or twenty, WorkshopEdge provides the high-level control and granular detail needed to manage a large-scale automotive service empire effectively with total operational confidence." 
+      answer: "Absolutely.<br /><br />Workshop Edge is built for scale, featuring a specialized Admin Command Center for multi-garage owners. From a single powerful login, you can oversee the performance of every branch, monitor individual revenue, and manage staff roles across all locations. This centralized oversight allows you to compare performance metrics and ensure corporate compliance without visiting each site physically. Whether you own two garages or twenty, Workshop Edge provides the high-level control and granular detail needed to manage a large-scale automotive service empire effectively with total operational confidence." 
     },
     { 
       question: "Is my data safe and what reports can I get?", 
-      answer: "Data security is our top priority. We utilize advanced encryption and secure cloud protocols to ensure your business records are safe and backed up at all times. Regarding analytics, WorkshopEdge provides a Suite of Advanced Financial Reports. You can generate detailed breakthroughs for total revenue, net profits, miscellaneous expenses, and staff salaries. These reports can be filtered by specific dates, months, or years and across multiple payment modes including CASH, UPI, and CARD. Having this level of data-driven insight allows you to make informed decisions to grow your workshop’s profitability." 
+      answer: "Data security is our top priority. We utilize advanced encryption and secure cloud protocols to ensure your business records are safe and backed up at all times. Regarding analytics, Workshop Edge provides a Suite of Advanced Financial Reports. You can generate detailed breakthroughs for total revenue, net profits, miscellaneous expenses, and staff salaries. These reports can be filtered by specific dates, months, or years and across multiple payment modes including CASH, UPI, and CARD. Having this level of data-driven insight allows you to make informed decisions to grow your workshop’s profitability." 
     },
   ];
 
@@ -292,7 +292,7 @@ export default function Contact() {
         <div className="container" style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div className="faq-header" style={{ textAlign: 'center', marginBottom: '60px' }}>
             <h2 style={{ fontSize: '40px', fontWeight: 900, marginBottom: '16px' }}>Frequently Asked Questions</h2>
-            <p style={{ color: '#6B7280', fontSize: '17px' }}>Everything you need to know about WorkshopEdge platform.</p>
+            <p style={{ color: '#6B7280', fontSize: '17px' }}>Everything you need to know about Workshop Edge platform.</p>
           </div>
           <div className="faq-accordion">
             {faqs.map((faq, index) => (

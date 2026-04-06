@@ -19,6 +19,7 @@ import Branch      from "./pages/Branch";
 import AppDetails  from "./pages/AppDetails";
 import Domain     from "./pages/Domain";
 import Customer     from "./pages/Customer";
+import Comparison from "./components/Comparison";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -67,6 +68,7 @@ function Home() {
       <LandingIntro />
       <Numbers />
       <Features />
+      <Comparison />
       <Packages />
       <Testimonial />
       <Footer />
@@ -123,6 +125,8 @@ function AppDetailsPage() {
   useEffect(() => { initLenis(); return () => {}; }, []);
   return <AppDetails />;
 }
+
+
 
 export default function App() {
   return (

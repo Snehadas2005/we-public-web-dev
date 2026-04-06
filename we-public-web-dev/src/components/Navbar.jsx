@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
-const EP = `"Epilogue","Google Sans","Helvetica Neue",Arial,sans-serif`;
+const EP = `"Epilogue", sans-serif`;
+const SS = `"Source Sans 3", sans-serif`;
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled]   = useState(false);
@@ -115,13 +116,13 @@ export default function Navbar() {
                 fontWeight: 700,
                 fontSize: "15px",
                 letterSpacing: "0.08em",
-                textTransform: "uppercase",
                 color: textColor,
                 transition: "color 0.45s ease",
                 textAlign: "center",
+                paddingTop: "2px"
               }}
             >
-              WorkshopEdge
+              Workshop Edge
             </span>
           </div>
         </Link>
@@ -161,6 +162,7 @@ export default function Navbar() {
               letterSpacing: "0.06em",
               alignContent: "center",
               padding: "7px 17px",
+              paddingTop: "10px",
               borderRadius: "7px",
               background: textColor,
               color: pastHero ? "#ffffff" : (isDarkInitial ? "#111111" : "#ffffff"),

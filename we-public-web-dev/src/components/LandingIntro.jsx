@@ -85,7 +85,8 @@ export default function LandingIntro() {
     };
   }, []);
 
-  const EP = `"Epilogue","Google Sans",sans-serif`;
+  const EP = `"Epilogue", sans-serif`;
+  const SS = `"Source Sans 3", sans-serif`;
 
   return (
     <>
@@ -143,7 +144,7 @@ export default function LandingIntro() {
           <p
             className="hero-eyebrow"
             style={{
-              fontFamily: EP,
+              fontFamily: SS,
               fontSize: "clamp(8px,0.6vw,10px)",
               fontWeight: 600,
               letterSpacing: "0.22em",
@@ -171,7 +172,7 @@ export default function LandingIntro() {
               margin: 0,
               textShadow: "0 3px 36px rgba(0,0,0,0.4)",
             }}>
-              WorkshopEdge
+              Workshop Edge
             </h1>
           </div>
 
@@ -185,7 +186,7 @@ export default function LandingIntro() {
             <p
               className="hero-line"
               style={{
-                fontFamily: EP,
+                fontFamily: SS,
                 fontWeight: 600,
                 fontSize: "clamp(13px,1.2vw,17px)", /* Bumped mobile min */
                 color: "#ffffff",
@@ -200,7 +201,7 @@ export default function LandingIntro() {
             <p
               className="hero-line"
               style={{
-                fontFamily: EP,
+                fontFamily: SS,
                 fontWeight: 400,
                 fontSize: "clamp(12px,1.0vw,14px)", /* Bumped mobile min */
                 color: "rgba(255,255,255,0.6)",
@@ -216,7 +217,7 @@ export default function LandingIntro() {
             <p
               className="hero-stat"
               style={{
-                fontFamily: EP,
+                fontFamily: SS,
                 fontWeight: 500,
                 fontSize: "clamp(9px,0.7vw,10px)",
                 letterSpacing: "0.14em",
@@ -247,7 +248,7 @@ export default function LandingIntro() {
           }}
         >
           <span style={{
-            fontFamily: EP,
+            fontFamily: SS,
             fontSize: 8,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
