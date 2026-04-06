@@ -61,56 +61,6 @@ function BrowserMock({ children, url = 'yourgarage.workshopedge.in' }) {
   );
 }
 
-/* ── Template Card ────────────────────────────────────────────── */
-function TemplateCard({ name, tag, color, icon, delay }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      style={{
-        borderRadius: 20, overflow: 'hidden', cursor: 'pointer', background: '#fff',
-        border: `1.5px solid ${hovered ? color : 'rgba(0,0,0,0.06)'}`,
-        transition: 'all 0.4s cubic-bezier(0.16,1,0.3,1)',
-        transform: hovered ? 'translateY(-8px)' : 'translateY(0)',
-        boxShadow: hovered ? `0 24px 60px ${color}22` : '0 4px 20px rgba(0,0,0,0.04)',
-      }}
-    >
-      <div style={{
-        height: 180, background: `linear-gradient(135deg, ${color}15, ${color}30)`,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        position: 'relative', overflow: 'hidden', padding: '16px',
-      }}>
-        <div style={{ width: '88%', background: '#fff', borderRadius: 12, boxShadow: '0 8px 30px rgba(0,0,0,0.12)', overflow: 'hidden' }}>
-          <div style={{ background: color, height: 5 }} />
-          <div style={{ padding: '8px 12px' }}>
-            <div style={{ display: 'flex', gap: 5, alignItems: 'center', marginBottom: 6 }}>
-              <div style={{ width: 16, height: 16, borderRadius: '50%', background: `${color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <i className={`bi ${icon}`} style={{ fontSize: 8, color }} />
-              </div>
-              <div style={{ width: 50, height: 4, borderRadius: 3, background: '#E2E8F0' }} />
-            </div>
-            <div style={{ height: 4, background: '#F1F5F9', borderRadius: 3, marginBottom: 3, width: '90%' }} />
-            <div style={{ height: 4, background: '#F1F5F9', borderRadius: 3, marginBottom: 3, width: '65%' }} />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 5, marginTop: 8 }}>
-              {[0, 1].map(j => <div key={j} style={{ height: 22, borderRadius: 5, background: `${color}12`, border: `1px solid ${color}20` }} />)}
-            </div>
-          </div>
-        </div>
-        <div style={{ position: 'absolute', top: 10, right: 12, background: color, color: '#fff', borderRadius: 20, padding: '3px 10px', fontSize: 10, fontWeight: 700, fontFamily: "'Epilogue', sans-serif" }}>{tag}</div>
-      </div>
-      <div style={{ padding: '14px 18px', background: '#fff' }}>
-        <div style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 700, fontSize: 14, color: '#1b1b1bff', marginBottom: 3 }}>{name}</div>
-        <div style={{ fontSize: 11, color: '#94A3B8', fontFamily: "'Epilogue', sans-serif" }}>Included in plans</div>
-      </div>
-    </motion.div>
-  );
-}
-
 /* ── Feature Row ──────────────────────────────────────────────── */
 function FeatureRow({ icon, title, desc, color, delay }) {
   const ref = useRef(null);
@@ -430,47 +380,30 @@ export default function Website() {
             {/* Way 2 */}
             <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15 }}
               className="ws-two-ways-card"
-              style={{ background: '#DBEAFE', borderRadius: 32, padding: '44px 40px', position: 'relative', overflow: 'hidden' }}>
-              <div className="ws-watermark" style={{ position: 'absolute', top: -20, right: -20, fontSize: 160, opacity: 0.06, color: '#1b1b1bff', fontFamily: "'Epilogue', sans-serif", fontWeight: 900, lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>02</div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#F59E0B', borderRadius: 100, padding: '6px 16px', marginBottom: 22, border: '1px solid rgba(255,255,255,0.15)' }}>
-                <i className="bi bi-stars" style={{ color: '#ffffffff', fontSize: 11 }} />
-                <span style={{ fontSize: 10, fontWeight: 700, color: '#ffffffff', letterSpacing: '0.1em', fontFamily: "'Epilogue', sans-serif" }}>FULLY CUSTOM — ADD-ON</span>
+              style={{ background: '#F0FDFA', borderRadius: 32, padding: '44px 40px', position: 'relative', overflow: 'hidden', border: '1.5px solid rgba(16,185,129,0.1)' }}>
+              <div className="ws-watermark" style={{ position: 'absolute', top: -20, right: -20, fontSize: 160, opacity: 0.05, color: '#10B981', fontFamily: "'Epilogue', sans-serif", fontWeight: 900, lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>02</div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#10B981', borderRadius: 100, padding: '6px 16px', marginBottom: 22 }}>
+                <i className="bi bi-stars" style={{ color: '#fff', fontSize: 11 }} />
+                <span style={{ fontSize: 10, fontWeight: 700, color: '#fff', letterSpacing: '0.1em', fontFamily: "'Epilogue', sans-serif" }}>FULLY CUSTOM — ADD-ON</span>
               </div>
               <h3 style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 800, fontSize: 'clamp(22px, 2.5vw, 28px)', color: '#1b1b1bff', marginBottom: 12, letterSpacing: '-0.02em' }}>Custom Built Website</h3>
-              <p style={{ fontSize: 14.5, color: '#1b1b1bff', lineHeight: 1.7, marginBottom: 28, fontFamily: "'Epilogue', sans-serif" }}>
+              <p style={{ fontSize: 14.5, color: '#374151', lineHeight: 1.7, marginBottom: 28, fontFamily: "'Epilogue', sans-serif" }}>
                 Our team builds a completely custom website tailored to your brand — advanced features, unique design, and full flexibility. Available as an add-on.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
                 {['Fully unique design for your brand', 'Advanced animations & interactions', 'Custom domain (.com, .in, etc.)', 'SEO-optimised structure', 'Custom booking & lead forms', 'Priority support & updates'].map((item, i) => (
                   <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                    <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#F59E0B', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <i className="bi bi-check" style={{ color: '#ffffffff', fontSize: 11 }} />
+                    <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#10B981', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <i className="bi bi-check" style={{ color: '#fff', fontSize: 11 }} />
                     </div>
-                    <span style={{ fontSize: 13.5, color: '#1b1b1bff', fontFamily: "'Epilogue', sans-serif", fontWeight: 500 }}>{item}</span>
+                    <span style={{ fontSize: 13.5, color: '#374151', fontFamily: "'Epilogue', sans-serif", fontWeight: 500 }}>{item}</span>
                   </div>
                 ))}
               </div>
-              <Link to="/contact" className="ws-btn-gold" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 26px', borderRadius: 100, fontWeight: 700, fontSize: 14, background: '#F59E0B', color: '#ffffffff', textDecoration: 'none', fontFamily: "'Epilogue', sans-serif", transition: 'all 0.3s ease' }}>
+              <Link to="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 26px', borderRadius: 100, fontWeight: 700, fontSize: 14, background: '#10B981', color: '#fff', textDecoration: 'none', fontFamily: "'Epilogue', sans-serif", transition: 'all 0.3s ease', boxShadow: '0 8px 24px rgba(16,185,129,0.25)' }}>
                 Talk to Us <i className="bi bi-arrow-right" />
               </Link>
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          TEMPLATES
-      ══════════════════════════════════════════════════════════ */}
-      <section className="ws-section-pad" style={{ padding: '100px 24px', background: '#F0F7FF' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div className="ws-reveal" style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#3C95E8', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 12, fontFamily: "'Epilogue', sans-serif" }}>Ready to Use</span>
-            <h2 style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 900, fontSize: 'clamp(26px, 4vw, 50px)', letterSpacing: '-0.04em', color: '#1b1b1bff', margin: 0 }}>
-              Templates built for <span style={{ color: '#3C95E8' }}>auto workshops.</span>
-            </h2>
-          </div>
-          <div className="ws-template-grid">
-            {templates.map((t, i) => <TemplateCard key={t.name} {...t} delay={i * 0.1} />)}
           </div>
         </div>
       </section>

@@ -275,6 +275,7 @@ export default function Footer() {
             <div className="footer-nav-col">
               <h4>Product</h4>
               <ul>
+                <li><Link to="/customer">Customer</Link></li>
                 <li><Link to="/pricing">Pricing & Plans</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
                 <li><Link to="/">Home</Link></li>

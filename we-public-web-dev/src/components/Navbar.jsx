@@ -66,11 +66,12 @@ export default function Navbar() {
 
   const mobileLinkBase = {
     ...linkBase,
-    fontSize: "22px",
-    letterSpacing: "0.06em",
+    fontSize: "18px",
+    letterSpacing: "0.04em",
     display: "block",
-    padding: "10px 0",
+    padding: "8px 0",
     color: "#111111",
+    fontWeight: 600,
   };
 
   return (
@@ -138,37 +139,53 @@ export default function Navbar() {
           className="nav-center-links"
         >
           <a onClick={() => scrollTo("hero")} style={linkBase}>Home</a>
-          <div className="nav-dropdown" style={{ cursor: "pointer", paddingBottom: "20px", marginBottom: "-20px" }}>
-            <span style={linkBase}>Resource <i className="bi bi-chevron-down" style={{ fontSize: "10px", marginLeft: "2px" }}></i></span>
-            <div className="nav-dropdown-content">
-              <Link to="/app" style={{ ...linkBase, color: "#111" }}>App</Link>
-              <Link to="/media"  style={{ ...linkBase, color: "#111" }}>Media</Link>
-            </div>
-          </div>
-          <Link to="/pricing"  style={linkBase}>Pricing &amp; Plans</Link>
-          <Link to="/contact"  style={linkBase}>Contact us</Link>
+          <Link to="/customer" style={linkBase}>Customer</Link>
+          <Link to="/media"  style={linkBase}>Media</Link>
           <Link to="/cloud"  style={linkBase}>Cloud</Link>
           <Link to="/branch"  style={linkBase}>Branch</Link>
           <Link to="/domain" style={linkBase}>Domain</Link>
+          <Link to="/pricing"  style={linkBase}>Pricing &amp; Plans</Link>
+          <Link to="/contact"  style={linkBase}>Contact us</Link>
         </div>
 
         {/* CTA */}
-        <Link
-          to="/contact"
-          style={{
-            ...linkBase,
-            fontWeight: 700,
-            fontSize: "13px",
-            letterSpacing: "0.06em",
-            marginLeft: "auto",
-            borderBottom: `1.5px solid ${textColor}`,
-            paddingBottom: "1px",
-            transition: "color 0.45s ease, border-color 0.45s ease",
-          }}
-          className="nav-start-trial"
-        >
-          ↗ START TRIAL
-        </Link>
+        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "2.4vw" }} className="nav-cta-group">
+          <a
+            href="https://workshopedge.online/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              ...linkBase,
+              fontWeight: 700,
+              fontSize: "12px",
+              letterSpacing: "0.06em",
+              alignContent: "center",
+              padding: "7px 17px",
+              borderRadius: "7px",
+              background: textColor,
+              color: pastHero ? "#ffffff" : (isDarkInitial ? "#111111" : "#ffffff"),
+              transition: "all 0.35s ease",
+            }}
+            className="nav-login-btn"
+          >
+            LOGIN
+          </a>
+          <Link
+            to="/contact"
+            style={{
+              ...linkBase,
+              fontWeight: 700,
+              fontSize: "12px",
+              letterSpacing: "0.06em",
+              borderBottom: `1.5px solid ${textColor}`,
+              paddingBottom: "1px",
+              transition: "color 0.45s ease, border-color 0.45s ease",
+            }}
+            className="nav-start-trial"
+          >
+            START TRIAL ↗
+          </Link>
+        </div>
 
         {/* Hamburger */}
         <button
@@ -223,6 +240,7 @@ export default function Navbar() {
           }}
         >
           <a onClick={() => scrollTo("hero")} style={mobileLinkBase}>HOME</a>
+          <Link to="/customer" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>CUSTOMER</Link>
           <Link to="/cloud" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>CLOUD</Link>
           <Link to="/branch" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>PORTAL</Link>
           <Link to="/pricing" onClick={() => setMobileOpen(false)} style={mobileLinkBase}>PRICING &amp; PLANS</Link>
@@ -234,18 +252,39 @@ export default function Navbar() {
             <Link to="/domain" onClick={() => setMobileOpen(false)} style={{ ...mobileLinkBase, fontSize: "16px", padding: "0 12px" }}>WEBSITE</Link>
             <Link to="/media" onClick={() => setMobileOpen(false)} style={{ ...mobileLinkBase, fontSize: "16px", padding: "0 12px" }}>media</Link>
           </div>
-          <div style={{ marginTop: "24px" }}>
+          <div style={{ marginTop: "16px", display: "flex", gap: "10px", alignItems: "center" }}>
+            <a
+              href="https://workshopedge.online/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                ...mobileLinkBase,
+                fontSize: "13px",
+                fontWeight: 700,
+                background: "#111",
+                color: "#fff",
+                padding: "10px 24px",
+                borderRadius: "100px",
+                width: "fit-content",
+              }}
+            >
+              LOGIN
+            </a>
             <Link
               to="/contact"
               onClick={() => setMobileOpen(false)}
               style={{
                 ...mobileLinkBase,
+                fontSize: "13px",
                 fontWeight: 700,
-                borderBottom: "2px solid #111",
-                paddingBottom: "2px",
+                borderBottom: "1.5px solid #111",
+                paddingBottom: "1px",
+                padding: "10px 0",
+                width: "fit-content",
               }}
             >
-              ↗ START TRIAL
+              START TRIAL ↗
             </Link>
           </div>
         </div>
@@ -254,8 +293,9 @@ export default function Navbar() {
       <style>{`
         @media (max-width: 768px) {
           .nav-center-links  { display: none !important; }
-          .nav-start-trial   { display: none !important; }
+          .nav-cta-group     { display: none !important; }
           .nav-mobile-toggle { display: flex !important; }
+          nav { height: 50px !important; }
         }
 
         .nav-dropdown {

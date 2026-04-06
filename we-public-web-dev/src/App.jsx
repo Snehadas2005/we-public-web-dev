@@ -18,6 +18,7 @@ import Cloud       from "./pages/Cloud";
 import Branch      from "./pages/Branch";
 import AppDetails  from "./pages/AppDetails";
 import Domain     from "./pages/Domain";
+import Customer     from "./pages/Customer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,8 +65,8 @@ function Home() {
     <>
       <Navbar />
       <LandingIntro />
-      <Features />
       <Numbers />
+      <Features />
       <Packages />
       <Testimonial />
       <Footer />
@@ -96,6 +97,13 @@ function MediaPage() {
 function DomainPage() {
   useEffect(() => { initLenis(); return () => {}; }, []);
   return <Domain />;
+}
+
+// ── Customer ───────────────────────────────────────────────────────────────
+
+function CustomerPage() {
+  useEffect(() => { initLenis(); return () => {}; }, []);
+  return <Customer />;
 }
 
 // ── Cloud ────────────────────────────────────────────────────────────────
@@ -129,6 +137,7 @@ export default function App() {
         <Route path="/branch"    element={<BranchPage />} />
         <Route path="/app"       element={<AppDetailsPage />} />
         <Route path="/domain"   element={<DomainPage/>} />
+        <Route path="/customer"   element={<CustomerPage/>} />
       </Routes>
     </>
   );

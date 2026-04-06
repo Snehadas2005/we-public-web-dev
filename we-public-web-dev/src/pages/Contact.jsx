@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useEffect, useRef } from "react";
+import { useState, useLayoutEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,7 +8,7 @@ import "./Contact.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── Word-split utility (matches landing page) ───────────────────────────
+// ── Word-split utility ───────────────────────────
 function splitWordsManual(el) {
   if (!el || el.dataset.split) return el ? el.querySelectorAll(".sw-i") : [];
   const raw = el.dataset.raw || el.innerText;
@@ -25,7 +25,6 @@ function splitWordsManual(el) {
 function FloatingInput({ label, type = "text", placeholder, as = "input", children, required }) {
   const [focused, setFocused] = useState(false);
   const [filled, setFilled] = useState(false);
-  const Tag = as;
   return (
     <div className="form-group">
       <label style={{
@@ -110,18 +109,15 @@ const FAQItem = ({ question, answer, isOpen, toggle, index }) => (
 );
 
 // ── Reveal wrapper ──────────────────────────────────────────────────────
-const Reveal = ({ children, delay = 0, direction = 'up' }) => {
+const Reveal = ({ children }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-8% 0px' });
-  const initial = direction === 'left' ? { opacity: 0, x: -50 }
-    : direction === 'right' ? { opacity: 0, x: 50 }
-    : { opacity: 0, y: 50 };
   return (
     <motion.div
       ref={ref}
-      initial={initial}
-      animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
@@ -131,12 +127,7 @@ const Reveal = ({ children, delay = 0, direction = 'up' }) => {
 export default function Contact() {
   const [openFaq, setOpenFaq] = useState(null);
   const pageRef   = useRef(null);
-  const heroRef   = useRef(null);
-  const titleRef  = useRef(null);
-  const subRef    = useRef(null);
-  const infoRef   = useRef(null);
   const formRef   = useRef(null);
-  const lineRef   = useRef(null);
 
   const faqs = [
     { 
@@ -179,70 +170,24 @@ export default function Contact() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-
-      // ── Section title word-split reveal (matches Features page) ──────
-      document.querySelectorAll(".contact-section-title").forEach((el) => {
-        const words = splitWordsManual(el);
-        gsap.set(words, { yPercent: 110 });
-        ScrollTrigger.create({
-          trigger: el,
-          start: "top 88%",
-          once: true,
-          onEnter: () => {
-            gsap.to(words, {
-              yPercent: 0, duration: 1.0, stagger: 0.065, ease: "power4.out",
-            });
-          },
-        });
+      // ── Header & Map reveal ──
+      gsap.from(".contact-header-centered, .contact-map-wrapper", {
+        y: 40, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.2
       });
 
-      // ── Contact info — stagger slide up ──────────────────────────────
-      gsap.from(".contact-info h2, .contact-info .desc", {
-        y: 40, opacity: 0, duration: 0.85, stagger: 0.14,
-        ease: "power3.out", delay: 0.2,
+      // ── Form reveal ──
+      gsap.from(".form-card-centered", {
+        y: 60, opacity: 0, filter: "blur(6px)",
+        duration: 1.1, ease: "power3.out",
+        scrollTrigger: { trigger: ".form-section", start: "top 85%" }
       });
 
-      // ── Contact items — slide from left with stagger ──────────────────
-      gsap.from(".contact-item", {
-        x: -36, opacity: 0, duration: 0.75, stagger: 0.1,
-        ease: "power3.out", delay: 0.5,
+      // ── FAQ reveal ──
+      gsap.from(".faq-header, .faq-accordion .faq-item", {
+        y: 30, opacity: 0, stagger: 0.08, duration: 0.8,
+        scrollTrigger: { trigger: ".faq-section", start: "top 85%" }
       });
-
-      // ── Form card — slide from right + blur clear ─────────────────────
-      gsap.from(".form-card", {
-        x: 60, opacity: 0, filter: "blur(6px)",
-        duration: 1.1, ease: "power3.out", delay: 0.3,
-      });
-
-      // ── FAQ header ────────────────────────────────────────────────────
-      gsap.from(".faq-header h2, .faq-header p", {
-        y: 24, opacity: 0, duration: 0.7, stagger: 0.1,
-        scrollTrigger: { trigger: ".faq-section", start: "top 85%" },
-      });
-
-      // ── FAQ items — cascade in ─────────────────────────────────────── 
-      gsap.from(".faq-accordion .faq-item", {
-        y: 32, opacity: 0, stagger: 0.07, duration: 0.65,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".faq-accordion", start: "top 88%" },
-      });
-
-      /* Removed GSAP Why cards stagger to avoid visibility issues; replaced with Framer Motion below */
-
-      // ── Section header for Why ────────────────────────────────────────
-      gsap.from(".why-we-section h2, .why-we-section .section-desc", {
-        y: 24, opacity: 0, duration: 0.7, stagger: 0.1,
-        scrollTrigger: { trigger: ".why-we-section", start: "top 85%" },
-      });
-
-      // ── Floating icon animation ───────────────────────────────────────
-      gsap.to(".card-icon-wrapper", {
-        y: -6, duration: 1.6, repeat: -1, yoyo: true,
-        ease: "sine.inOut", stagger: 0.25,
-      });
-
     }, pageRef);
-
     return () => ctx.revert();
   }, []);
 
@@ -251,167 +196,104 @@ export default function Contact() {
       <Navbar />
 
       <style>{`
-        /* ── Word-split ── */
-        .sw-o { display: inline-block; overflow: hidden; vertical-align: bottom; }
-        .sw-i { display: inline-block; }
-
-        /* ── Section title overflow clip ── */
-        .contact-section-title-wrap { overflow: hidden; }
-
-        /* ── Contact item hover slide ── */
-        .contact-item-inner {
-          display: flex; align-items: center; gap: 12px;
-          font-weight: 500; color: var(--text-dark);
-          text-decoration: none; font-size: 15px;
-          transition: color 0.3s, gap 0.3s;
-        }
-        .contact-item-inner:hover { color: var(--primary-color); gap: 18px; }
-        .contact-item-inner i { transition: transform 0.3s ease; }
-        .contact-item-inner:hover i { transform: scale(1.2); }
-
-        /* ── Form field focus glow ── */
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-          outline: none;
-          border-color: var(--primary-color) !important;
-          background: white !important;
-          box-shadow: 0 0 0 3px rgba(60,149,232,0.1) !important;
-        }
-
-        /* ── Why card icon ── */
-        .why-we-card { overflow: hidden; position: relative; }
-        .why-we-card::before {
-          content: ''; position: absolute; inset: 0;
-          background: radial-gradient(circle at 50% 0%, rgba(60,149,232,0.06), transparent 70%);
-          opacity: 0; transition: opacity 0.4s;
-        }
-        .why-we-card:hover::before { opacity: 1; }
-
-        /* ── Submit button ── */
         .btn-submit-anim {
           width: 100%; background: var(--primary-color); color: white;
-          padding: 14px; border-radius: 12px; font-weight: 600; font-size: 15px;
-          border: none; cursor: pointer; position: relative; overflow: hidden;
-          transition: box-shadow 0.3s, transform 0.2s;
+          padding: 18px; border-radius: 16px; font-weight: 600; font-size: 16px;
+          border: none; cursor: pointer; transition: all 0.3s ease;
         }
-        .btn-submit-anim::after {
-          content: ''; position: absolute; inset: 0;
-          background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
-          transform: translateX(-100%) skewX(-20deg);
-          transition: none;
+        .btn-submit-anim:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(60,149,232,0.4); }
+        
+        .contact-item-link {
+          display: flex; align-items: center; gap: 10px; text-decoration: none; 
+          color: #1F2937; font-weight: 600; font-size: 15px; transition: all 0.3s ease;
         }
-        .btn-submit-anim:hover::after {
-          animation: ctaShine 0.55s ease forwards;
-        }
-        .btn-submit-anim:hover { box-shadow: 0 8px 24px rgba(60,149,232,0.35); transform: translateY(-2px); }
-        @keyframes ctaShine { to { transform: translateX(200%) skewX(-20deg); } }
-
-        /* ── FAQ ── */
-        .faq-item { opacity: 1 !important; }
-
-        /* ── Mobile ── */
-        @media (max-width: 768px) {
-          .contact-section-title-wrap h2 { font-size: 26px !important; }
-        }
+        .contact-item-link:hover { color: var(--primary-color); transform: translateY(-2px); }
       `}</style>
 
-      {/* ── CONTACT SECTION ──────────────────────────────────────────── */}
-      <section className="contact-section">
-        <div className="container">
-          <div className="contact-container">
+      {/* ── HEADER & MAP SECTION ── */}
+      <section style={{ padding: '120px 20px 80px', background: '#fff' }}>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="contact-header-centered" style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <h2 style={{ fontSize: 'clamp(32px, 5vw, 64px)', fontWeight: 900, letterSpacing: '-0.04em', color: '#111', marginBottom: '20px' }}>
+              Send us a <span style={{ color: 'var(--primary-color)' }}>message</span>
+            </h2>
+            <p style={{ fontSize: 'clamp(16px, 1.2vw, 19px)', color: '#6B7280', maxWidth: '650px', margin: '0 auto 40px', lineHeight: 1.6 }}>
+              Our team is ready to help you digitize your workshop. Reach out via form or use our direct contact lines below.
+            </p>
 
-            {/* LEFT — info */}
-            <div className="contact-info" ref={infoRef}>
-              <div className="contact-section-title-wrap">
-                <h2 className="contact-section-title" data-raw="Send us a message">
-                  Send us a message
-                </h2>
-              </div>
-              <p className="desc">Fill out the form below and we&apos;ll respond within one business day</p>
-
-              <div className="contact-details" style={{ marginTop: '2rem' }}>
-                {[
-                  { href: "mailto:contact@dev.workshopedge.com", icon: "bi-envelope", label: "contact@dev.workshopedge.com" },
-                  { href: "tel:+916361832517",                   icon: "bi-telephone", label: "+91 6361832517" },
-                  { href: "https://wa.me/918792482156",           icon: "bi-whatsapp",  label: "+91 8792482156", external: true },
-                ].map((item, i) => (
-                  <motion.a
-                    key={i}
-                    href={item.href}
-                    className="contact-item"
-                    target={item.external ? "_blank" : undefined}
-                    rel={item.external ? "noopener noreferrer" : undefined}
-                    whileHover={{ x: 6, color: "var(--primary-color)" }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <motion.i
-                      className={`bi ${item.icon}`}
-                      whileHover={{ scale: 1.2, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 400 }}
-                    />
-                    <span>{item.label}</span>
-                  </motion.a>
-                ))}
-              </div>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', flexWrap: 'wrap' }}>
+              <a href="mailto:contact@dev.workshopedge.com" className="contact-item-link">
+                <i className="bi bi-envelope" style={{ color: 'var(--primary-color)', fontSize: '20px' }} />
+                <span>contact@dev.workshopedge.com</span>
+              </a>
+              <a href="tel:+916361832517" className="contact-item-link">
+                <i className="bi bi-telephone" style={{ color: 'var(--primary-color)', fontSize: '20px' }} />
+                <span>+91 6361832517</span>
+              </a>
+              <a href="https://wa.me/918792482156" className="contact-item-link" target="_blank" rel="noopener noreferrer">
+                <i className="bi bi-whatsapp" style={{ color: 'var(--primary-color)', fontSize: '20px' }} />
+                <span>+91 8792482156</span>
+              </a>
             </div>
+          </div>
 
-            {/* RIGHT — form */}
-            <div className="form-card" ref={formRef}>
-              <form onSubmit={(e) => e.preventDefault()}>
-                <div className="form-grid">
-                  <FloatingInput label="Garage Name" placeholder="E.g. Metro Auto Repairs" required />
-                  <FloatingInput label="Owner Name"  placeholder="Full name" required />
-                  <FloatingInput label="Phone Number" type="tel" placeholder="+91 000-000-0000" required />
-                  <FloatingInput label="Email Address" type="email" placeholder="name@company.com" required />
-                  <FloatingInput label="City" placeholder="Location" required />
-                  <FloatingInput label="Staff Count" as="select" required>
-                    <option value="">Select size</option>
-                    <option value="1-5">1-5 Employees</option>
-                    <option value="6-15">6-15 Employees</option>
-                    <option value="16-30">16-30 Employees</option>
-                    <option value="31+">31+ Employees</option>
-                  </FloatingInput>
-                  <div className="form-group full-width">
-                    <FloatingInput label="Monthly Vehicles Handled" as="select" required>
-                      <option value="">Select range</option>
-                      <option value="0-50">0 - 50 Vehicles</option>
-                      <option value="51-150">51 - 150 Vehicles</option>
-                      <option value="151-500">151 - 500 Vehicles</option>
-                      <option value="501+">501+ Vehicles</option>
-                    </FloatingInput>
-                  </div>
-                  <div className="form-group full-width">
-                    <FloatingInput label="Message" as="textarea" placeholder="How can we help you? Tell us about your specific goals..." />
-                  </div>
-                </div>
-
-                <motion.button
-                  type="submit"
-                  className="btn-submit-anim"
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Request Personalized Demo
-                </motion.button>
-              </form>
-            </div>
+          <div className="contact-map-wrapper" style={{ borderRadius: '32px', overflow: 'hidden', boxShadow: '0 40px 100px rgba(0,0,0,0.12)', border: '1px solid rgba(0,0,0,0.04)', position: 'relative' }}>
+            <iframe 
+              width="100%" 
+              height="600" 
+              style={{ border: 0, display: 'block', pointerEvents: 'none' }}
+              allow="geolocation" 
+              src="https://api.maptiler.com/maps/base-v4/?key=j1WL3BcHxjPALgZTdsfA#4.4/19.69223/78.59130"
+              title="Map"
+            />
           </div>
         </div>
       </section>
 
-      {/* ── FAQ ───────────────────────────────────────────────────────── */}
-      <section className="faq-section">
-        <div className="container">
-          <Reveal>
-            <div className="faq-header">
-              <div className="contact-section-title-wrap">
-                <h2 className="contact-section-title" data-raw="FAQs" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>FAQs</h2>
+      {/* ── FORM SECTION ── */}
+      <section className="form-section" style={{ padding: '100px 20px', background: '#F8FAFC' }}>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="form-card-centered" ref={formRef} style={{ maxWidth: '1000px', margin: '0 auto', background: '#fff', padding: 'clamp(30px, 5vw, 60px)', borderRadius: '40px', boxShadow: '0 20px 60px rgba(0,0,0,0.05)', border: '1px solid #F1F5F9' }}>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginBottom: '40px' }}>
+                <FloatingInput label="Garage Name" placeholder="E.g. Metro Auto Repairs" required />
+                <FloatingInput label="Owner Name"  placeholder="Full name" required />
+                <FloatingInput label="Phone Number" type="tel" placeholder="+91 000-000-0000" required />
+                <FloatingInput label="Email Address" type="email" placeholder="name@company.com" required />
+                <FloatingInput label="City" placeholder="City name" required />
+                <FloatingInput label="Staff Count" as="select" required>
+                  <option value="">Select size</option>
+                  <option value="1-5">1-5 Employees</option>
+                  <option value="6-15">6-15 Employees</option>
+                  <option value="16-30">16-30 Employees</option>
+                  <option value="31+">31+ Employees</option>
+                </FloatingInput>
+                <FloatingInput label="Monthly Vehicles Handled" as="select" required>
+                  <option value="">Select range</option>
+                  <option value="0-50">0 - 50 Vehicles</option>
+                  <option value="51-150">51 - 150 Vehicles</option>
+                  <option value="151-500">151 - 500 Vehicles</option>
+                  <option value="501+">501+ Vehicles</option>
+                </FloatingInput>
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <FloatingInput label="Message" as="textarea" placeholder="How can we help you?" />
+                </div>
               </div>
-              <p style={{ color: 'var(--text-light)', fontSize: '15px' }}>Find answers to common questions about WorkshopEdge and how it can transform your garage operations</p>
-            </div>
-          </Reveal>
+              <motion.button type="submit" className="btn-submit-anim" whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+                Request Personalized Demo
+              </motion.button>
+            </form>
+          </div>
+        </div>
+      </section>
 
+      {/* ── FAQ SECTION ── */}
+      <section className="faq-section" style={{ padding: '100px 20px', background: '#fff' }}>
+        <div className="container" style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <div className="faq-header" style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <h2 style={{ fontSize: '40px', fontWeight: 900, marginBottom: '16px' }}>Frequently Asked Questions</h2>
+            <p style={{ color: '#6B7280', fontSize: '17px' }}>Everything you need to know about WorkshopEdge platform.</p>
+          </div>
           <div className="faq-accordion">
             {faqs.map((faq, index) => (
               <FAQItem
@@ -423,119 +305,6 @@ export default function Contact() {
                 toggle={() => setOpenFaq(openFaq === index ? null : index)}
               />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── THE WORKSHOPEDGE ECOSYSTEM ─────────────────────────────────── */}
-      <section className="ecosystem-section">
-        <div className="container">
-          <Reveal>
-            <div className="section-header-centered">
-              <span className="eyebrow" style={{ color: 'var(--primary-color)', letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '11px', fontWeight: 700, marginBottom: '12px', display: 'block' }}>Complete Ecosystem</span>
-              <h2 className="contact-section-title" data-raw="Why WorkshopEdge?">Why WorkshopEdge?</h2>
-              <p className="section-desc">A unified platform designed to scale your workshop into a digital powerhouse.</p>
-            </div>
-          </Reveal>
-
-          <div className="ecosystem-grid">
-            {/* Main Pillars */}
-            <div className="ecosystem-main-row">
-              {[
-                { 
-                  icon: "bi-phone-vibrate", 
-                  title: "Mobile App Ecosystem", 
-                  desc: "Dedicated apps for both customers and staff. Customers track live service status, while staff manage jobs and updates seamlessly from the floor.",
-                  color: "#3C95E8"
-                },
-                { 
-                  icon: "bi-globe", 
-                  title: "Professional Domain", 
-                  desc: "Get a high-conversion domain for your garage. Integrated booking engine directly feeds into your dashboard, turning visitors into loyal customers.",
-                  color: "#5AC8FA"
-                },
-              ].map((card, i) => (
-                <motion.div
-                  key={i}
-                  className="ecosystem-card main-card"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: i * 0.15 }}
-                  whileHover={{ y: -10 }}
-                >
-                  <div className="card-icon-blob" style={{ backgroundColor: `${card.color}15` }}>
-                    <i className={`bi ${card.icon}`} style={{ color: card.color }}></i>
-                  </div>
-                  <h3>{card.title}</h3>
-                  <p>{card.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Admin Command Center - Featured full width */}
-            <motion.div 
-              className="ecosystem-card featured-card"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9 }}
-            >
-              <div className="featured-content">
-                <div className="featured-text">
-                  <div className="tag">POWERFUL CORE</div>
-                  <h3>Separate Admin Command Center</h3>
-                  <p>A high-performance system for multi-garage owners. Oversee every branch, manage staff permissions, and centralize your operations from a single powerful login. No more jumping between tabs or spreadsheets.</p>
-                  <ul className="featured-list">
-                    <li><i className="bi bi-check-circle-fill"></i> Multi-Garage oversight</li>
-                    <li><i className="bi bi-check-circle-fill"></i> User Roles & Permissions</li>
-                    <li><i className="bi bi-check-circle-fill"></i> Centralized Billing & Compliance</li>
-                  </ul>
-                </div>
-                <div className="featured-visual">
-                  <i className="bi bi-shield-lock-fill"></i>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Supporting Features */}
-            <div className="ecosystem-secondary-grid">
-              {[
-                { 
-                  icon: "bi-database-check", 
-                  title: "Granular Garage Records", 
-                  desc: "Every single job card, purchase, and staff update is recorded with surgical precision. Access detailed history for any garage or customer with one click." 
-                },
-                { 
-                  icon: "bi-pie-chart", 
-                  title: "Advanced Reporting Suite", 
-                  desc: "Comprehensive financial breakthroughs—Revenue, Profit, Expenses, and Salaries. Filter by month, year, or specific dates with multiple payment modes." 
-                },
-                { 
-                  icon: "bi-cloud-plus", 
-                  title: "Digital Archive Locker", 
-                  desc: "A secure cloud storage system to store every document, old record, and image for years. Your data is protected, organized, and always accessible." 
-                },
-              ].map((card, i) => (
-                <motion.div
-                  key={i}
-                  className="ecosystem-card secondary-card"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: i * 0.12 }}
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="mini-icon">
-                    <i className={`bi ${card.icon}`}></i>
-                  </div>
-                  <div>
-                    <h4>{card.title}</h4>
-                    <p>{card.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
