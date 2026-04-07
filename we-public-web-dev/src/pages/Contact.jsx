@@ -210,10 +210,12 @@ export default function Contact() {
         .contact-item-link:hover { color: var(--primary-color); transform: translateY(-2px); }
       `}</style>
 
-      {/* ── HEADER & MAP SECTION ── */}
-      <section style={{ padding: '120px 20px 80px', background: '#fff' }}>
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div className="contact-header-centered" style={{ textAlign: 'center', marginBottom: '60px' }}>
+      {/* ── MAIN CONTENT SECTION ── */}
+      <section className="form-section" style={{ padding: '120px 20px 100px', background: '#F8FAFC' }}>
+        <div className="container" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          
+          {/* Header - Remains centered */}
+          <div className="contact-header-centered" style={{ textAlign: 'center', marginBottom: '80px' }}>
             <h2 style={{ fontSize: 'clamp(32px, 5vw, 64px)', fontWeight: 900, letterSpacing: '-0.04em', color: '#111', marginBottom: '20px' }}>
               Send us a <span style={{ color: 'var(--primary-color)' }}>message</span>
             </h2>
@@ -237,52 +239,75 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="contact-map-wrapper" style={{ borderRadius: '32px', overflow: 'hidden', boxShadow: '0 40px 100px rgba(0,0,0,0.12)', border: '1px solid rgba(0,0,0,0.04)', position: 'relative' }}>
-            <iframe 
-              width="100%" 
-              height="600" 
-              style={{ border: 0, display: 'block', pointerEvents: 'none' }}
-              allow="geolocation" 
-              src="https://api.maptiler.com/maps/base-v4/?key=j1WL3BcHxjPALgZTdsfA#4.4/19.69223/78.59130"
-              title="Map"
-            />
-          </div>
-        </div>
-      </section>
+          {/* Split Layout: Map Left, Form Right */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
+            gap: '40px', 
+            alignItems: 'stretch' 
+          }}>
+            
+            {/* Map Wrapper (Left) */}
+            <div className="contact-map-wrapper" style={{ 
+              borderRadius: '32px', 
+              overflow: 'hidden', 
+              boxShadow: '0 40px 100px rgba(0,0,0,0.12)', 
+              border: '1px solid rgba(0,0,0,0.04)', 
+              position: 'relative',
+              minHeight: '600px'
+            }}>
+              <iframe 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0, display: 'block', pointerEvents: 'auto', minHeight: '600px' }}
+                allow="geolocation" 
+                src="https://api.maptiler.com/maps/base-v4/?key=j1WL3BcHxjPALgZTdsfA#4.4/19.69223/78.59130"
+                title="Map"
+              />
+            </div>
 
-      {/* ── FORM SECTION ── */}
-      <section className="form-section" style={{ padding: '100px 20px', background: '#F8FAFC' }}>
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div className="form-card-centered" ref={formRef} style={{ maxWidth: '1000px', margin: '0 auto', background: '#fff', padding: 'clamp(30px, 5vw, 60px)', borderRadius: '40px', boxShadow: '0 20px 60px rgba(0,0,0,0.05)', border: '1px solid #F1F5F9' }}>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginBottom: '40px' }}>
-                <FloatingInput label="Garage Name" placeholder="E.g. Metro Auto Repairs" required />
-                <FloatingInput label="Owner Name"  placeholder="Full name" required />
-                <FloatingInput label="Phone Number" type="tel" placeholder="+91 000-000-0000" required />
-                <FloatingInput label="Email Address" type="email" placeholder="name@company.com" required />
-                <FloatingInput label="City" placeholder="City name" required />
-                <FloatingInput label="Staff Count" as="select" required>
-                  <option value="">Select size</option>
-                  <option value="1-5">1-5 Employees</option>
-                  <option value="6-15">6-15 Employees</option>
-                  <option value="16-30">16-30 Employees</option>
-                  <option value="31+">31+ Employees</option>
-                </FloatingInput>
-                <FloatingInput label="Monthly Vehicles Handled" as="select" required>
-                  <option value="">Select range</option>
-                  <option value="0-50">0 - 50 Vehicles</option>
-                  <option value="51-150">51 - 150 Vehicles</option>
-                  <option value="151-500">151 - 500 Vehicles</option>
-                  <option value="501+">501+ Vehicles</option>
-                </FloatingInput>
-                <div style={{ gridColumn: '1 / -1' }}>
-                  <FloatingInput label="Message" as="textarea" placeholder="How can we help you?" />
+            {/* Form Card (Right) */}
+            <div className="form-card-centered" ref={formRef} style={{ 
+              background: '#fff', 
+              padding: 'clamp(24px, 4vw, 48px)', 
+              borderRadius: '40px', 
+              boxShadow: '0 20px 60px rgba(0,0,0,0.05)', 
+              border: '1px solid #F1F5F9',
+              height: '100%'
+            }}>
+              <form onSubmit={(e) => e.preventDefault()}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '30px' }} className="form-split-grid">
+                  <FloatingInput label="Garage Name" placeholder="Metro Repairs" required />
+                  <FloatingInput label="Owner Name"  placeholder="Full name" required />
+                  <FloatingInput label="Phone Number" type="tel" placeholder="+91..." required />
+                  <FloatingInput label="Email Address" type="email" placeholder="name@company.com" required />
+                  <FloatingInput label="City" placeholder="City name" required />
+                  <FloatingInput label="Staff Count" as="select" required>
+                    <option value="">Select size</option>
+                    <option value="1-5">1-5 Employees</option>
+                    <option value="6-15">6-15 Employees</option>
+                    <option value="16-30">16-30 Employees</option>
+                    <option value="31+">31+ Employees</option>
+                  </FloatingInput>
+                  <div style={{ gridColumn: 'span 2' }}>
+                    <FloatingInput label="Monthly Vehicles Handled" as="select" required>
+                      <option value="">Select range</option>
+                      <option value="0-50">0 - 50 Vehicles</option>
+                      <option value="51-150">51 - 150 Vehicles</option>
+                      <option value="151-500">151 - 500 Vehicles</option>
+                      <option value="501+">501+ Vehicles</option>
+                    </FloatingInput>
+                  </div>
+                  <div style={{ gridColumn: '1 / -1' }}>
+                    <FloatingInput label="Message" as="textarea" placeholder="How can we help you?" />
+                  </div>
                 </div>
-              </div>
-              <motion.button type="submit" className="btn-submit-anim" whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                Request Personalized Demo
-              </motion.button>
-            </form>
+                <motion.button type="submit" className="btn-submit-anim" whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+                  Request Personalized Demo
+                </motion.button>
+              </form>
+            </div>
+
           </div>
         </div>
       </section>

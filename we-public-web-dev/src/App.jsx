@@ -68,8 +68,8 @@ function Home() {
       <LandingIntro />
       <Numbers />
       <Features />
-      <Comparison />
       <Packages />
+      <Comparison />
       <Testimonial />
       <Footer />
     </>

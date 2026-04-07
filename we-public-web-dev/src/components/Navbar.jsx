@@ -151,6 +151,21 @@ export default function Navbar() {
 
         {/* CTA */}
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "2.4vw" }} className="nav-cta-group">
+          <Link
+            to="/contact"
+            style={{
+              ...linkBase,
+              fontWeight: 700,
+              fontSize: "12px",
+              letterSpacing: "0.06em",
+              borderBottom: `1.5px solid ${textColor}`,
+              paddingBottom: "1px",
+              transition: "color 0.45s ease, border-color 0.45s ease",
+            }}
+            className="nav-start-trial"
+          >
+            START TRIAL ↗
+          </Link>
           <a
             href="https://workshopedge.online/"
             target="_blank"
@@ -172,21 +187,6 @@ export default function Navbar() {
           >
             LOGIN
           </a>
-          <Link
-            to="/contact"
-            style={{
-              ...linkBase,
-              fontWeight: 700,
-              fontSize: "12px",
-              letterSpacing: "0.06em",
-              borderBottom: `1.5px solid ${textColor}`,
-              paddingBottom: "1px",
-              transition: "color 0.45s ease, border-color 0.45s ease",
-            }}
-            className="nav-start-trial"
-          >
-            START TRIAL ↗
-          </Link>
         </div>
 
         {/* Hamburger */}
@@ -255,6 +255,21 @@ export default function Navbar() {
             <Link to="/media" onClick={() => setMobileOpen(false)} style={{ ...mobileLinkBase, fontSize: "16px", padding: "0 12px" }}>media</Link>
           </div>
           <div style={{ marginTop: "16px", display: "flex", gap: "10px", alignItems: "center" }}>
+            <Link
+              to="/contact"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                ...mobileLinkBase,
+                fontSize: "13px",
+                fontWeight: 700,
+                borderBottom: "1.5px solid #111",
+                paddingBottom: "1px",
+                padding: "10px 0",
+                width: "fit-content",
+              }}
+            >
+              START TRIAL ↗
+            </Link>
             <a
               href="https://workshopedge.online/"
               target="_blank"
@@ -273,21 +288,6 @@ export default function Navbar() {
             >
               LOGIN
             </a>
-            <Link
-              to="/contact"
-              onClick={() => setMobileOpen(false)}
-              style={{
-                ...mobileLinkBase,
-                fontSize: "13px",
-                fontWeight: 700,
-                borderBottom: "1.5px solid #111",
-                paddingBottom: "1px",
-                padding: "10px 0",
-                width: "fit-content",
-              }}
-            >
-              START TRIAL ↗
-            </Link>
           </div>
         </div>
       )}
