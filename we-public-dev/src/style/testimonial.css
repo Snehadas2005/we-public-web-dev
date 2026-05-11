@@ -1,0 +1,379 @@
+/* Testimonial section + CTA (home.css bundle chunk) */
+
+.testimonial-wrapper {
+  width: 100%;
+}
+
+.testimonial-section {
+  background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.testimonial-header .section-tag {
+  color: var(--primary-color);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.testimonial-header .section-title {
+  font-size: 34px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.testimonial-card {
+  background: white;
+  border-radius: 32px;
+  padding: 56px 72px;
+  min-height: 460px;
+  max-width: 900px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  transition: min-height 0.3s ease;
+}
+
+.testimonial-card .content {
+  position: relative;
+  z-index: 20;
+  max-width: 58%;
+  text-align: left;
+}
+
+.testimonial-quote-icon {
+  margin-bottom: 2rem;
+}
+
+.testimonial-text {
+  font-size: 17px;
+  font-weight: 400;
+  color: #1f2937;
+  line-height: 1.75;
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+.testimonial-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.garage-name {
+  font-weight: 700;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.owner-name {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.logo-circles {
+  position: absolute;
+  top: 50%;
+  right: 36px;
+  transform: translateY(-53%);
+  width: 340px;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  margin: 1rem;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.circle-1 {
+  width: 400px;
+  height: 385px;
+  background: #edf6ff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.circle-2 {
+  width: 375px;
+  height: 362px;
+  background: #fdfeff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-47%, -45%);
+  z-index: 3;
+}
+
+.circle-3 {
+  width: 375px;
+  height: 362px;
+  background: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-47%, -45%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.dots-accent {
+  position: absolute;
+  top: 24px;
+  left: -10px;
+  width: 80px;
+  height: 80px;
+  background-image: url("/blue-doted-pattern.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 3;
+}
+
+.testimonial-logo {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+  opacity: 0.56;
+  transition: all 0.3s ease;
+}
+
+.slider-navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: var(--primary-color);
+  transform: scale(1.25);
+}
+
+.slider-arrows {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.arrow-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #d1e9ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  cursor: pointer;
+  background: white;
+  transition: all 0.25s ease;
+  font-size: 14px;
+}
+
+.arrow-btn:hover {
+  background: #f0f7ff;
+  border-color: var(--primary-color);
+}
+
+.cta-section {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3.5rem;
+}
+
+.dashboard-preview {
+  margin: 40px auto 0;
+  max-width: 750px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.browser-mock {
+  background: #f8fafc;
+  border-radius: 12px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.browser-mock .preview-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.floating-phone-mock {
+  position: absolute;
+  bottom: -40px;
+  right: -50px;
+  width: 280px;
+  background: #111827;
+  border: 8px solid #111827;
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-preview-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.placeholder-box {
+  background-color: #d1d5db;
+  border-radius: 12px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* Home page tweaks (replaces former inline overrides) */
+.testimonial-section--home {
+  border-top: none;
+  box-shadow: none;
+}
+
+.testimonial-header--home {
+  border-top: none;
+  margin: 0 0 3rem 0;
+  padding-top: 0;
+}
+
+/* Workshop CTA block below testimonials */
+.workshop-cta-video-container--block {
+  display: block;
+}
+
+.workshop-cta-section {
+  background: #e5f1ff;
+  width: 100%;
+  padding: 120px 6vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.workshop-cta-card {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.workshop-cta-headline {
+  font-family: "Epilogue", sans-serif;
+  font-size: clamp(24px, 4vw, 60px);
+  font-weight: 700;
+  color: #222222;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.workshop-cta-subheadline {
+  font-family: "Epilogue", sans-serif;
+  font-size: clamp(15px, 1.1vw, 18px);
+  color: rgba(33, 33, 33, 0.85);
+  max-width: 650px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+
+.workshop-cta-video-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  background: #222;
+  cursor: pointer;
+  position: relative;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease;
+}
+
+.workshop-cta-video {
+  width: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.workshop-cta-btn {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  font-family: "Epilogue", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 18px 50px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+.workshop-cta-btn:hover {
+  transform: translateY(-2px);
+  background: #f8f8f8;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .workshop-cta-section {
+    padding: 80px 6vw;
+  }
+}

@@ -1,0 +1,219 @@
+/* Cloud.jsx — extracted from component */
+.cloud-page-root { overflow-x: hidden; background: #fff; }
+
+/* block 1 */
+@keyframes floatY {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-5px); }
+        }
+        @keyframes floatFile {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          33% { transform: translateY(-3px) rotate(1.5deg); }
+          66% { transform: translateY(-1px) rotate(-1deg); }
+        }
+        .file-icon-anim {
+          animation: floatFile 4s ease-in-out infinite;
+          transition: transform 0.3s ease;
+        }
+        .file-icon-anim:hover { transform: scale(1.1) !important; }
+
+        .cloud-hero-btn {
+          display: inline-flex; align-items: center; gap: 10px;
+          padding: 16px 36px; border-radius: 100px; font-weight: 700;
+          font-size: 15px; cursor: pointer; transition: all 0.3s ease;
+          font-family: 'Epilogue', sans-serif; letter-spacing: 0.02em;
+          text-decoration: none;
+        }
+        .cloud-hero-btn.primary {
+          background: #3C95E8; color: #fff; border: none;
+          box-shadow: 0 8px 32px rgba(60,149,232,0.38);
+        }
+        .cloud-hero-btn.primary:hover {
+          background: #2b84d7; transform: translateY(-3px);
+          box-shadow: 0 16px 40px rgba(60,149,232,0.45);
+        }
+        .cloud-hero-btn.outline {
+          background: transparent; color: #111;
+          border: 1.5px solid rgba(0,0,0,0.15);
+        }
+        .cloud-hero-btn.outline:hover {
+          border-color: #3C95E8; color: #3C95E8;
+          transform: translateY(-2px);
+        }
+
+        .feat-card-cloud {
+          background: #fff; border: 1px solid rgba(0,0,0,0.06);
+          border-radius: 24px; padding: 36px 30px;
+          transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+          cursor: default; position: relative; overflow: hidden;
+        }
+        .feat-card-cloud::before {
+          content: ''; position: absolute; inset: 0; border-radius: 24px;
+          background: radial-gradient(circle at 50% -20%, rgba(60,149,232,0.06), transparent 70%);
+          opacity: 0; transition: opacity 0.4s;
+        }
+        .feat-card-cloud:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.09); border-color: #3C95E8; }
+        .feat-card-cloud:hover::before { opacity: 1; }
+
+        .use-case-tab {
+          padding: 14px 24px; border-radius: 50px; font-size: 14px;
+          font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+          border: 1.5px solid transparent;
+          font-family: 'Epilogue', sans-serif; white-space: nowrap;
+        }
+        .use-case-tab.active {
+          background: #3C95E8; color: #fff;
+          box-shadow: 0 4px 16px rgba(60,149,232,0.3);
+        }
+        .use-case-tab:not(.active) {
+          background: #F3F4F6; color: #4B5563; border-color: transparent;
+        }
+        .use-case-tab:not(.active):hover { border-color: #3C95E8; color: #3C95E8; background: #E8F4FF; }
+
+        .ticker-wrap { overflow: hidden; background: #F0F7FF; padding: 16px 0; border-top: 1px solid rgba(60,149,232,0.12); border-bottom: 1px solid rgba(60,149,232,0.12); }
+        .ticker-inner { display: flex; width: max-content; gap: 0; }
+        .ticker-item { display: flex; align-items: center; gap: 10px; padding: 0 32px; white-space: nowrap; font-family: 'Epilogue',sans-serif; font-size: 13px; font-weight: 600; color: #3C95E8; letter-spacing: 0.04em; }
+
+        .storage-card {
+          background: linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 60%, #122654 100%);
+          border-radius: 32px; overflow: hidden; position: relative;
+        }
+
+        .plan-highlight-card {
+          border-radius: 28px; padding: 40px; position: relative; overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.16,1,0.3,1); border: 1px solid transparent;
+        }
+        .plan-highlight-card:hover { transform: translateY(-6px); }
+
+        .big-cta-section {
+          background: linear-gradient(135deg, #0a1628 0%, #0d2247 50%, #0a1628 100%);
+          position: relative; overflow: hidden;
+        }
+
+        .file-hover-effect:hover {
+          background: #EBF5FF !important;
+          transform: translateY(-4px);
+          box-shadow: 0 8px 20px rgba(60,149,232,0.12);
+        }
+
+        /* ══════════════════════════════════════════════════════════
+           TABLET RESPONSIVE (768px – 992px)
+        ══════════════════════════════════════════════════════════ */
+        @media (max-width: 992px) {
+          /* Hero */
+          .hero-flex { flex-direction: column !important; text-align: center; align-items: center !important; gap: 2rem !important; }
+          .hero-canvas-wrap { width: 100% !important; height: 380px !important; margin-top: 0 !important; }
+          .cloud-hero-btn { padding: 14px 28px !important; font-size: 14px !important; }
+
+          /* Use case content */
+          .use-case-content-grid { flex-direction: column !important; }
+          .use-case-content-grid > div { width: 100% !important; }
+
+          /* Bento grid: 2 cols on tablet */
+          .bento-features-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .feat-card-bento { grid-column: span 1 !important; min-height: 280px !important; }
+
+          /* Stats grid */
+          .cloud-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+          /* How it works */
+          .how-it-works-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .how-it-works-grid > div:last-child { border-right: none !important; }
+
+          /* Security section */
+          .security-grid { grid-template-columns: 1fr !important; }
+
+          /* Use case sidebar */
+          .use-case-sidebar { width: 100% !important; }
+          .use-case-main { width: 100% !important; }
+          .use-case-mockup { height: 480px !important; }
+        }
+
+        /* ══════════════════════════════════════════════════════════
+           MOBILE RESPONSIVE (≤ 768px)
+        ══════════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+          /* Hero */
+          .hero-flex { flex-direction: column !important; text-align: center; align-items: center !important; gap: 1.5rem !important; padding: 40px 16px 20px !important; }
+          .hero-canvas-wrap { width: 100% !important; height: 280px !important; }
+          .hero-badge-wrap { justify-content: center !important; }
+          .cloud-hero-btn-wrap { justify-content: center !important; flex-wrap: wrap; gap: 10px !important; }
+          .cloud-hero-btn { padding: 13px 22px !important; font-size: 13px !important; }
+          .hero-trust-badges { justify-content: center !important; flex-wrap: wrap; gap: 12px !important; }
+
+          /* File explorer mock inside hero */
+          .hero-file-mock { display: none !important; }
+
+          /* Ticker */
+          .ticker-item { padding: 0 20px !important; font-size: 11px !important; }
+
+          /* Stats */
+          .cloud-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1px !important; }
+          .cloud-stat-item { padding: 28px 16px !important; }
+
+          /* Features bento — single column */
+          .bento-features-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+          .feat-card-bento { grid-column: span 1 !important; min-height: auto !important; padding: 28px !important; }
+          .cloud-features-section { padding: 60px 16px !important; }
+
+          /* Use cases section */
+          .cloud-use-cases-section { padding: 60px 16px !important; }
+          .use-case-content-grid { flex-direction: column !important; gap: 24px !important; }
+          .use-case-sidebar { width: 100% !important; }
+          .use-case-sidebar-inner { flex-direction: column !important; gap: 12px !important; }
+          .use-case-sidebar-item { padding: 16px 20px !important; }
+          .use-case-main-workspace { height: auto !important; min-height: 360px !important; }
+          .use-case-mockup-content { flex-direction: column !important; }
+          .use-case-mockup-sidebar { display: none !important; }
+          .use-case-main { width: 100% !important; }
+          /* Tabs on mobile */
+          .use-case-tabs-scroll { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 6px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+          .use-case-tabs-scroll::-webkit-scrollbar { display: none; }
+          .use-case-tab { padding: 10px 18px !important; font-size: 12px !important; flex-shrink: 0; }
+
+          /* How it works */
+          .how-it-works-section { padding: 60px 16px !important; }
+          .how-it-works-grid { grid-template-columns: 1fr !important; }
+          .how-it-works-step { border-right: none !important; border-bottom: 1px solid rgba(0,0,0,0.06) !important; padding: 28px 20px !important; }
+          .how-it-works-step:last-child { border-bottom: none !important; }
+
+          /* Security section */
+          .security-section { padding: 60px 16px !important; }
+          .security-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+          /* CTA section */
+          .cloud-cta-section { padding: 60px 16px !important; }
+          .cloud-cta-btn-wrap { flex-direction: column !important; align-items: center !important; }
+          .cloud-cta-btn-wrap .cloud-hero-btn { width: 100%; max-width: 280px; justify-content: center; }
+
+          /* Section headers */
+          .cloud-section-header { margin-bottom: 40px !important; }
+          .cloud-section-header h2 { font-size: clamp(26px, 7vw, 36px) !important; }
+
+          /* Stats text */
+          .cloud-stat-value { font-size: clamp(28px, 8vw, 42px) !important; }
+        }
+
+        /* Very small screens */
+        @media (max-width: 400px) {
+          .cloud-stats-grid { grid-template-columns: 1fr 1fr !important; }
+          .hero-canvas-wrap { height: 220px !important; }
+          .hero-file-mock { padding: 16px !important; }
+        }
+
+/* block 2 */
+.feat-card-bento:hover {
+              transform: translateY(-8px) scale(1.01);
+              box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+              border-color: rgba(60,149,232,0.2);
+            }
+
+/* block 3 */
+@media (max-width: 768px) {
+          .use-case-tabs-scroll { display: flex !important; }
+          .use-case-sidebar { display: none !important; }
+        }
+        @media (min-width: 769px) {
+          .use-case-tabs-scroll { display: none !important; }
+        }
+

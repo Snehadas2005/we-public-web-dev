@@ -1,0 +1,40 @@
+/* AppDetails.jsx */
+
+.app-details-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-details-page__main {
+  flex: 1;
+  padding-top: 120px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.app-details-page__title {
+  font-family: Epilogue, sans-serif;
+  font-weight: 800;
+  font-size: clamp(36px, 5vw, 64px);
+}
+
+.app-details-page__lead {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #666;
+}
+
+.app-details-page__placeholder {
+  margin-top: 60px;
+  color: #888;
+}
+
+.app-details-page__placeholder .bi-phone {
+  font-size: 48px;
+  color: #3c95e8;
+}
+
+.app-details-page__placeholder-note {
+  margin-top: 16px;
+}

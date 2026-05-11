@@ -1,0 +1,14 @@
+/* Barrel file: import order must match the former monolithic home.css */
+@import "./base.css";
+@import "./navbar.css";
+@import "./landing.css";
+@import "./features.css";
+@import "./packages.css";
+@import "./numbers.css";
+@import "./branch.css";
+@import "./domain.css";
+@import "./cloud.css";
+@import "./testimonial.css";
+@import "./footer.css";
+@import "./responsive.css";
+@import "./comparison.css";

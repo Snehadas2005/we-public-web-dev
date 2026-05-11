@@ -1,0 +1,50 @@
+/* Domain.jsx */
+.domain-page-root { overflow-x: hidden; background: #fff; }
+
+.ws-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.ws-two-ways-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.ws-template-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.ws-feat-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.ws-how-steps { display: grid; grid-template-columns: repeat(3, 1fr); background: rgba(0,0,0,0.04); border-radius: 24px; overflow: hidden; }
+.ws-metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; border-radius: 24px; overflow: hidden; }
+.ws-domain-badges { display: flex; gap: 10px; margin-top: 36px; flex-wrap: wrap; }
+.ws-hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.ws-hero-browser { display: block; }
+.ws-mobile-visual { display: none; }
+.ws-cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+.ws-btn-dark:hover { background: #243650 !important; transform: translateY(-2px); box-shadow: 0 12px 36px rgba(26,42,58,0.3) !important; }
+.ws-btn-outline:hover { border-color: #3C95E8 !important; color: #3C95E8 !important; transform: translateY(-2px); }
+.ws-btn-blue:hover { background: #2b84d7 !important; transform: translateY(-2px); box-shadow: 0 12px 36px rgba(60,149,232,0.4) !important; }
+.ws-btn-gold:hover {  background: #ffbb00ff !important; transform: translateY(-2px); box-shadow: 0 12px 36px rgba(255, 236, 158, 0.66) !important; }
+
+@media (max-width: 1024px) {
+  .ws-hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+  .ws-hero-browser { display: none !important; }
+  .ws-mobile-visual { display: flex !important; }
+  .ws-two-ways-grid { grid-template-columns: 1fr !important; }
+  .ws-template-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .ws-feat-cols { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .ws-how-steps { grid-template-columns: 1fr !important; }
+  .ws-how-steps .ws-step-item { border-right: none !important; border-bottom: 1px solid rgba(0,0,0,0.06) !important; }
+  .ws-how-steps .ws-step-item:last-child { border-bottom: none !important; }
+  .ws-metrics-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .ws-section-pad { padding: 72px 20px !important; }
+}
+
+@media (max-width: 640px) {
+  .ws-hero-grid { gap: 2.5rem !important; }
+  .ws-template-grid { grid-template-columns: 1fr !important; }
+  .ws-hero-btns { flex-direction: column !important; }
+  .ws-hero-btns a, .ws-hero-btns button { width: 100% !important; justify-content: center !important; }
+  .ws-domain-badges { gap: 8px !important; }
+  .ws-cta-btns { flex-direction: column !important; align-items: center !important; }
+  .ws-cta-btns a { width: 100% !important; max-width: 300px !important; justify-content: center !important; }
+  .ws-section-pad { padding: 60px 16px !important; }
+  .ws-metrics-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .ws-two-ways-card { padding: 32px 24px !important; }
+  .ws-two-ways-card .ws-watermark { font-size: 100px !important; }
+}
+
+.ws-domain-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+.ws-domain-scroll::-webkit-scrollbar { display: none; }

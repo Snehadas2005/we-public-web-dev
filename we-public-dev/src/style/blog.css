@@ -1,0 +1,302 @@
+/* Blog list + article — matches Media / site tokens */
+
+.blog-page {
+  min-height: 100vh;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+.blog-page__hero {
+  padding: 90px clamp(24px, 5vw, 80px) 40px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.blog-page__hero-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.blog-page__eyebrow {
+  font-family: "Epilogue", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #3c95e8;
+  margin: 0 0 10px;
+}
+
+.blog-page__title {
+  font-family: "Epilogue", sans-serif;
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 52px);
+  letter-spacing: -0.04em;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.08;
+}
+
+.blog-page__lead {
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 17px;
+  color: #6b7280;
+  margin-top: 14px;
+  max-width: 560px;
+  line-height: 1.65;
+}
+
+.blog-page__grid-wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 48px clamp(24px, 5vw, 80px) 120px;
+}
+
+.blog-page__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px 32px;
+}
+
+@media (max-width: 1024px) {
+  .blog-page__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-page__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.blog-card__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #e5e7eb;
+}
+
+.blog-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.blog-card__body {
+  padding: 22px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+}
+
+.blog-card__meta {
+  font-family: "Epilogue", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.blog-card__title {
+  font-family: "Epilogue", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.35;
+  color: #111827;
+  margin: 0;
+}
+
+.blog-card__excerpt {
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #6b7280;
+  margin: 0;
+  flex: 1;
+}
+
+.blog-card__cta {
+  font-family: "Epilogue", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #3c95e8;
+  margin-top: 6px;
+}
+
+/* —— Article (full post) —— */
+
+.blog-article {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.blog-article__hero {
+  padding: 90px clamp(24px, 5vw, 80px) 32px;
+}
+
+.blog-article__hero-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.blog-article__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Epilogue", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #3c95e8;
+  margin-bottom: 22px;
+  text-decoration: none;
+}
+
+.blog-article__back:hover {
+  text-decoration: underline;
+}
+
+.blog-article__meta {
+  font-family: "Epilogue", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+.blog-article__title {
+  font-family: "Epilogue", sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 4.2vw, 42px);
+  letter-spacing: -0.03em;
+  color: #1f2937;
+  line-height: 1.12;
+  margin: 0 0 20px;
+}
+
+.blog-article__cover {
+  max-width: 900px;
+  margin: 0 auto 0;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+
+.blog-article__cover img {
+  width: 100%;
+  border-radius: 16px;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #e5e7eb;
+}
+
+.blog-article__content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px clamp(24px, 5vw, 80px) 120px;
+}
+
+.blog-article__content p {
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #374151;
+  margin: 0 0 1.25em;
+}
+
+.blog-article__content h2 {
+  font-family: "Epilogue", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: #111827;
+  margin: 1.6em 0 0.6em;
+}
+
+.blog-article__content ul {
+  list-style: disc;
+  padding-left: 1.25em;
+  margin: 0 0 1.25em;
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #374151;
+}
+
+.blog-article__content li {
+  margin-bottom: 0.5em;
+}
+
+.blog-article__figure {
+  margin: 2em 0;
+}
+
+.blog-article__figure img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #e5e7eb;
+}
+
+.blog-article__caption {
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.blog-not-found {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 24px;
+  text-align: center;
+}
+
+.blog-not-found h1 {
+  font-family: "Epilogue", sans-serif;
+  font-size: 28px;
+  color: #1f2937;
+  margin: 0 0 12px;
+}
+
+.blog-not-found p {
+  font-family: "Source Sans 3", sans-serif;
+  color: #6b7280;
+  margin: 0 0 24px;
+}
+
+.blog-not-found a {
+  font-family: "Epilogue", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: #3c95e8;
+}
