@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "../utils/Navbar";
@@ -8,94 +7,6 @@ import Footer from "../utils/Footer";
 import "../style/CustomerPage.css";
 
 gsap.registerPlugin(ScrollTrigger);
-
-/* ── Three.js hero canvas ─────────────────────────── */
-function HeroCanvas() {
-  const mountRef = useRef(null);
-
-  useEffect(() => {
-    const el = mountRef.current;
-    if (!el) return;
-
-    const W = el.clientWidth;
-    const H = el.clientHeight;
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0);
-    el.appendChild(renderer.domElement);
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, W / H, 0.1, 100);
-    camera.position.z = 5;
-
-    /* Particle field */
-    const count = 420;
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      pos[i * 3]     = (Math.random() - 0.5) * 14;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 7;
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-    const mat = new THREE.PointsMaterial({
-      color: 0x3c95e8,
-      size: 0.05,
-      transparent: true,
-      opacity: 0.5,
-      sizeAttenuation: true,
-    });
-    const particles = new THREE.Points(geo, mat);
-    scene.add(particles);
-
-    /* Wireframe torus — abstract tech ring */
-    const torGeo = new THREE.TorusGeometry(2.6, 0.007, 8, 100);
-    const torMat = new THREE.MeshBasicMaterial({ color: 0x3c95e8, transparent: true, opacity: 0.1 });
-    const torus = new THREE.Mesh(torGeo, torMat);
-    torus.rotation.x = 1.1;
-    scene.add(torus);
-
-    const torGeo2 = new THREE.TorusGeometry(1.8, 0.005, 6, 80);
-    const torus2 = new THREE.Mesh(torGeo2, new THREE.MeshBasicMaterial({ color: 0x3c95e8, transparent: true, opacity: 0.07 }));
-    torus2.rotation.x = 0.4;
-    torus2.rotation.y = 0.8;
-    scene.add(torus2);
-
-    let animId;
-    const clock = new THREE.Clock();
-
-    const animate = () => {
-      animId = requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
-      particles.rotation.y = t * 0.035;
-      particles.rotation.x = t * 0.015;
-      torus.rotation.z = t * 0.04;
-      torus2.rotation.y = t * 0.06;
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    const onResize = () => {
-      const w = el.clientWidth;
-      const h = el.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-    };
-    window.addEventListener("resize", onResize);
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", onResize);
-      renderer.dispose();
-      if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
-    };
-  }, []);
-
-  return <div ref={mountRef} className="cust-hero__canvas" />;
-}
 
 /* ── Feature items data ───────────────────────────── */
 const FEATURES = [
@@ -116,17 +27,17 @@ const FEATURES = [
   },
   {
     num: "02",
-    img: "/feature2.png",
-    imgAlt: "Digital document locker for vehicle papers",
-    badgeIcon: "bi-shield-lock-fill",
-    badgeText: "Document Locker",
-    title: "No more lost",
-    titleAccent: "paperwork.",
-    desc: "Insurance certificates, registration docs, PUC — stored securely, tied to the exact vehicle they belong to. Upload files up to 20 MB and retrieve them at any checkpoint or resale.",
+    img: "/Book-Appointment.jpeg",
+    imgAlt: "Online service booking for garages",
+    badgeIcon: "bi-calendar-check-fill",
+    badgeText: "Book Appointment",
+    title: "Service on",
+    titleAccent: "your schedule.",
+    desc: "Choose your preferred garage, select an available date and time slot, and book your service in seconds. Get instant confirmation and reminders.",
     bullets: [
-      "High-capacity secure uploads up to 20 MB per document",
-      "Tag every file to a specific registration number",
-      "Instant retrieval at checkpoints, during resale, or on the road",
+      "Real-time availability of nearby service centers",
+      "Select specific services and pick-up/drop-off options",
+      "Instant booking confirmation and automated reminders",
     ],
   },
   {
@@ -170,107 +81,158 @@ const CARDS = [
   { icon: "bi-person-fill", title: "Profile & Addresses", desc: "Keep your location, saved addresses, and contact details current for faster and more accurate bookings." },
 ];
 
+/* ── Drawing line SVG ─────────────────────────────── */
+function DrawingLine() {
+  const pathRef = useRef(null);
+  const svgRef = useRef(null);
+
+  useEffect(() => {
+    const path = pathRef.current;
+    if (!path) return;
+
+    const totalLength = path.getTotalLength();
+    gsap.set(path, {
+      strokeDasharray: totalLength,
+      strokeDashoffset: totalLength,
+    });
+
+    ScrollTrigger.create({
+      trigger: ".cust-features-section",
+      start: "top 70%",
+      end: "bottom 30%",
+      scrub: 1.5,
+      onUpdate: (self) => {
+        gsap.set(path, {
+          strokeDashoffset: totalLength * (1 - self.progress),
+        });
+      },
+    });
+
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+  }, []);
+
+  return (
+    <svg
+      ref={svgRef}
+      className="cust-drawing-line"
+      viewBox="0 0 100 2400"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        ref={pathRef}
+        d="M50,0 C50,200 50,400 50,600 C50,800 50,1000 50,1200 C50,1400 50,1600 50,1800 C50,2000 50,2200 50,2400"
+        fill="none"
+        stroke="#3C95E8"
+        strokeWidth="2"
+        strokeLinecap="round"
+        opacity="0.35"
+      />
+    </svg>
+  );
+}
+
 /* ── Main component ───────────────────────────────── */
 export default function Customer() {
-  const heroRef   = useRef(null);
-  const badgeRef  = useRef(null);
-  const titleRef  = useRef(null);
-  const descRef   = useRef(null);
+  const heroRef    = useRef(null);
+  const badgeRef   = useRef(null);
+  const titleRef   = useRef(null);
+  const descRef    = useRef(null);
   const actionsRef = useRef(null);
-  const phoneRef  = useRef(null);
-  const statsRef  = useRef(null);
+  const phoneRef   = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    /* ── Hero entrance (trigger once on page load) ─── */
+    /* ── Hero entrance ─── */
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-    tl.fromTo(badgeRef.current, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 })
-      .fromTo(titleRef.current, { opacity: 0, y: 60, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2 }, "-=0.35")
-      .fromTo(descRef.current, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.9 }, "-=0.6")
-      .fromTo(actionsRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.5")
-      .fromTo(phoneRef.current, { opacity: 0, x: 50, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 1.1, ease: "back.out(1.4)" }, "-=0.8")
-      .fromTo(".cust-orbit-pill", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, stagger: 0.15, ease: "back.out(2)" }, "-=0.4");
+    tl.fromTo(badgeRef.current,   { opacity: 0, y: 20 },                        { opacity: 1, y: 0, duration: 0.6 })
+      .fromTo(titleRef.current,   { opacity: 0, y: 50, filter: "blur(10px)" },  { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.1 }, "-=0.3")
+      .fromTo(descRef.current,    { opacity: 0, y: 24 },                        { opacity: 1, y: 0, duration: 0.8 }, "-=0.55")
+      .fromTo(actionsRef.current, { opacity: 0, y: 18 },                        { opacity: 1, y: 0, duration: 0.7 }, "-=0.45")
+      .fromTo(phoneRef.current,   { opacity: 0, x: 60, scale: 0.92 },           { opacity: 1, x: 0, scale: 1, duration: 1.1, ease: "back.out(1.4)" }, "-=0.8");
 
-    /* ── Stats strip (scroll trigger, once) ─────────── */
+    /* ── Stats strip ─── */
     const statItems = document.querySelectorAll(".cust-stat-item");
     statItems.forEach((el, i) => {
-      ScrollTrigger.create({
-        trigger: el,
-        start: "top 88%",
-        once: true,
-        onEnter: () => {
-          gsap.to(el, { opacity: 1, y: 0, duration: 0.7, delay: i * 0.1, ease: "power3.out" });
-        },
-      });
       gsap.set(el, { opacity: 0, y: 30 });
-    });
-
-    /* ── Feature items (scroll trigger, once) ─────────── */
-    const featureItems = document.querySelectorAll(".cust-feature-item");
-    featureItems.forEach((el, i) => {
-      ScrollTrigger.create({
-        trigger: el,
-        start: "top 82%",
-        once: true,
-        onEnter: () => {
-          gsap.to(el, { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" });
-        },
-      });
-      gsap.set(el, { opacity: 0, y: 60 });
-    });
-
-    /* ── Cards (scroll trigger, once) ─────────────────── */
-    const cards = document.querySelectorAll(".cust-card");
-    cards.forEach((el, i) => {
       ScrollTrigger.create({
         trigger: el,
         start: "top 88%",
         once: true,
+        onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.7, delay: i * 0.1, ease: "power3.out" }),
+      });
+    });
+
+    /* ── Feature items: staggered reveal ─── */
+    document.querySelectorAll(".cust-feature-item").forEach((item) => {
+      const img      = item.querySelector(".cust-feature-img-wrap");
+      const num      = item.querySelector(".cust-feature-num");
+      const heading  = item.querySelector(".cust-feature-text h3");
+      const para     = item.querySelector(".cust-feature-text > p:not(.cust-feature-num)");
+      const bullets  = item.querySelector(".cust-feature-bullets");
+
+      gsap.set(img, { opacity: 0, scale: 0.95 });
+      gsap.set([num, heading, para, bullets].filter(Boolean), { opacity: 0, y: 32 });
+
+      ScrollTrigger.create({
+        trigger: item,
+        start: "top 78%",
+        once: true,
         onEnter: () => {
-          gsap.to(el, { opacity: 1, y: 0, scale: 1, duration: 0.75, delay: (i % 3) * 0.1, ease: "back.out(1.5)" });
+          gsap.to(img, { opacity: 1, scale: 1, duration: 1.0, ease: "power3.out" });
+          gsap.to([num, heading, para, bullets].filter(Boolean), {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            ease: "power3.out",
+            stagger: 0.2,
+            delay: 0.15,
+          });
         },
       });
+    });
+
+    /* ── Cards ─── */
+    document.querySelectorAll(".cust-card").forEach((el, i) => {
       gsap.set(el, { opacity: 0, y: 40, scale: 0.95 });
-    });
-
-    /* ── Section headers (scroll trigger, once) ──────── */
-    const secHeads = document.querySelectorAll(".cust-reveal-head");
-    secHeads.forEach((el) => {
       ScrollTrigger.create({
         trigger: el,
         start: "top 88%",
         once: true,
-        onEnter: () => {
-          gsap.fromTo(el, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" });
-        },
+        onEnter: () => gsap.to(el, { opacity: 1, y: 0, scale: 1, duration: 0.75, delay: (i % 3) * 0.1, ease: "back.out(1.5)" }),
       });
     });
 
-    /* ── CTA block (scroll trigger, once) ─────────────── */
+    /* ── Section headers ─── */
+    document.querySelectorAll(".cust-reveal-head").forEach((el) => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 88%",
+        once: true,
+        onEnter: () => gsap.fromTo(el, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }),
+      });
+    });
+
+    /* ── CTA block ─── */
     ScrollTrigger.create({
       trigger: ".cust-cta-section",
       start: "top 80%",
       once: true,
-      onEnter: () => {
-        gsap.fromTo(".cust-cta-inner", { opacity: 0, y: 50, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: "power3.out" });
-      },
+      onEnter: () => gsap.fromTo(".cust-cta-inner", { opacity: 0, y: 50, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: "power3.out" }),
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
   return (
     <div className="cust-page">
       <Navbar />
 
-      {/* ─── HERO ──────────────────────────────────── */}
+      {/* ─── HERO (white, editorial) ──────────────── */}
       <section className="cust-hero" ref={heroRef}>
-        <HeroCanvas />
-        <div className="cust-hero__overlay" />
-        <div className="cust-hero__grid" />
+        {/* Subtle dot grid */}
+        <div className="cust-hero__dot-grid" aria-hidden="true" />
 
         <div className="cust-hero__inner">
           {/* Left: copy */}
@@ -305,68 +267,95 @@ export default function Customer() {
             <div ref={phoneRef} className="cust-hero__phone" style={{ opacity: 0 }}>
               <div className="cust-phone__island" />
               <div className="cust-phone__screen">
+                {/* Status Bar */}
                 <div className="cust-phone__status-bar">
                   <span>WorkshopEdge</span>
                   <span>9:41</span>
                 </div>
+
                 <div className="cust-phone__screen-body">
-                  {/* Active service card */}
-                  <div className="cust-phone__car-card">
-                    <div className="cust-phone__car-icon">
-                      <i className="bi bi-car-front-fill" />
+                  {/* Phone Header */}
+                  <div className="cust-phone__app-header">
+                    <div className="cust-phone__user-info">
+                      <div className="cust-phone__logo-small">WE</div>
+                      <span className="cust-phone__user-name">Alex Johnson</span>
                     </div>
-                    <div className="cust-phone__car-info">
-                      <h4>KA-01-AB-2293</h4>
-                      <p>Honda City 2021 · 42,180 km</p>
-                      <span className="cust-phone__status-pill">Service in progress</span>
-                    </div>
-                  </div>
-
-                  {/* Stats */}
-                  <div className="cust-phone__stat-row">
-                    <div className="cust-phone__stat">
-                      <span className="cust-phone__stat-label">Documents</span>
-                      <span className="cust-phone__stat-value">7 stored</span>
-                    </div>
-                    <div className="cust-phone__stat">
-                      <span className="cust-phone__stat-label">Next service</span>
-                      <span className="cust-phone__stat-value">12 days</span>
+                    <div className="cust-phone__notif-bell">
+                      <i className="bi bi-bell" />
+                      <div className="cust-phone__notif-dot" />
                     </div>
                   </div>
 
-                  {/* Fuel stat */}
-                  <div className="cust-phone__stat">
-                    <span className="cust-phone__stat-label">Last fill-up mileage</span>
-                    <span className="cust-phone__stat-value" style={{ color: "var(--primary-color)" }}>18.4 km/L</span>
+                  {/* Quick Actions */}
+                  <div className="cust-phone__quick-actions">
+                    {[
+                      { icon: "bi-file-earmark-text-fill", label: "Document", color: "#2563EB" },
+                      { icon: "bi-person-fill", label: "Profile", color: "#2563EB" },
+                      { icon: "bi-house-fill", label: "Garages", color: "#2563EB" },
+                      { icon: "bi-car-front-fill", label: "Vehicles", color: "#2563EB" },
+                    ].map((item) => (
+                      <div key={item.label} className="cust-phone__action-item">
+                        <div className="cust-phone__action-icon" style={{ backgroundColor: item.color }}>
+                          <i className={`bi ${item.icon}`} />
+                        </div>
+                        <span>{item.label}</span>
+                      </div>
+                    ))}
                   </div>
 
-                  {/* Notification */}
-                  <div className="cust-phone__notif">
-                    <i className="bi bi-bell-fill" />
-                    <span className="cust-phone__notif-text">
-                      Insurance renewal due in 18 days — KA-01-AB-2293
-                    </span>
-                  </div>
-
-                  {/* Second car */}
-                  <div className="cust-phone__car-card">
-                    <div className="cust-phone__car-icon">
-                      <i className="bi bi-bicycle" />
+                  {/* Active Services */}
+                  <div className="cust-phone__section-label">Active Services</div>
+                  <div className="cust-phone__active-service-card">
+                    <div className="cust-phone__car-row">
+                      <div className="cust-phone__car-img-placeholder">
+                        <i className="bi bi-car-front" />
+                      </div>
+                      <div className="cust-phone__car-details">
+                        <div className="cust-phone__car-name-row">
+                          <h4>Toyota Camry</h4>
+                          <span className="cust-phone__badge-electric">ELECTRIC</span>
+                        </div>
+                        <p className="cust-phone__car-id">ABC-1234</p>
+                      </div>
                     </div>
-                    <div className="cust-phone__car-info">
-                      <h4>KA-05-HX-7721</h4>
-                      <p>Royal Enfield 2020 · 18,320 km</p>
+                    <div className="cust-phone__status-row">
+                      <span className="cust-phone__badge-status">IN PROGRESS</span>
+                      <span className="cust-phone__date-label">02/25/2026</span>
+                    </div>
+                    <button className="cust-phone__track-btn">Track Progress</button>
+                  </div>
+
+                  {/* Upcoming Appointment */}
+                  <div className="cust-phone__section-label">Upcoming Appointment</div>
+                  <div className="cust-phone__appointment-card">
+                    <div className="cust-phone__loc-row">
+                      <i className="bi bi-geo-alt-fill" />
+                      <span>Downtown Service Center</span>
+                    </div>
+                    <div className="cust-phone__appt-info">
+                      <div className="cust-phone__date-box">
+                        <span className="cust-phone__month">MAY</span>
+                        <span className="cust-phone__day">24</span>
+                      </div>
+                      <div className="cust-phone__appt-details">
+                        <h4>Multi-point Inspection</h4>
+                        <p>Friday • 09:30 AM</p>
+                      </div>
+                    </div>
+                    <div className="cust-phone__appt-actions">
+                      <button className="cust-phone__appt-btn">Completed</button>
+                      <button className="cust-phone__appt-btn secondary">Cancel</button>
                     </div>
                   </div>
                 </div>
 
-                {/* Bottom nav */}
+                {/* Bottom Nav */}
                 <div className="cust-phone__nav">
                   {[
-                    { icon: "bi-house-fill", label: "Home", active: true },
-                    { icon: "bi-car-front-fill", label: "Vehicles", active: false },
-                    { icon: "bi-journal-check", label: "Service", active: false },
-                    { icon: "bi-person-fill", label: "Profile", active: false },
+                    { icon: "bi-house-door-fill", label: "Home", active: true },
+                    { icon: "bi-calendar3", label: "Bookings", active: false },
+                    { icon: "bi-clock-history", label: "History", active: false },
+                    { icon: "bi-gear-fill", label: "Settings", active: false },
                   ].map(({ icon, label, active }) => (
                     <div key={label} className={`cust-phone__nav-item${active ? " active" : ""}`}>
                       <i className={`bi ${icon}`} />
@@ -376,79 +365,53 @@ export default function Customer() {
                 </div>
               </div>
             </div>
-
-            {/* Orbiting pills */}
-            <div className="cust-hero__orbit">
-              <div className="cust-orbit-pill cust-orbit-pill--1">
-                <i className="bi bi-shield-fill-check" />
-                <span>Docs Secured</span>
-              </div>
-              <div className="cust-orbit-pill cust-orbit-pill--2">
-                <i className="bi bi-fuel-pump-fill" />
-                <span>18.4 km/L</span>
-              </div>
-              <div className="cust-orbit-pill cust-orbit-pill--3">
-                <i className="bi bi-bell-fill" />
-                <span>Reminder Set</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* ─── STATS STRIP ──────────────────────────── */}
-      <div className="cust-stats-strip" ref={statsRef}>
-        <div className="cust-stats-strip-inner">
-          {[
-            { icon: "bi-car-front-fill", val: "500+", label: "Active Vehicles" },
-            { icon: "bi-file-earmark-fill", val: "20K+", label: "Documents Stored" },
-            { icon: "bi-journal-check", val: "12K+", label: "Job Cards Tracked" },
-            { icon: "bi-star-fill", val: "100%", label: "Satisfaction Rate" },
-          ].map(({ icon, val, label }) => (
-            <div key={label} className="cust-stat-item">
-              <i className={`bi ${icon} cust-stat-icon`} />
-              <div className="cust-stat-value">{val}</div>
-              <div className="cust-stat-label">{label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ─── FEATURE SHOWCASE ─────────────────────── */}
+      {/* ─── FEATURE SHOWCASE (with drawing line) ─── */}
       <section className="cust-features-section" id="features">
-        {FEATURES.map((feat, i) => (
-          <div key={feat.num} className="cust-feature-item">
-            {/* Image */}
-            <div className="cust-feature-img-wrap">
-              <img src={feat.img} alt={feat.imgAlt} loading="lazy" />
-              <div className="cust-feature-img-badge">
-                <i className={`bi ${feat.badgeIcon}`} />
-                <span>{feat.badgeText}</span>
-              </div>
-            </div>
+        {/* Drawing SVG line — positioned absolutely behind items */}
+        <DrawingLine />
 
-            {/* Text */}
-            <div className="cust-feature-text">
-              <p className="cust-feature-num">{feat.num} — 04</p>
-              <h3>
-                {feat.title}
-                <br />
-                <span>{feat.titleAccent}</span>
-              </h3>
-              <p>{feat.desc}</p>
-              <div className="cust-feature-bullets">
-                {feat.bullets.map((b) => (
-                  <div key={b} className="cust-feature-bullet">
-                    <div className="cust-feature-bullet-dot">
-                      <i className="bi bi-check2" />
+        {FEATURES.map((feat, i) => {
+          // Even index (0, 2…) → text left, image right
+          // Odd index  (1, 3…) → image left, text right
+          const isEven = i % 2 === 0;
+
+          return (
+            <div
+              key={feat.num}
+              className={`cust-feature-item ${isEven ? "cust-feature-item--text-left" : "cust-feature-item--image-left"}`}
+            >
+              {/* Image */}
+              <div className="cust-feature-img-wrap">
+                <img src={feat.img} alt={feat.imgAlt} loading="lazy" />
+              </div>
+
+              {/* Text */}
+              <div className="cust-feature-text">
+                <p className="cust-feature-num">{feat.num} — 04</p>
+                <h3>
+                  {feat.title}
+                  <br />
+                  <span>{feat.titleAccent}</span>
+                </h3>
+                <p>{feat.desc}</p>
+                <div className="cust-feature-bullets">
+                  {feat.bullets.map((b) => (
+                    <div key={b} className="cust-feature-bullet">
+                      <div className="cust-feature-bullet-dot">
+                        <i className="bi bi-check2" />
+                      </div>
+                      <span>{b}</span>
                     </div>
-                    <span>{b}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
 
       {/* ─── CARDS GRID ───────────────────────────── */}
