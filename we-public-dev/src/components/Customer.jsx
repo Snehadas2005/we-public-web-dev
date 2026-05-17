@@ -18,26 +18,26 @@ const FEATURES = [
     badgeText: "My Vehicles",
     title: "Your entire fleet,",
     titleAccent: "one dashboard.",
-    desc: "Add every 2-wheeler and 4-wheeler you own. Each vehicle gets its own profile — model, year, odometer, and a complete service timeline you can scroll through anytime.",
+    desc: "Add every 2-wheeler and 4-wheeler you own. Each vehicle gets its own profile — model, year, odometer, and a complete service timeline you can scroll through anytime with smooth pagination.",
     bullets: [
-      "Unlimited vehicle support across 2-wheelers and 4-wheelers",
-      "Individual vehicle profiles with specs and service history",
-      "Real-time odometer tracking and mileage insights",
+      "Unlimited vehicle support for bikes and cars",
+      "Detailed profiles: Model, Year, and Odometer tracking",
+      "Paginated list view for easy fleet management",
     ],
   },
   {
     num: "02",
-    img: "/Book-Appointment.jpeg",
-    imgAlt: "Online service booking for garages",
-    badgeIcon: "bi-calendar-check-fill",
-    badgeText: "Book Appointment",
-    title: "Service on",
-    titleAccent: "your schedule.",
-    desc: "Choose your preferred garage, select an available date and time slot, and book your service in seconds. Get instant confirmation and reminders.",
+    img: "/feature2.png", // Ensure you have this asset
+    imgAlt: "Secure document locker",
+    badgeIcon: "bi-shield-lock-fill",
+    badgeText: "Document Locker",
+    title: "Secure storage for",
+    titleAccent: "your essentials.",
+    desc: "Stop hunting for physical papers. Upload high-resolution scans of your insurance, registration, and permits directly to the app. Everything is organized and ready for checkpoints.",
     bullets: [
-      "Real-time availability of nearby service centers",
-      "Select specific services and pick-up/drop-off options",
-      "Instant booking confirmation and automated reminders",
+      "Upload documents up to 20MB per file",
+      "Storage for Insurance, Permits, and Vehicle IDs",
+      "Quick access at checkpoints or during resale",
     ],
   },
   {
@@ -48,37 +48,61 @@ const FEATURES = [
     badgeText: "Service Intelligence",
     title: "Track every repair,",
     titleAccent: "every invoice.",
-    desc: "Live job card status, itemized invoices with spare parts and taxes, and a running service history you own — even for garages not on the Workshop Edge network.",
+    desc: "View live job card status, repair details, and estimated completion times. Receive detailed digital invoices including spare parts, labor, and taxes for total transparency.",
     bullets: [
-      "Real-time job card progress from check-in to completion",
-      "Itemized digital invoices with spares, services, and taxes",
-      "Manual job card logging for non-WE garages",
+      "Real-time job card tracking: see progress and repairs",
+      "Detailed invoices with Spares, Services, and Tax breakdowns",
+      "Historical vault of all previous service records",
     ],
   },
   {
     num: "04",
-    img: "/feature4.png",
+    img: "/Book-Appointment.jpeg",
     imgAlt: "Fuel logs, reminders, and booking",
-    badgeIcon: "bi-fuel-pump-fill",
-    badgeText: "Smart Reminders",
-    title: "Maintenance on",
-    titleAccent: "your terms.",
-    desc: "Log every fill-up to track real-world mileage. Set custom reminders for service intervals, insurance renewals, and EMIs — tied to the specific vehicle, so context is never lost.",
+    badgeIcon: "bi-calendar-check-fill",
+    badgeText: "Smart Bookings",
+    title: "Book with Workshop Edge,",
+    titleAccent: "or log your own.",
+    desc: "Book appointments with WE-associated garages for instant notifications. Visiting a local shop? You can manually add your own bookings and job cards to keep your history complete.",
     bullets: [
-      "Fuel logs with odometer tracking and efficiency trends",
-      "Custom reminders for service, insurance, PUC, and EMIs",
-      "Integrated booking with instant garage confirmation",
+      "Instant notifications for WE-associated garage bookings",
+      "Independent service logging for non-network garages",
+      "Set custom booking timings and specific service needs",
     ],
   },
 ];
 
 const CARDS = [
-  { icon: "bi-house-fill", title: "Home Dashboard", desc: "Live service status, upcoming appointments, and nearby garage discovery with ratings and distance filters — all on one screen." },
-  { icon: "bi-chat-dots-fill", title: "Owner Chat", desc: "Talk directly to garage owners on the platform. Get real updates, clarify repair needs, and stay in the loop without calling." },
-  { icon: "bi-headset", title: "Admin Support", desc: "Raise tickets straight to the Workshop Edge team from inside Settings. We're always one tap away." },
-  { icon: "bi-search", title: "Garage Discovery", desc: "Find local garages filtered by rating, distance, or your last visit. See services offered before you book." },
-  { icon: "bi-currency-rupee", title: "Bill Vault", desc: "Every invoice from every service, organized by vehicle and date. Your complete financial record — exportable anytime." },
-  { icon: "bi-person-fill", title: "Profile & Addresses", desc: "Keep your location, saved addresses, and contact details current for faster and more accurate bookings." },
+  { 
+    icon: "bi-house-fill", 
+    title: "Dynamic Home", 
+    desc: "View active service status, upcoming appointments, and recent garage visits at a glance." 
+  },
+  { 
+    icon: "bi-chat-dots-fill", 
+    title: "Garage Chat", 
+    desc: "Message WE-associated garage owners directly to discuss repairs and get real-time updates." 
+  },
+  { 
+    icon: "bi-ticket-perforated-fill", 
+    title: "Raise a Ticket", 
+    desc: "Need help? Contact Workshop Edge admin directly by raising a support ticket in your settings." 
+  },
+  { 
+    icon: "bi-geo-alt-fill", 
+    title: "Smart Discovery", 
+    desc: "Filter garages by rating, distance, or your last visit to find the best care for your vehicle." 
+  },
+  { 
+    icon: "bi-receipt", 
+    title: "Detailed Invoicing", 
+    desc: "Access itemized bills showing sub-totals, taxes, and every spare part replaced during service." 
+  },
+  { 
+    icon: "bi-person-badge-fill", 
+    title: "Profile & Address", 
+    desc: "Manage your personal details, primary location, and saved addresses for one-tap bookings." 
+  },
 ];
 
 /* ── Drawing line SVG ─────────────────────────────── */
@@ -96,7 +120,7 @@ function DrawingLine() {
       strokeDashoffset: totalLength,
     });
 
-    ScrollTrigger.create({
+    const trigger = ScrollTrigger.create({
       trigger: ".cust-features-section",
       start: "top 70%",
       end: "bottom 30%",
@@ -108,23 +132,23 @@ function DrawingLine() {
       },
     });
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    return () => trigger.kill();
   }, []);
 
   return (
     <svg
       ref={svgRef}
-      className="cust-drawing-line"
+      className="cust-weaving-line"
       viewBox="0 0 100 2400"
       preserveAspectRatio="none"
       aria-hidden="true"
     >
       <path
         ref={pathRef}
-        d="M50,0 C50,200 50,400 50,600 C50,800 50,1000 50,1200 C50,1400 50,1600 50,1800 C50,2000 50,2200 50,2400"
+        d="M 50,0 C 50,150 105,200 105,300 C 105,500 -5,700 -5,900 C -5,1100 105,1300 105,1500 C 105,1700 -5,1900 -5,2100 C -5,2300 50,2350 50,2400"
         fill="none"
         stroke="#3C95E8"
-        strokeWidth="2"
+        strokeWidth="3"
         strokeLinecap="round"
         opacity="0.35"
       />
@@ -211,6 +235,17 @@ export default function Customer() {
         start: "top 88%",
         once: true,
         onEnter: () => gsap.fromTo(el, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }),
+      });
+    });
+
+    /* ── Bento grid ─── */
+    document.querySelectorAll(".cust-bento-item").forEach((el, i) => {
+      gsap.set(el, { opacity: 0, y: 40 });
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 85%",
+        once: true,
+        onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.8, delay: (i % 4) * 0.1, ease: "power3.out" }),
       });
     });
 
@@ -438,6 +473,61 @@ export default function Customer() {
                 <p>{card.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── INSIGHTS / BENTO GRID ────────────────── */}
+      <section className="cust-insights-section">
+        <div className="cust-insights-inner">
+          <div className="cust-insights-header cust-reveal-head">
+            <span className="cust-section-eyebrow">Beyond Tracking</span>
+            <h2 className="cust-section-title">
+              Data-Driven
+              <br />
+              <span>Maintenance.</span>
+            </h2>
+            <p className="cust-section-desc" style={{ margin: "0 auto" }}>
+              Keep your resale value high with detailed fuel logs, automated reminders, and complete service timelines.
+            </p>
+          </div>
+          <div className="cust-bento-grid">
+            <div className="cust-bento-item cust-bento-large">
+              <div className="cust-bento-content">
+                <div className="cust-bento-icon">
+                  <i className="bi bi-droplet-fill" />
+                </div>
+                <h3>Efficiency Tracking</h3>
+                <p>Log every fill-up with odometer and liter details to see real-world mileage trends and spot unusual consumption early before it becomes a problem.</p>
+              </div>
+            </div>
+            <div className="cust-bento-item">
+              <div className="cust-bento-content">
+                <div className="cust-bento-icon">
+                  <i className="bi bi-alarm-fill" />
+                </div>
+                <h3>Intelligent Nagging</h3>
+                <p>Set custom reminders for service intervals, document renewals (Insurance/PUC), and EMIs tied specifically to the relevant vehicle.</p>
+              </div>
+            </div>
+            <div className="cust-bento-item">
+              <div className="cust-bento-content">
+                <div className="cust-bento-icon">
+                  <i className="bi bi-archive-fill" />
+                </div>
+                <h3>No More Paper Trails</h3>
+                <p>Replace messy notebooks and lost bills with a secure "Bill Vault" tied to each and every garage visit. Never lose a record.</p>
+              </div>
+            </div>
+            <div className="cust-bento-item cust-bento-wide">
+              <div className="cust-bento-content">
+                <div className="cust-bento-icon">
+                  <i className="bi bi-graph-up-arrow" />
+                </div>
+                <h3>Maximize Resale Value</h3>
+                <p>Use your comprehensive mileage logs, digital invoices, and verified service timelines to maintain and prove the resale value of your vehicle.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
