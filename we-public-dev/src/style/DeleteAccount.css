@@ -1,0 +1,230 @@
+.delete-account-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #F6F7FC;
+  font-family: 'Epilogue', sans-serif;
+}
+
+.da-main {
+  flex: 1;
+  padding: 60px 20px 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.da-header-container {
+  text-align: center;
+  margin-bottom: 80px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.da-eyebrow {
+  color: var(--primary-color, #3C95E8);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.da-title {
+  font-size: clamp(36px, 4.5vw, 54px);
+  font-weight: 900;
+  color: var(--text-dark, #1F2937);
+  margin-bottom: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.da-callout {
+  display: flex;
+  gap: 20px;
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  border-left: 5px solid #f59e0b;
+  padding: 28px;
+  border-radius: 12px;
+  color: #92400e;
+  text-align: left;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.08);
+}
+
+.da-callout-icon i {
+  color: #f59e0b;
+  font-size: 32px;
+}
+
+.da-callout-text p {
+  font-size: 15.5px;
+  line-height: 1.65;
+  margin: 0 0 14px 0;
+}
+
+.da-callout-text p:last-child {
+  margin-bottom: 0;
+}
+
+.da-warning-strong {
+  font-weight: 700;
+  font-size: 17px !important;
+  color: #b45309;
+}
+
+/* Steps Layout */
+.da-steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.da-step-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Alternating layout configuration if preferred */
+/* .da-row-even .da-step-left-col { order: 1; } */
+/* .da-row-even .da-step-right-col { order: 2; } */
+/* .da-row-odd .da-step-left-col { order: 2; } */
+/* .da-row-odd .da-step-right-col { order: 1; } */
+
+.da-step-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.da-step-right-col {
+  padding-top: 24px;
+  position: sticky;
+  top: 100px;
+}
+
+.da-image-wrapper {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(60, 149, 232, 0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.da-image-wrapper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+}
+
+.da-step-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-dark, #1F2937);
+  margin-bottom: 20px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.da-step-desc {
+  font-size: 17px;
+  color: var(--text-light, #6B7280);
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+
+.da-faqs-box {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(60, 149, 232, 0.05);
+}
+
+.da-faqs-heading {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--primary-color, #3C95E8);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.da-faqs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.da-faq-item {
+  border-left: 3px solid rgba(60, 149, 232, 0.25);
+  padding-left: 18px;
+}
+
+.da-faq-q {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark, #1F2937);
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+.da-faq-a {
+  font-size: 15px;
+  color: var(--text-light, #6B7280);
+  margin: 0;
+  line-height: 1.65;
+}
+
+@media (max-width: 1024px) {
+  .da-step-row {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .da-step-row {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .da-step-right-col {
+    position: static;
+    padding-top: 0;
+    order: -1; /* Keep title and description on top of image in mobile */
+  }
+  
+  .da-step-left-col {
+    order: 2;
+  }
+  
+  .da-steps-container {
+    gap: 80px;
+  }
+}
+
+@media (max-width: 640px) {
+  .da-main {
+    padding: 40px 20px 80px;
+  }
+  
+  .da-callout {
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+  }
+  
+  .da-step-title {
+    font-size: 26px;
+  }
+}

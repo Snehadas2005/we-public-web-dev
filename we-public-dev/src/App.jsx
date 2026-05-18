@@ -25,6 +25,7 @@ const BlogList = lazy(() => import("./components/BlogList"));
 const BlogPost = lazy(() => import("./components/BlogPost"));
 const TermsConditions = lazy(() => import("./components/TermsConditions"));
 const PrivacyPolicy = lazy(() => import("./components/PrivacyPolicy"));
+const DeleteAccount = lazy(() => import("./components/DeleteAccount"));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -158,7 +159,10 @@ function PrivacyPolicyPage() {
   return <PrivacyPolicy />;
 }
 
-
+function DeleteAccountPage() {
+  useEffect(() => { initLenis(); return () => {}; }, []);
+  return <DeleteAccount />;
+}
 
 export default function App() {
   return (
@@ -179,6 +183,7 @@ export default function App() {
           <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/terms-conditions" element={<TermsConditionsPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/delete-account" element={<DeleteAccountPage />} />
         </Routes>
       </Suspense>
     </>

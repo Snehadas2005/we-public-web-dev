@@ -8,6 +8,10 @@ import "../style/CustomerPage.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/** Replace with your live store URLs when the apps are published */
+const APP_STORE_URL = "https://apps.apple.com/";
+const PLAY_STORE_URL = "https://play.google.com/store/apps";
+
 /* ── Feature items data ───────────────────────────── */
 const FEATURES = [
   {
@@ -287,11 +291,24 @@ export default function Customer() {
               A dedicated mobile experience to track service and fuel, store vehicle documents safely, and get reminders that match how you actually use each vehicle — without juggling paper, random photos, and memory.
             </p>
 
-            <div ref={actionsRef} className="cust-hero__actions" style={{ opacity: 0 }}>
-              <Link to="/contact" className="cust-btn-primary">
-                <i className="bi bi-phone-fill" /> Get the App
-              </Link>
-              <a href="#features" className="cust-btn-outline">
+            <div ref={actionsRef} className="cust-hero__actions" style={{ opacity: 0, alignItems: "center" }}>
+              <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                  alt="Download on the App Store"
+                  height={48}
+                  style={{ display: "block" }}
+                />
+              </a>
+              <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                  alt="Get it on Google Play"
+                  height={48}
+                  style={{ display: "block" }}
+                />
+              </a>
+              <a href="#features" className="cust-btn-outline" style={{ height: "48px", padding: "0 24px" }}>
                 <i className="bi bi-arrow-down" /> Explore Features
               </a>
             </div>
@@ -544,11 +561,24 @@ export default function Customer() {
           <p>
             Join thousands of vehicle owners who have replaced paperwork and memory with a single, clear digital companion.
           </p>
-          <div className="cust-cta-btns">
-            <Link to="/contact" className="cust-btn-primary">
-              <i className="bi bi-phone-fill" /> Download the App
-            </Link>
-            <Link to="/pricing" className="cust-btn-dark">
+          <div className="cust-cta-btns" style={{ alignItems: "center" }}>
+            <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                alt="Download on the App Store"
+                height={52}
+                style={{ display: "block" }}
+              />
+            </a>
+            <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Get it on Google Play"
+                height={52}
+                style={{ display: "block" }}
+              />
+            </a>
+            <Link to="/pricing" className="cust-btn-dark" style={{ height: "52px", padding: "0 32px" }}>
               <i className="bi bi-grid-fill" /> View Plans
             </Link>
           </div>
