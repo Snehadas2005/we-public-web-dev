@@ -6,42 +6,44 @@ import "../style/DeleteAccount.css";
 const DELETE_STEPS = [
   {
     id: 1,
-    title: "Step 1. Go to the settings in the Workshop Edge application and click on delete account.",
-    description: "Navigate to the settings menu in your customer app. Scroll to the bottom of the list where you will find the 'Delete Account' option to begin the process.",
-    image: "/feature1.png",
+    title: "Step 1. Access Settings & App Info",
+    description: "Open the Workshop Edge application and navigate to the Settings page. Look for the 'App info version' section where the Delete Account option is located.",
+    image: "/Step-1.jpeg",
+    imgClass: "da-img-sm", 
     faqs: [
-      { q: "Where can I find settings?", a: "Tap on your profile icon in the bottom navigation bar and select 'Settings'." }
+      { q: "Where is the App info version located?", a: "It is typically found at the bottom of the Settings menu in the main navigation." },
+      { q: "Is the delete option available on the website?", a: "No, account deletion must be initiated through the mobile application for security purposes." }
     ]
   },
   {
     id: 2,
-    title: "Step 2. Choose a reason for leaving",
-    description: "Once you click on Delete Account, we will ask you for a reason. Your feedback is crucial for us to improve the Workshop Edge experience for everyone.",
-    image: "/feature2.png",
+    title: "Step 2. Click on Delete Account",
+    description: "Under the App info version details, click on the 'Delete Account' button to start the removal process of your personal data.",
+    image: "/Step-2.jpeg",
+    imgClass: "da-img-md", 
     faqs: [
-      { q: "Do I have to select a reason?", a: "Yes, providing a reason is required to proceed with account deletion." },
-      { q: "Can I just pause my account?", a: "Currently, we only support permanent deletion. You can turn off notifications in settings instead." }
+      { q: "Will I be logged out immediately?", a: "No, the process requires one final confirmation before the account is deactivated." },
+      { q: "What happens to my vehicle data?", a: "All stored vehicle profiles and document lockers associated with your account will be removed upon confirmation." }
     ]
   },
   {
     id: 3,
-    title: "Step 3. Verify with OTP",
-    description: "For security, we need to verify that you own the account. You will receive a 6-digit verification code on your registered mobile number.",
-    image: "/feature3.png",
+    title: "Step 3. Confirm via Deletion Popup",
+    description: "A confirmation popup will appear. You can click 'Cancel' to keep your account active, or click 'Yes, Delete Account' to proceed with permanent removal.",
+    image: "/Step-3.jpeg",
+    imgClass: "da-img-lg", 
     faqs: [
-      { q: "I didn't receive the code. What should I do?", a: "Wait for the countdown to finish and click 'Resend'. Make sure you have good network coverage." },
-      { q: "Can I use an email address instead?", a: "No, we strictly require the mobile number registered with your Workshop Edge account." }
+      { q: "Can I undo the deletion after clicking Yes?", a: "No, once 'Yes, Delete Account' is clicked, the process is finalized and cannot be reversed." },
+      { q: "What if I click Cancel by mistake?", a: "Clicking Cancel simply closes the popup; your account remains fully active and no data is lost." }
     ]
   },
   {
     id: 4,
-    title: "Step 4. Account Scheduled for Deletion",
-    description: "After verifying the OTP, your account is scheduled for permanent deletion. You can now safely uninstall the application from your device.",
-    image: "/feature4.png",
+    title: "Step 4. Successful Deletion",
+    description: "Once confirmed, your account will be deleted successfully. You will be redirected and all your session data will be cleared.",
     faqs: [
-      { q: "Can I recover my account?", a: "No, account deletion is permanent and cannot be undone once completed." },
-      { q: "What about my pending payments?", a: "You must clear any pending payments directly with the respective garage, as deleting the account does not absolve financial obligations." },
-      { q: "Will I stop receiving promotional messages?", a: "Yes, your contact details will be removed from all marketing lists within 24 hours." }
+      { q: "Can I use the same mobile number to register again?", a: "Yes, you can create a fresh account later, but your previous history will not be restored." },
+      { q: "How long does it take for data to be removed?", a: "The account is deactivated instantly, and data cleanup is processed within 24 hours." }
     ]
   }
 ];
@@ -84,12 +86,22 @@ export default function DeleteAccount() {
             const isEven = index % 2 === 0;
             return (
               <div key={step.id} className={`da-step-row ${isEven ? 'da-row-even' : 'da-row-odd'}`}>
-                {/* Left Side: Image and FAQs */}
                 <div className="da-step-left-col">
-                  <div className="da-image-wrapper">
-                    <img src={step.image} alt={step.title} />
-                  </div>
-                  
+                  {/* Conditional Rendering: Only show the wrapper if step.image exists */}
+                  {step.image && (
+                    <div className="da-image-wrapper">
+                      <img 
+                        src={step.image} 
+                        alt={step.title} 
+                        className={step.imgClass}
+                      />
+                    </div>
+                  )}
+                </div>
+                
+                <div className="da-step-right-col">
+                  <h2 className="da-step-title">{step.title}</h2>
+                  <p className="da-step-desc">{step.description}</p>
                   <div className="da-faqs-box">
                     <h3 className="da-faqs-heading">
                       <i className="bi bi-question-circle-fill" /> FAQs
@@ -103,12 +115,6 @@ export default function DeleteAccount() {
                       ))}
                     </div>
                   </div>
-                </div>
-                
-                {/* Right Side: Title and Description */}
-                <div className="da-step-right-col">
-                  <h2 className="da-step-title">{step.title}</h2>
-                  <p className="da-step-desc">{step.description}</p>
                 </div>
               </div>
             );
