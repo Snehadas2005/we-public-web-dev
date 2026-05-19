@@ -16,7 +16,7 @@ const PLAY_STORE_URL = "https://play.google.com/store/apps";
 const FEATURES = [
   {
     num: "01",
-    img: "/feature1.png",
+    img: "/customer-dashboard.jpeg",
     imgAlt: "Smart vehicle management dashboard",
     badgeIcon: "bi-car-front-fill",
     badgeText: "My Vehicles",
@@ -31,7 +31,7 @@ const FEATURES = [
   },
   {
     num: "02",
-    img: "/feature2.png", // Ensure you have this asset
+    img: "/vehicle-profile.jpeg", // Ensure you have this asset
     imgAlt: "Secure document locker",
     badgeIcon: "bi-shield-lock-fill",
     badgeText: "Document Locker",
@@ -46,7 +46,7 @@ const FEATURES = [
   },
   {
     num: "03",
-    img: "/feature3.png",
+    img: "/service-history.jpeg",
     imgAlt: "Service history and job card tracking",
     badgeIcon: "bi-journal-check",
     badgeText: "Service Intelligence",
@@ -167,7 +167,6 @@ export default function Customer() {
   const titleRef   = useRef(null);
   const descRef    = useRef(null);
   const actionsRef = useRef(null);
-  const phoneRef   = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -177,8 +176,74 @@ export default function Customer() {
     tl.fromTo(badgeRef.current,   { opacity: 0, y: 20 },                        { opacity: 1, y: 0, duration: 0.6 })
       .fromTo(titleRef.current,   { opacity: 0, y: 50, filter: "blur(10px)" },  { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.1 }, "-=0.3")
       .fromTo(descRef.current,    { opacity: 0, y: 24 },                        { opacity: 1, y: 0, duration: 0.8 }, "-=0.55")
-      .fromTo(actionsRef.current, { opacity: 0, y: 18 },                        { opacity: 1, y: 0, duration: 0.7 }, "-=0.45")
-      .fromTo(phoneRef.current,   { opacity: 0, x: 60, scale: 0.92 },           { opacity: 1, x: 0, scale: 1, duration: 1.1, ease: "back.out(1.4)" }, "-=0.8");
+      .fromTo(actionsRef.current, { opacity: 0, y: 18 },                        { opacity: 1, y: 0, duration: 0.7 }, "-=0.45");
+
+    /* ── Background Floating Glows ─── */
+    gsap.to(".cust-hero__glow--1", {
+      x: "8vw",
+      y: "8vh",
+      scale: 1.25,
+      duration: 12,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+    gsap.to(".cust-hero__glow--2", {
+      x: "-6vw",
+      y: "-10vh",
+      scale: 0.85,
+      duration: 15,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+    gsap.to(".cust-hero__glow--3", {
+      x: "4vw",
+      y: "-6vh",
+      scale: 1.15,
+      duration: 18,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+    /* ── Background Floating Tech Shapes ─── */
+    gsap.to(".cust-hero__tech-shape--1", {
+      y: "random(-100, 100)",
+      x: "random(-50, 50)",
+      rotation: 360,
+      duration: 14,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+    gsap.to(".cust-hero__tech-shape--2", {
+      y: "random(-120, 120)",
+      x: "random(-60, 60)",
+      rotation: -360,
+      duration: 16,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+    gsap.to(".cust-hero__tech-shape--3", {
+      y: "random(-80, 80)",
+      x: "random(-40, 40)",
+      rotation: 180,
+      duration: 18,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+    gsap.to(".cust-hero__tech-shape--4", {
+      y: "random(-140, 140)",
+      x: "random(-70, 70)",
+      rotation: -180,
+      duration: 12,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
 
     /* ── Stats strip ─── */
     const statItems = document.querySelectorAll(".cust-stat-item");
@@ -261,7 +326,62 @@ export default function Customer() {
       onEnter: () => gsap.fromTo(".cust-cta-inner", { opacity: 0, y: 50, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: "power3.out" }),
     });
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    /* ── Mouse Move Parallax ─── */
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const xPercent = (clientX / window.innerWidth - 0.5) * 20;
+      const yPercent = (clientY / window.innerHeight - 0.5) * 20;
+
+      gsap.to(".cust-hero__dot-grid", {
+        x: xPercent * 0.5,
+        y: yPercent * 0.5,
+        duration: 2,
+        ease: "power2.out"
+      });
+      gsap.to(".cust-hero__glow--1", {
+        x: xPercent * 0.8,
+        y: yPercent * 0.8,
+        duration: 2.5,
+        ease: "power2.out"
+      });
+      gsap.to(".cust-hero__glow--2", {
+        x: -xPercent * 0.6,
+        y: -yPercent * 0.6,
+        duration: 2.5,
+        ease: "power2.out"
+      });
+      gsap.to(".cust-hero__tech-shape--1", {
+        x: xPercent * 1.5,
+        y: yPercent * 1.5,
+        duration: 2,
+        ease: "power2.out"
+      });
+      gsap.to(".cust-hero__tech-shape--2", {
+        x: -xPercent * 1.2,
+        y: -yPercent * 1.2,
+        duration: 2.2,
+        ease: "power2.out"
+      });
+      gsap.to(".cust-hero__tech-shape--3", {
+        x: xPercent * 1.0,
+        y: yPercent * 1.0,
+        duration: 2,
+        ease: "power2.out"
+      });
+      gsap.to(".cust-hero__tech-shape--4", {
+        x: -xPercent * 1.7,
+        y: -yPercent * 1.7,
+        duration: 1.8,
+        ease: "power2.out"
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
 
   return (
@@ -272,6 +392,25 @@ export default function Customer() {
       <section className="cust-hero" ref={heroRef}>
         {/* Subtle dot grid */}
         <div className="cust-hero__dot-grid" aria-hidden="true" />
+
+        {/* Ambient background glows */}
+        <div className="cust-hero__glow cust-hero__glow--1" aria-hidden="true" />
+        <div className="cust-hero__glow cust-hero__glow--2" aria-hidden="true" />
+        <div className="cust-hero__glow cust-hero__glow--3" aria-hidden="true" />
+
+        {/* Floating tech elements */}
+        <div className="cust-hero__tech-shape cust-hero__tech-shape--1" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(60,149,232,0.3)" strokeWidth="2"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div className="cust-hero__tech-shape cust-hero__tech-shape--2" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="rgba(60,149,232,0.25)" strokeWidth="2" strokeDasharray="4 4"><circle cx="16" cy="16" r="14"/></svg>
+        </div>
+        <div className="cust-hero__tech-shape cust-hero__tech-shape--3" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="rgba(129, 140, 248, 0.3)" strokeWidth="1.5"><rect x="4" y="4" width="32" height="32" rx="8" transform="rotate(15 20 20)"/></svg>
+        </div>
+        <div className="cust-hero__tech-shape cust-hero__tech-shape--4" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(14,165,233,0.35)" strokeWidth="2"><path d="M12 5v14M5 12h14" transform="rotate(45 12 12)"/></svg>
+        </div>
 
         <div className="cust-hero__inner">
           {/* Left: copy */}
@@ -315,108 +454,19 @@ export default function Customer() {
           </div>
 
           {/* Right: phone mock */}
-          <div className="cust-hero__phone-wrap">
-            <div ref={phoneRef} className="cust-hero__phone" style={{ opacity: 0 }}>
-              <div className="cust-phone__island" />
-              <div className="cust-phone__screen">
-                {/* Status Bar */}
-                <div className="cust-phone__status-bar">
-                  <span>WorkshopEdge</span>
-                  <span>9:41</span>
-                </div>
-
-                <div className="cust-phone__screen-body">
-                  {/* Phone Header */}
-                  <div className="cust-phone__app-header">
-                    <div className="cust-phone__user-info">
-                      <div className="cust-phone__logo-small">WE</div>
-                      <span className="cust-phone__user-name">Alex Johnson</span>
-                    </div>
-                    <div className="cust-phone__notif-bell">
-                      <i className="bi bi-bell" />
-                      <div className="cust-phone__notif-dot" />
-                    </div>
-                  </div>
-
-                  {/* Quick Actions */}
-                  <div className="cust-phone__quick-actions">
-                    {[
-                      { icon: "bi-file-earmark-text-fill", label: "Document", color: "#2563EB" },
-                      { icon: "bi-person-fill", label: "Profile", color: "#2563EB" },
-                      { icon: "bi-house-fill", label: "Garages", color: "#2563EB" },
-                      { icon: "bi-car-front-fill", label: "Vehicles", color: "#2563EB" },
-                    ].map((item) => (
-                      <div key={item.label} className="cust-phone__action-item">
-                        <div className="cust-phone__action-icon" style={{ backgroundColor: item.color }}>
-                          <i className={`bi ${item.icon}`} />
-                        </div>
-                        <span>{item.label}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Active Services */}
-                  <div className="cust-phone__section-label">Active Services</div>
-                  <div className="cust-phone__active-service-card">
-                    <div className="cust-phone__car-row">
-                      <div className="cust-phone__car-img-placeholder">
-                        <i className="bi bi-car-front" />
-                      </div>
-                      <div className="cust-phone__car-details">
-                        <div className="cust-phone__car-name-row">
-                          <h4>Toyota Camry</h4>
-                          <span className="cust-phone__badge-electric">ELECTRIC</span>
-                        </div>
-                        <p className="cust-phone__car-id">ABC-1234</p>
-                      </div>
-                    </div>
-                    <div className="cust-phone__status-row">
-                      <span className="cust-phone__badge-status">IN PROGRESS</span>
-                      <span className="cust-phone__date-label">02/25/2026</span>
-                    </div>
-                    <button className="cust-phone__track-btn">Track Progress</button>
-                  </div>
-
-                  {/* Upcoming Appointment */}
-                  <div className="cust-phone__section-label">Upcoming Appointment</div>
-                  <div className="cust-phone__appointment-card">
-                    <div className="cust-phone__loc-row">
-                      <i className="bi bi-geo-alt-fill" />
-                      <span>Downtown Service Center</span>
-                    </div>
-                    <div className="cust-phone__appt-info">
-                      <div className="cust-phone__date-box">
-                        <span className="cust-phone__month">MAY</span>
-                        <span className="cust-phone__day">24</span>
-                      </div>
-                      <div className="cust-phone__appt-details">
-                        <h4>Multi-point Inspection</h4>
-                        <p>Friday • 09:30 AM</p>
-                      </div>
-                    </div>
-                    <div className="cust-phone__appt-actions">
-                      <button className="cust-phone__appt-btn">Completed</button>
-                      <button className="cust-phone__appt-btn secondary">Cancel</button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom Nav */}
-                <div className="cust-phone__nav">
-                  {[
-                    { icon: "bi-house-door-fill", label: "Home", active: true },
-                    { icon: "bi-calendar3", label: "Bookings", active: false },
-                    { icon: "bi-clock-history", label: "History", active: false },
-                    { icon: "bi-gear-fill", label: "Settings", active: false },
-                  ].map(({ icon, label, active }) => (
-                    <div key={label} className={`cust-phone__nav-item${active ? " active" : ""}`}>
-                      <i className={`bi ${icon}`} />
-                      <span>{label}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+          <div
+            className="cust-hero__phone-wrap"
+            style={{
+              overflow: "hidden",
+              borderRadius: "24px",
+              animation: "custFloat 5s ease-in-out infinite"
+            }}
+          >
+            <img
+              src="/garage-profile.jpeg"
+              alt="Customer Dashboard"
+              style={{ mixBlendMode: "multiply", width: "100%", height: "auto", transform: "scale(1.5)" }}
+            />
           </div>
         </div>
       </section>
@@ -438,7 +488,12 @@ export default function Customer() {
             >
               {/* Image */}
               <div className="cust-feature-img-wrap">
-                <img src={feat.img} alt={feat.imgAlt} loading="lazy" />
+                <img
+                  src={feat.img}
+                  alt={feat.imgAlt}
+                  loading="lazy"
+                  style={{ mixBlendMode: "multiply" }}
+                />
               </div>
 
               {/* Text */}
